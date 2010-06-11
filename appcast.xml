@@ -7,6 +7,28 @@
         <language>en</language>
 
         <item>
+            <title>Pocket Gnome 1.5.0.2 (Build 516) </title>
+            <pubDate>Tue, 1 June 2010 13:44:00 -0400</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.0.2 (Build 516) Release Notes </span></p>
+                <ul>
+					<li>Strand of the Ancients - Updated for Horde to walk you off of the boat</li>
+					<li>PvP - Queue preparation weight update</li>
+					<li>PvP - Crash fixed w/respect to PvP route switching and following</li>
+					<li>Bug fix - Deleting an ignore entry no longer delete the combat profile, sorry!</li>
+					<li>Casting - Update on casting when items/spells are no longer usable/available</li>
+					<li>UI - Gathering/Looting/PvP Options moved to combat profiles</li>
+					<li>UI - PvP/Normal is now separated on the main screen</li>
+					<li>UI - Click and drag support added to the rule editor</li>
+					<li>Combat - /startattack option added in behaviors, you no longer have to create a macro</li>
+					<li>Spells - Error handling re-written</li>
+					<li>Movement - Large portion of the movement controller was re-written, should be smoother</li>				
+				</ul>
+				
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.0.2.zip" length="4495973" type="application/zip" sparkle:version="516" sparkle:shortVersionString="1.5.0.2" sparkle:dsaSignature="MC4CFQDDQACNlvCg2W5cFwWPAA2i32T/LgIVAMHKuiimRGVwoFtCBOVXZqfIcmd9"/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.0.1 (Build 506) </title>
             <pubDate>Sun, 24 May 2010 13:44:00 -0400</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.0.1 (Build 506) Release Notes </span></p>

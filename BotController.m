@@ -5545,7 +5545,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		if ( count ) {
 			
 			// took .5 seconds or longer to fall!
-			if ( [count intValue] > 4 && _movingTowardNodeCount >= blacklistTriggerNodeMadeMeFall ) {
+			if ( [count intValue] > 4 && [count intValue] >= blacklistTriggerNodeMadeMeFall ) {
 				log(LOG_NODE, @"%@ made me fall after %d attempts, ignoring...", thisNode, blacklistTriggerNodeMadeMeFall);
 				[blacklistController blacklistObject:thisNode withReason:Reason_NodeMadeMeFall];
 				continue;
@@ -5567,7 +5567,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			nodeDist = [playerPosition distanceToPosition: [thisNode position]];
 
 			// If we're not supposed to loot this node due to proximity rules
-			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:nodeToLoot doMob: theCombatProfile.GatherNodesMobNear doFriendy: theCombatProfile.GatherNodesFriendlyPlayerNear doHostile: theCombatProfile.GatherNodesHostilePlayerNear];
+			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:thisNode doMob: theCombatProfile.GatherNodesMobNear doFriendy: theCombatProfile.GatherNodesFriendlyPlayerNear doHostile: theCombatProfile.GatherNodesHostilePlayerNear];
 
 			if ( nearbyScaryUnits ) {
 				log(LOG_NODE, @"Skipping node due to proximity count");
