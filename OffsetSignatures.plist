@@ -128,11 +128,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x55\x89\xE5\x83\xEC\x18\x8B\x45\x08\xC7\x44\x24\x08\x82\x01\x00\x00\xC7\x04\x24\xE0\x95\xE1\x00\x89\x44\x24\x04\xE8\x13\x82\x8B\x00\xC9\xC3</string>
+			<string>\x55\x89\xE5\x83\xEC\x18\x8B\x45\x08\x85\xC0\x74\x1A\xC7\x44\x24\x08\x82\x01\x00\x00\x89\x44\x24\x04\xC7\x04\x24\x60\x9B\xF4\x00\xE8\x54\x3E\x9C\x00\xC9\xC3</string>
 			<key>Mask</key>
-			<string>xxxxxxxxxxxxxxxxxxxx????xxxxx????xx</string>
+			<string>xxxxxxxxxxxxxxxxxxxxxxxxxxxx????x????xx</string>
 			<key>Comment</key>
-			<string>From 3.3.3a: sub_738540</string>
+			<string>From 3.3.5: sub_75E9C0</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -413,11 +413,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x6B\xD8\x34\x89\x34\x24\x8D\xBB\x20\x6F\xF4\x00\x89\x7C\x24\x04</string>
+			<string>\x6B\xD8\x3C\x8D\xBB\x00\x3E\xE5\x00\xC7\x47\x08\x00\x00\x00\x00</string>
 			<key>Mask</key>
-			<string>xxxxxxxx????xxxx</string>
+			<string>xxxxx????xxxxxxx</string>
 			<key>Comment</key>
-			<string>For 3.3.0: sub_50BD80</string>
+			<string>For 3.3.5: sub_485630</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
