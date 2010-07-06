@@ -1,5 +1,5 @@
 //
-//  NSData+Extras.h
+//  NSData+SockAddr.h
 //  Pocket Gnome
 //
 //  Created by Jon Drummond on 6/8/05.

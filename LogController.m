@@ -27,20 +27,20 @@
 	} else {
 		// These are the types we supress when Extended Logging isn't enabled
 
-		if (type_s == LOG_CONDITION) return NO;
-		if (type_s == LOG_RULE) return NO;
-		if (type_s == LOG_MOVEMENT) return NO;
-		if (type_s == LOG_DEV) return NO;
-		if (type_s == LOG_WAYPOINT) return NO;
-		if (type_s == LOG_BINDINGS) return NO;
-		if (type_s == LOG_STATISTICS) return NO;
-		if (type_s == LOG_MACRO) return NO;
-		if (type_s == LOG_EVALUATE) return NO;
-		if (type_s == LOG_BLACKLIST) return NO;
-		if (type_s == LOG_FUNCTION) return NO;
-		if (type_s == LOG_MEMORY) return NO;
-//		if (type_s == LOG_PROCEDURE) return NO;
-		if (type_s == LOG_CONTROLLER) return NO;
+      if (strcmp(type_s, LOG_CONDITION)		== 0) return NO;
+      if (strcmp(type_s, LOG_RULE)			== 0) return NO;
+      if (strcmp(type_s, LOG_MOVEMENT)		== 0) return NO;
+      if (strcmp(type_s, LOG_DEV)			== 0) return NO;
+      if (strcmp(type_s, LOG_WAYPOINT)		== 0) return NO;
+      if (strcmp(type_s, LOG_BINDINGS)		== 0) return NO;
+      if (strcmp(type_s, LOG_STATISTICS)	== 0) return NO;
+      if (strcmp(type_s, LOG_MACRO)			== 0) return NO;
+      if (strcmp(type_s, LOG_EVALUATE)		== 0) return NO;
+      if (strcmp(type_s, LOG_BLACKLIST)		== 0) return NO;
+      if (strcmp(type_s, LOG_FUNCTION)		== 0) return NO;
+      if (strcmp(type_s, LOG_MEMORY)		== 0) return NO;
+	//if (strcmp(type_s, LOG_PROCEDURE)		== 0) return NO;
+      if (strcmp(type_s, LOG_CONTROLLER)	== 0) return NO;
 
 	}
 

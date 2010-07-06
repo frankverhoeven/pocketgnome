@@ -24,7 +24,7 @@
         self.level = nil;
         self.requiredLevel = nil;
         self.startNPC = nil;
-        self.endNPC;
+        self.endNPC = nil;
         self.itemRequirements = nil;
     }
     return self;
