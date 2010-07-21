@@ -11,7 +11,7 @@
  
 #import "ObjectConstants.h"
 
-#define VALID_WOW_VERSION   @"3.3.3"
+#define VALID_WOW_VERSION   @"3.3.5"
 #define PLAYER_LEVEL_CAP    80
 
 #define	BG_STATUS		0x18

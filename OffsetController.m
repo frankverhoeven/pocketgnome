@@ -28,8 +28,8 @@
 #import "Controller.h"
 
 
-// Rough estimate of where the text segment ends (0x8291E0 for 3.2.2a)
-#define TEXT_SEGMENT_MAX_ADDRESS				0x830000
+// Rough estimate of where the text segment ends (0xB32E98 for 3.3.5a)
+#define TEXT_SEGMENT_MAX_ADDRESS				0xB32E98
 
 @interface OffsetController (Internal)
 
@@ -330,39 +330,66 @@ BOOL bDataCompare(const unsigned char* pData, const unsigned char* bMask, const 
 		
 		// task found
         if ( KernelResult == KERN_SUCCESS ) {
-            //vm_address_t SourceAddress = 0;
-            //vm_size_t SourceSize = 0;
+            vm_address_t SourceAddress = 0;
+            vm_size_t SourceSize = 0;
             vm_region_basic_info_data_t SourceInfo;
             mach_msg_type_number_t SourceInfoSize = VM_REGION_BASIC_INFO_COUNT;
             mach_port_t ObjectName = MACH_PORT_NULL;
             vm_size_t ReturnedBufferContentSize;
 			Byte *ReturnedBuffer = nil;
+			
+			unsigned int totalDataRead = 0;
             
-            if ( KERN_SUCCESS == ( KernelResult = vm_region(MySlaveTask,&SourceAddress,&SourceSize,VM_REGION_BASIC_INFO,(vm_region_info_t) &SourceInfo,&SourceInfoSize,&ObjectName) ) ){
+			// we want to loop through and put all the chunks together!
+			while(KERN_SUCCESS == (KernelResult = vm_region(MySlaveTask,&SourceAddress,&SourceSize,VM_REGION_BASIC_INFO,(vm_region_info_t) &SourceInfo,&SourceInfoSize,&ObjectName))) {
 				
-				// we only want to read this block
-                if ( ( SourceInfo.protection & VM_PROT_READ ) ) {
+	
+				// don't read too much
+				if ( totalDataRead >= TEXT_SEGMENT_MAX_ADDRESS ){
+					//PGLog(@"breaking......");
+					break;
+				}
+
+				//PGLog(@"[Offset] Success for reading from 0x%X to 0x%X  Protection: 0x%X", SourceAddress, SourceAddress + SourceSize, SourceInfo.protection);
+                
+				// ensure we have access to this block
+                if ((SourceInfo.protection & VM_PROT_READ)) {
                     NS_DURING {
-						ReturnedBuffer = malloc(SourceSize);
+                        ReturnedBuffer = malloc(SourceSize);
                         ReturnedBufferContentSize = SourceSize;
                         if ( (KERN_SUCCESS == vm_read_overwrite(MySlaveTask,SourceAddress,SourceSize,(vm_address_t)ReturnedBuffer,&ReturnedBufferContentSize)) &&
                             (ReturnedBufferContentSize > 0) )
                         {
 							
+							//PGLog(@" Appending from 0x%X to 0x%X", SourceAddress, SourceAddress + SourceSize);
+							
+							//PGLog(@" should these be the same? 0x%X 0x%X", SourceSize, ReturnedBufferContentSize);
+							
+							if ( totalDataRead + ReturnedBufferContentSize > TEXT_SEGMENT_MAX_ADDRESS ){
+								//PGLog(@" was going to read 0x%X", ReturnedBufferContentSize);
+								ReturnedBufferContentSize = TEXT_SEGMENT_MAX_ADDRESS - totalDataRead;
+								//PGLog(@" now reading 0x%X", ReturnedBufferContentSize);
+							}
+							
 							// copy the raw data to our object
 							[data appendBytes:ReturnedBuffer length:ReturnedBufferContentSize];
-						}
-						else{
-							PGLog(@"[Offset] Memory read failed");
+							
+							//PGLog(@" Total amount read: 0x%X  0x%X", [data length], totalDataRead);
+
+							totalDataRead += ReturnedBufferContentSize;			
+							//PGLog(@" but really: 0x%X", totalDataRead);
 						}
                     } NS_HANDLER {
                     } NS_ENDHANDLER
-					
-					if ( ReturnedBuffer != nil ) {
+                    
+                    if ( ReturnedBuffer != nil ) {
                         free( ReturnedBuffer );
                         ReturnedBuffer = nil;
                     }
                 }
+				
+                // reset some values to search some more
+                SourceAddress += SourceSize;
             }
         }
     }
@@ -440,6 +467,8 @@ BOOL bDataCompare(const unsigned char* pData, const unsigned char* bMask, const 
 {
 	unsigned long i;
 	NSMutableDictionary *list = [NSMutableDictionary dictionary];
+	
+	PGLog(@"scanning...");
 	for(i=0; i < dw_Len; i++){
 		
 		if( bDataCompare( (unsigned char*)( dw_Address+i ),bMask,szMask) ){
@@ -464,7 +493,7 @@ BOOL bDataCompare(const unsigned char* pData, const unsigned char* bMask, const 
 			}
 			
 			if ( offset > 0x0 ){
-				//PGLog(@" [Offset] Found 0x%X, adding to dictionary at 0x%X", offset, i+startAddress);
+				PGLog(@" [Offset] Found 0x%X, adding to dictionary at 0x%X", offset, i+startAddress);
 				[list setObject:[NSNumber numberWithUnsignedInt:offset] forKey:[NSNumber numberWithUnsignedInt:i+startAddress]];
 			}
 		}
