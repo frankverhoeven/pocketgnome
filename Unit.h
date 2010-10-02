@@ -77,41 +77,49 @@ enum eUnitFields {
     Unit_Channel_Spell                  = 0x58, // Added in 3.3.3
     UnitField_Bytes0                    = 0x5C,
     
-    UnitField_Health                    = 0x60,
-    UnitField_Power1                    = 0x64, // Mana
-    UnitField_Power2                    = 0x68, // Rage
-    UnitField_Power3                    = 0x6C, // Focus
-    UnitField_Power4                    = 0x70, // Energy
-    UnitField_Power5                    = 0x74, // Happiness
-    UnitField_Power6                    = 0x78, // unknown
-    UnitField_Power7                    = 0x7C, // Runic Power
-    UnitField_MaxHealth                 = 0x80,
-    UnitField_MaxPower1                 = 0x84,
-    UnitField_MaxPower2                 = 0x88,
-    UnitField_MaxPower3                 = 0x8C,
-    UnitField_MaxPower4                 = 0x90,
-    UnitField_MaxPower5                 = 0x94,
-    UnitField_MaxPower6                 = 0x98,
-    UnitField_MaxPower7                 = 0x9C,
+    UnitField_Health                    = 0x68,
+    UnitField_Power1                    = 0x6C, // Mana
+    UnitField_Power2                    = 0x70, // Rage
+    UnitField_Power3                    = 0x74, // Focus
+    UnitField_Power4                    = 0x78, // Energy
+    UnitField_Power5                    = 0x7C, // Happiness
+    UnitField_Power6                    = 0x80, // unknown
+    UnitField_Power7                    = 0x84, // Runic Power
+	UnitField_Power8					= 0x88,
+	UnitField_Power9					= 0x8C,
+	UnitField_Power10					= 0x90,
+	UnitField_Power11					= 0x94,
+    UnitField_MaxHealth                 = 0x98,
+    UnitField_MaxPower1                 = 0x9C,
+    UnitField_MaxPower2                 = 0xA0,
+    UnitField_MaxPower3                 = 0xA4,
+    UnitField_MaxPower4                 = 0xA8,
+    UnitField_MaxPower5                 = 0xAC,
+    UnitField_MaxPower6                 = 0xB0,
+    UnitField_MaxPower7                 = 0xB4,
+	UnitField_MaxPower8					= 0xB8,
+	UnitField_MaxPower9					= 0xBC,
+	UnitField_MaxPower10				= 0xC0,
+	UnitField_MaxPower11				= 0xC4,
     
-    UnitField_PowerRegen_FlatMod        = 0xA0,
+    //UnitField_PowerRegen_FlatMod        = 0xA0,
     // 0xA0 - 0xB4 are not known
-    UnitField_PowerRegen_Interrupted_FlatMod = 0xBC,
+    //UnitField_PowerRegen_Interrupted_FlatMod = 0xBC,
     
     
-    UnitField_Level                     = 0xD8,
-    UnitField_FactionTemplate           = 0xDC,
+    UnitField_Level                     = 0x120,
+    UnitField_FactionTemplate           = 0x124,
     // UNIT_VIRTUAL_ITEM_SLOT_ID
     
-    UnitField_StatusFlags               = 0xEC,
-    UnitField_StatusFlags2              = 0xF0,
+    UnitField_StatusFlags               = 0x134,
+    UnitField_StatusFlags2              = 0x138,
     
-    UnitField_MainhandSpeed             = 0xF8, // these speeds are in milliseconds, eg 2000 = 2.0sec
-    UnitField_OffhandSpeed              = 0xFC,
-    UnitField_RangedSpeed               = 0x100,
+    //UnitField_MainhandSpeed             = 0xF8, // these speeds are in milliseconds, eg 2000 = 2.0sec
+    //UnitField_OffhandSpeed              = 0xFC,
+    //UnitField_RangedSpeed               = 0x100,
     
-    UnitField_BoundingRadius            = 0x104,
-    UnitField_CombatReach               = 0x108,
+    //UnitField_BoundingRadius            = 0x104,
+    //UnitField_CombatReach               = 0x108,
     
     UnitField_DisplayID                 = 0x10C,
     UnitField_NativeDisplayID           = 0x110,
