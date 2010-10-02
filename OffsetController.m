@@ -207,11 +207,13 @@ BOOL bDataCompare(const unsigned char* pData, const unsigned char* bMask, const 
 				// the key is the ADDRESS in which we found the offset!
 				NSArray *allKeys = [[offsetDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
 				int i = 1;
+				
 				for ( NSNumber *address in allKeys ){
 					
 					UInt32 offset = [[offsetDict objectForKey:address] unsignedIntValue];
 					
 					if ( count == i ){
+						
 						// we are looking for the ADDRESS at which this sig was found (good for identifying the start of a function!)
 						if ( useAddress ){
 							[offsets setObject: [NSNumber numberWithUnsignedLong:([address unsignedLongValue] + additionalOffset - subtractOffset)] forKey:key];

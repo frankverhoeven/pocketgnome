@@ -550,7 +550,7 @@ typedef struct NameObjectStruct{
 					}			
 				}
 				
-				//log(LOG_CONTROLLER, @"[Controller] Player GUID: 0x%X Yours: 0x%X 0x%qX", guid, GUID_LOW32(_globalGUID), _globalGUID);
+				log(LOG_CONTROLLER, @"[Controller] Player GUID: 0x%X Yours: 0x%X 0x%qX", guid, GUID_LOW32(_globalGUID), _globalGUID);
 
 				[_players addObject: objAddress];
 				continue;

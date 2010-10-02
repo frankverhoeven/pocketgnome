@@ -8332,52 +8332,6 @@ NSMutableDictionary *_diffDict = nil;
 	return errorMessage;
 }
 
-#pragma mark Hackish shit
-
-- (IBAction)toggleWallWalk: (id)sender{
-	
-	MemoryAccess *memory = [controller wowMemoryAccess];
-	UInt32 address = [offsetController offset:@"WallWalkAngle"];
-	const float originalAngle = 0.64278764f;
-	const float newAngle = 0.0f;
-	
-	float currentValue = 0.0f;
-	[memory loadDataForObject: self atAddress: address Buffer: (Byte*)&currentValue BufLength: sizeof(currentValue)];
-	
-	// time to disable the wall walk!
-	if ( currentValue == newAngle ){
-		[memory saveDataForAddressForce: address Buffer: (Byte*)&originalAngle BufLength: sizeof(originalAngle)];
-		[wallWalkButton setTitle:@"Enable Wall Walk"];
-	}
-	// enable the wall walk
-	else{
-		[memory saveDataForAddressForce: address Buffer: (Byte*)&newAngle BufLength: sizeof(newAngle)];
-		[wallWalkButton setTitle:@"Disable Wall Walk"];
-	}
-}
-
-- (IBAction)toggleAllChat: (id)sender{
-	
-	MemoryAccess *memory = [controller wowMemoryAccess];
-	UInt32 address = [offsetController offset:@"EnableAllChat"];
-	const UInt32 enableAllChat = 0x5D8B9090;
-	const UInt32 disableAllChat = 0x5D8B2476;
-	
-	// determine what we are!
-	UInt32 currentData = [memory readInt:address withSize:sizeof(UInt32)];
-	
-	// disable chat
-	if ( currentData == enableAllChat ){
-		[memory saveDataForAddressForce: address Buffer: (Byte*)&disableAllChat BufLength: sizeof(disableAllChat)];
-		[allChatButton setTitle:@"Enable All Chat"];
-	}
-	// enable chat
-	else{
-		[memory saveDataForAddressForce: address Buffer: (Byte*)&enableAllChat BufLength: sizeof(enableAllChat)];
-		[allChatButton setTitle:@"Disable All Chat"];
-	}
-}
-
 #pragma mark Testing Shit
 
 - (IBAction)test: (id)sender{

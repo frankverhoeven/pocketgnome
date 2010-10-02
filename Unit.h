@@ -18,19 +18,19 @@ enum MovementFlags{
 };
 
 enum eUnitBaseFields {
-    BaseField_XLocation                 = 0x790,  // 3.0.9: 0x7C4
-    BaseField_YLocation                 = 0x794,  // 3.0.9: 0x7C8
-    BaseField_ZLocation                 = 0x798,  // 3.0.9: 0x7CC
-    BaseField_Facing_Horizontal         = 0x79C,  // 3.0.9: 0x7D0  // [0, 2pi]
-    BaseField_Facing_Vertical           = 0x7A0,  // 3.0.9: 0x7D0  // [-pi/2, pi/2]
+    BaseField_XLocation                 = 0x870,  // 3.0.9: 0x7C4
+    BaseField_YLocation                 = 0x874,  // 3.0.9: 0x7C8
+    BaseField_ZLocation                 = 0x878,  // 3.0.9: 0x7CC
+    BaseField_Facing_Horizontal         = 0x87C,  // 3.0.9: 0x7D0  // [0, 2pi]
+    BaseField_Facing_Vertical           = 0x880,  // 3.0.9: 0x7D0  // [-pi/2, pi/2]
     
-    BaseField_MovementFlags             = 0x7C0,  // 3.0.9: 0x7F0
+    BaseField_MovementFlags             = 0x8A0,  // 3.0.9: 0x7F0
     
-    BaseField_RunSpeed_Current          = 0x808,	// 3.0.9: 0x838
-    BaseField_RunSpeed_Walk             = 0x80C,	// (you sure this is runspeed walk? - i noticed it was 2.5, yet current speed when walking was 7.0) 3.0.9: 0x83C
-    BaseField_RunSpeed_Max              = 0x810,	// 3.0.9: 0x840
-    BaseField_RunSpeed_Back             = 0x814,	// 3.0.9: 0x844
-    BaseField_AirSpeed_Max              = 0x820,	// 3.0.9: 0x850
+    BaseField_RunSpeed_Current          = 0x8E8,	// 3.0.9: 0x838
+    BaseField_RunSpeed_Walk             = 0x8EC,	// (you sure this is runspeed walk? - i noticed it was 2.5, yet current speed when walking was 7.0) 3.0.9: 0x83C
+    BaseField_RunSpeed_Max              = 0x8F0,	// 3.0.9: 0x840
+    BaseField_RunSpeed_Back             = 0x8F4,	// 3.0.9: 0x844
+    BaseField_AirSpeed_Max              = 0x900,	// 3.0.9: 0x850
     
 
     BaseField_Spell_ToCast              = 0xA54,	// 3.0.9: 0xA28
