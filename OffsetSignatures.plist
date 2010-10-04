@@ -40,9 +40,9 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x55\x89\xE5\x83\xEC\x28\xA1\x5C\xA6\xC8\x00\x8B\x55\x08\x85\xC0\x75\x1E\x89\x14\x24\xE8\xD6\xE5\x39\x00\xB8\x01\x00\x00\x00\xC9\xC3</string>
+			<string>\x55\x89\xE5\x83\xEC\x28\x8B\x0D\xD0\x78\x12\x01\x8B\x55\x08\x85\xC9\x75\x1D\x89\x14\x24</string>
 			<key>Mask</key>
-			<string>xxxxxxx????xxxxxxxxxxx????xxxxxxx</string>
+			<string>xxxxxxxx????xxxxxxxxxx</string>
 			<key>Comment</key>
 			<string>From 4.0.3: lua_GetBattlefieldWinner</string>
 		</dict>
@@ -273,23 +273,6 @@
 			<string></string>
 		</dict>
 	</dict>
-	<key>LOGIN_TOTAL_CHARACTERS</key>
-	<dict>
-		<key>Intel</key>
-		<dict>
-			<key>Signature</key>
-			<string>\x83\xC6\x01\x81\xC3\x68\x01\x00\x00\x3B\x35\xA4\x49\x5C\x01</string>
-			<key>Mask</key>
-			<string>xxxxxxxxxxx????</string>
-		</dict>
-		<key>ppc</key>
-		<dict>
-			<key>Signature</key>
-			<string></string>
-			<key>Mask</key>
-			<string></string>
-		</dict>
-	</dict>
 	<key>WorldState</key>
 	<dict>
 		<key>Intel</key>
@@ -319,23 +302,6 @@
 			<string>xxxxxxxxxxxx%%%%xxx????x????xxxx</string>
 			<key>Comment</key>
 			<string>3.3.2: from sub_2B7C40</string>
-		</dict>
-		<key>ppc</key>
-		<dict>
-			<key>Signature</key>
-			<string></string>
-			<key>Mask</key>
-			<string></string>
-		</dict>
-	</dict>
-	<key>LOGIN_SELECTED_CHAR</key>
-	<dict>
-		<key>Intel</key>
-		<dict>
-			<key>Signature</key>
-			<string>\x8B\x45\xD4\x89\x44\x24\x14\x8B\x45\xD8\x89\x44\x24\x10\x8B\x45\xDC\x89\x44\x24\x0C\x8B\x45\xE0\x89\x44\x24\x08\x8B\x45\xE4\x89\x44\x24\x04\xA1\xB4\xE4\xBA\x00\x8D\x04\x40\x89\xC2</string>
-			<key>Mask</key>
-			<string>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx????xxxxx</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -746,13 +712,13 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x56\x89\xD6\x53\x89\xD3\x83\xEC\x20\x80\x3D\x20\x89\x02\x01\x00\x0F\x45\xF0\xB8\xA0\x8E\x02\x01\x80\x3D\x81\x51\xE4\x00\x00</string>
+			<string>\x53\x89\xD3\x83\xEC\x30\x80\x3D\xA0\xD2\x26\x01\x00\x0F\x45\xF0\xB8\x20\xD8\x26\x01</string>
 			<key>Mask</key>
-			<string>xxxxxxxxxxx%%%%xxxxx????xx%%%%x</string>
+			<string>xxxxxxxx%%%%xxxxx????</string>
 			<key>AdditionalOffset</key>
 			<string>0x6</string>
 			<key>Comment</key>
-			<string>From 3.3.0: sub_847A80</string>
+			<string>From 4.0.3: sub_82F550</string>
 		</dict>
 		<key>ppc</key>
 		<dict>

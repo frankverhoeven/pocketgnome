@@ -178,6 +178,7 @@ typedef struct WoWBinding {
 	
 	MemoryAccess *memory = [controller wowMemoryAccess];
 	UInt32 offset = [offsetController offset:@"Lua_GetBindingKey"];
+
 	UInt32 bindingsManager = 0, structPointer = 0, firstStruct = 0;
 	WoWBinding bindingStruct;
 	
@@ -185,10 +186,10 @@ typedef struct WoWBinding {
 	if ( [memory loadDataForObject: self atAddress: offset Buffer: (Byte*)&bindingsManager BufLength: sizeof(bindingsManager)] && bindingsManager ){
 		
 		// load the first struct
-		[memory loadDataForObject: self atAddress: bindingsManager + 0xB4 Buffer: (Byte*)&firstStruct BufLength: sizeof(firstStruct)];
+		[memory loadDataForObject: self atAddress: bindingsManager + 0xD4 Buffer: (Byte*)&firstStruct BufLength: sizeof(firstStruct)];
 		
 		structPointer = firstStruct;
-
+		
 		// loop through all structs!
 		while ( [memory loadDataForObject: self atAddress: structPointer Buffer: (Byte*)&bindingStruct BufLength: sizeof(bindingStruct)] && bindingStruct.nextBinding > 0x0 && !(bindingStruct.nextBinding & 0x1) ){
 

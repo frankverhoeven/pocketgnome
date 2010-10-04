@@ -111,15 +111,15 @@ enum eUnitFields {
     UnitField_FactionTemplate           = 0x124,
     // UNIT_VIRTUAL_ITEM_SLOT_ID
     
-    UnitField_StatusFlags               = 0x134,
+    UnitField_StatusFlags               = 0x134,	
     UnitField_StatusFlags2              = 0x138,
     
-    //UnitField_MainhandSpeed             = 0xF8, // these speeds are in milliseconds, eg 2000 = 2.0sec
-    //UnitField_OffhandSpeed              = 0xFC,
-    //UnitField_RangedSpeed               = 0x100,
+    UnitField_MainhandSpeed             = 0xF8, // these speeds are in milliseconds, eg 2000 = 2.0sec
+    UnitField_OffhandSpeed              = 0xFC,
+    UnitField_RangedSpeed               = 0x100,
     
-    //UnitField_BoundingRadius            = 0x104,
-    //UnitField_CombatReach               = 0x108,
+    UnitField_BoundingRadius            = 0x104,
+    UnitField_CombatReach               = 0x108,
     
     UnitField_DisplayID                 = 0x10C,
     UnitField_NativeDisplayID           = 0x110,
@@ -129,7 +129,7 @@ enum eUnitFields {
     
     UnitField_PetNumber                 = 0x12C,    // not the same as entry ID
     UnitField_PetNameTimestamp          = 0x130,
-    UnitField_PetExperience             = 0x134,
+    UnitField_PetExperience             = 0x135,	// was 0x134
     UnitField_PetNextLevelExp           = 0x138,
     
     UnitField_DynamicFlags              = 0x13C,    // tracking, tapped
