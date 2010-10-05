@@ -432,11 +432,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x8B\x55\x0C\x8D\x45\xD8\x89\x04\x24\xC7\x44\x24\x04\xFC\x73\x0C\x01\x89\x54\x24\x08</string>
+			<string>\xC7\x44\x24\x08\xBC\x76\x35\x01\x8B\x45\x08\x8D\x5D\xA8</string>
 			<key>Mask</key>
-			<string>xxxxxxxxxxxxx????xxxx</string>
+			<string>xxxx????xxxxxx</string>
 			<key>Comment</key>
-			<string>For 3.3.0: sub_41AA60</string>
+			<string>From 4.0.3: sub_4638F0</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -611,11 +611,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x55\x89\xE5\x83\xEC\x28\x89\x75\xFC\x8B\x75\x08\x89\x5D\xF8\x8B\x0D\xD0\xE5\xE3\x00\x8B\x1D\xD4\xE5\xE3\x00\x8B\x56\x04\x8B\x06</string>
+			<string>\x33\x05\xC0\x90\x12\x01\x31\xD1\x09\xC1\x74\x4B\xC7\x04\x24\x04\x00\x00\x00\xE8\xE3\x67\xFF\xFF</string>
 			<key>Mask</key>
-			<string>xxxxx%xxxxxxxxxxx????xx%%%%xx%xx</string>
+			<string>xx????xxxxxxxxxxxxxx%%%%</string>
 			<key>Comment</key>
-			<string>From 3.3.0: sub_596DB0</string>
+			<string>From 4.0.3: sub_5D1FC0</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
