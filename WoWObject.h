@@ -43,6 +43,9 @@ enum HighGuid {
     NSDate *_refresh;
 	
 	int _notInObjectListCounter;
+	
+	// cached
+	UInt32 _objectFieldAddress, _unitFieldAddress;
     
     UInt32 cachedEntryID;
     GUID cachedGUID;
@@ -83,5 +86,9 @@ enum HighGuid {
 - (UInt32)infoAddress;
 - (UInt32)prevObjectAddress;
 - (UInt32)nextObjectAddress;
+
+// field addresses
+- (UInt32)objectFieldAddress;
+- (UInt32)unitFieldAddress;
 
 @end

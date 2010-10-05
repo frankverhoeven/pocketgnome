@@ -471,6 +471,7 @@
 		034429BC0FAA3E3800E9DE03 /* QuestItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestItem.m; sourceTree = "<group>"; };
 		034429BE0FAA3E5600E9DE03 /* QuestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestController.h; sourceTree = "<group>"; };
 		034429BF0FAA3E5600E9DE03 /* QuestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestController.m; sourceTree = "<group>"; };
+		03503FF0125A9A0300E511C8 /* Objects_Enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Objects_Enum.h; sourceTree = "<group>"; };
 		0350738310CDBA460004636E /* SpellCooldown.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SpellCooldown.xib; sourceTree = "<group>"; };
 		0350738710CDBA640004636E /* SpellCooldownConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpellCooldownConditionController.h; sourceTree = "<group>"; };
 		0350738810CDBA640004636E /* SpellCooldownConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpellCooldownConditionController.m; sourceTree = "<group>"; };
@@ -1559,6 +1560,7 @@
 		7D72453E0D1511E20094665C /* Units */ = {
 			isa = PBXGroup;
 			children = (
+				03503FF0125A9A0300E511C8 /* Objects_Enum.h */,
 				7DB0ADE30EB02F0C00B81BC1 /* Aura.h */,
 				7DB0ADE40EB02F0C00B81BC1 /* Aura.m */,
 				7D7A6A470D270F130008C3FF /* WoWObject.h */,

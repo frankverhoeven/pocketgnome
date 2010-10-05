@@ -18,30 +18,6 @@ enum eItemObject {
     Item_InfoField2     = 0x394,
 };
 
-enum eItemFields {
-	ITEM_FIELD_OWNER =                  0x18,
-	ITEM_FIELD_CONTAINED =              0x20,
-	ITEM_FIELD_CREATOR =                0x28,
-	ITEM_FIELD_GIFTCREATOR =            0x30,
-	ITEM_FIELD_STACK_COUNT =            0x38,
-	ITEM_FIELD_DURATION =               0x3C,
-	ITEM_FIELD_SPELL_CHARGES =          0x40,
-	ITEM_FIELD_SPELL_CHARGES2 =         0x44, // ?
-	ITEM_FIELD_SPELL_CHARGES3 =         0x48, // ?
-	ITEM_FIELD_SPELL_CHARGES4 =         0x4C, // ?
-	ITEM_FIELD_SPELL_CHARGES5 =         0x50, // ?
-	ITEM_FIELD_FLAGS =                  0x54,
-	ITEM_FIELD_ENCHANTMENT =            0x58,
-        // size: 0x90; 12 enchant slots, each size 0xC
-	ITEM_FIELD_PROPERTY_SEED =          0xE8,
-	ITEM_FIELD_RANDOM_PROPERTIES_ID =   0xEC,
-    // ITEM_FIELD_ITEM_TEXT_ID =           0xF0,  // Removed in 3.3.3
-    ITEM_FIELD_DURABILITY =             0xF0,
-    ITEM_FIELD_MAXDURABILITY =          0xF4,
-    ITEM_FIELD_PADDING =                0xF8,
-	TOTAL_ITEM_FIELDS =                 0x26
-};
-
 enum EnchantmentSlot {
     PERM_ENCHANTMENT_SLOT           = 0,
     TEMP_ENCHANTMENT_SLOT           = 1,
@@ -66,12 +42,13 @@ enum EnchantmentOffset {
     ENCHANTMENT_MAX_OFFSET          = 3,
 };
 
-enum eContainerFields {
+// TO DO: UPDATE THIS!
+/*enum eContainerFields {
 	CONTAINER_FIELD_NUM_SLOTS =         0x100,
 	CONTAINER_ALIGN_PAD =               0x104,
 	CONTAINER_FIELD_SLOT_1 =            0x108,
 	TOTAL_CONTAINER_FIELDS =            3
-};
+};*/
 
 enum InventoryType
 {
@@ -903,7 +880,7 @@ enum ItemFlags
     if(slotNum < 0 || slotNum >= MAX_ENCHANTMENT_SLOT) return 0;
     
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_ENCHANTMENT + ENCHANTMENT_MAX_OFFSET*sizeof(value)*slotNum) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_ENCHANTMENT_1_1 + ENCHANTMENT_MAX_OFFSET*sizeof(value)*slotNum) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return 0;

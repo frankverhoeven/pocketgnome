@@ -118,7 +118,7 @@ enum NPCFlags
 
 - (UInt32)mountID{
 	UInt32 value = 0;
-	if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_MountDisplayID) Buffer: (Byte*)&value BufLength: sizeof(value)] && (value > 0) && (value != 0xDDDDDDDD)) {
+	if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_MOUNTDISPLAYID) Buffer: (Byte*)&value BufLength: sizeof(value)] && (value > 0) && (value != 0xDDDDDDDD)) {
         return value;
     }
 	return 0;
@@ -127,7 +127,7 @@ enum NPCFlags
 
 - (BOOL)isMounted {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_MountDisplayID) Buffer: (Byte*)&value BufLength: sizeof(value)] && (value > 0) && (value != 0xDDDDDDDD)) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_MOUNTDISPLAYID) Buffer: (Byte*)&value BufLength: sizeof(value)] && (value > 0) && (value != 0xDDDDDDDD)) {
         return YES;
     }
 	
@@ -193,14 +193,14 @@ enum NPCFlags
 
 - (UInt64)charm {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Charm) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_CHARM) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
 
 - (UInt64)summon {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Summon) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_SUMMON) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
@@ -208,28 +208,28 @@ enum NPCFlags
 // 1 read
 - (UInt64)targetID {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Target) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_TARGET) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
 
 - (UInt64)createdBy {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_CreatedBy) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_CREATEDBY) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
 
 - (UInt64)summonedBy {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_SummonedBy) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_SUMMONEDBY) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
 
 - (UInt64)charmedBy {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_CharmedBy) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_CHARMEDBY) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
@@ -252,8 +252,8 @@ enum NPCFlags
 
 // 1
 - (UInt32)maxHealth {
-    UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_MaxHealth) Buffer: (Byte *)&value BufLength: sizeof(value)])
+	UInt32 value = 0;
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_MAXHEALTH) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
@@ -261,7 +261,7 @@ enum NPCFlags
 // 1 read
 - (UInt32)currentHealth {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Health) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_HEALTH) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
@@ -276,7 +276,7 @@ enum NPCFlags
 // 1 read
 - (UInt32)level {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Level) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_LEVEL) Buffer: (Byte *)&value BufLength: sizeof(value)])
         return value;
     return 0;
 }
@@ -284,7 +284,7 @@ enum NPCFlags
 // 1 read
 - (UInt32)factionTemplate {
     UInt32 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_FactionTemplate) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_FACTIONTEMPLATE) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
@@ -295,20 +295,6 @@ enum NPCFlags
     return value;
 }
 
-// only works for the current player
-// 0xFFFFFFF when invalid
-- (UInt32)currentStance {
-    // this field seems to have been removed in 3.0.8
-    return 0;
-
-    /*
-    UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self baseAddress] + BaseField_CurrentStance) Buffer: (Byte *)&value BufLength: sizeof(value)])
-        if(value && (value != 0xFFFFFFFF))
-            return value;
-    return 0;*/
-}
-
 #pragma mark -
 
 // 1 read
@@ -316,7 +302,7 @@ enum NPCFlags
     if(powerType < 0 || powerType > UnitPower_Max) return 0;
     
     UInt32 value;
-    if([_memory loadDataForObject: self atAddress: (([self infoAddress] + UnitField_MaxPower1) + (sizeof(value) * powerType)) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: (([self unitFieldAddress] + UNIT_FIELD_MAXPOWER1) + (sizeof(value) * powerType)) Buffer: (Byte *)&value BufLength: sizeof(value)])
     { 
         if((powerType == UnitPower_Rage) || (powerType == UnitPower_RunicPower))
             return value/10;
@@ -330,7 +316,7 @@ enum NPCFlags
 - (UInt32)currentPowerOfType: (UnitPower)powerType {
     if(powerType < 0 || powerType > UnitPower_Max) return 0;
     UInt32 value;
-    if([_memory loadDataForObject: self atAddress: (([self infoAddress] + UnitField_Power1) + (sizeof(value) * powerType)) Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: (([self unitFieldAddress] + UNIT_FIELD_POWER1) + (sizeof(value) * powerType)) Buffer: (Byte *)&value BufLength: sizeof(value)])
     {
         if((powerType == UnitPower_Rage) || (powerType == UnitPower_RunicPower))
             return lrintf(floorf(value/10.0f));
@@ -353,7 +339,7 @@ enum NPCFlags
 // 2 read
 - (UInt32)infoFlags {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Bytes0) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_BYTES_0) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return CFSwapInt32HostToLittle(value);
     }
     return 0;
@@ -554,7 +540,7 @@ enum NPCFlags
 // 2 read
 - (UInt32)stateFlags {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_StatusFlags) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return value;
     }
     return 0;
@@ -622,7 +608,7 @@ enum NPCFlags
 
 - (UInt32)dynamicFlags {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_DynamicFlags) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_DYNAMIC_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return value;
     }
     return 0;
@@ -630,7 +616,7 @@ enum NPCFlags
 
 - (UInt32)npcFlags {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_NPCFlags) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_NPC_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return value;
     }
     return 0;
@@ -646,16 +632,16 @@ enum NPCFlags
 
 - (void)trackUnit {
     UInt32 value = [self dynamicFlags] | 0x2;
-    [_memory saveDataForAddress: ([self infoAddress] + UnitField_DynamicFlags) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory saveDataForAddress: ([self unitFieldAddress] + UNIT_DYNAMIC_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)];
 }
 - (void)untrackUnit {
     UInt32 value = [self dynamicFlags] & ~0x2;
-    [_memory saveDataForAddress: ([self infoAddress] + UnitField_DynamicFlags) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory saveDataForAddress: ([self unitFieldAddress] + UNIT_DYNAMIC_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)];
 }
 
 - (UInt32)petNumber {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_PetNumber) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_PETNUMBER) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return 0;
@@ -663,7 +649,7 @@ enum NPCFlags
 
 - (UInt32)petNameTimestamp {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_PetNameTimestamp) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_PET_NAME_TIMESTAMP) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return 0;
@@ -671,7 +657,7 @@ enum NPCFlags
 
 - (UInt32)createdBySpell {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_UnitCreatedBySpell) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_CREATED_BY_SPELL) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return value;
     }
     return 0;
@@ -684,7 +670,7 @@ enum NPCFlags
     // no shadow = 9
 
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Bytes_1) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_BYTES_1) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return CFSwapInt32HostToLittle(value);  // not tested if CFSwapInt32HostToLittle is necessary, since unitBytes1 is not yet used anywhere
     }
     return 0;
@@ -697,7 +683,7 @@ enum NPCFlags
 
 - (UInt32)unitBytes2 {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Bytes_2) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + UNIT_FIELD_BYTES_2) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return CFSwapInt32HostToLittle(value);
     }
     return 0;
@@ -876,189 +862,181 @@ enum SheathState
                 break;
         }
     } else {
-        int revOffset = offset - ([self infoAddress] - [self baseAddress]);
+        int revOffset = offset - ([self unitFieldAddress] - [self baseAddress]);
 
         switch(revOffset) {
-            case UnitField_Charm:
+            case UNIT_FIELD_CHARM:
                 desc = @"Charm (GUID)";
                 break;
-            case UnitField_Summon:
+            case UNIT_FIELD_SUMMON:
                 desc = @"Summon (GUID)";
                 break;
-            case UnitField_Critter:
+            case UNIT_FIELD_CRITTER:
                 desc = @"Critter (GUID)";
                 break;
-            case UnitField_CharmedBy:
+            case UNIT_FIELD_CHARMEDBY:
                 desc = @"Charmed By (GUID)";
                 break;
-            case UnitField_SummonedBy:
+            case UNIT_FIELD_SUMMONEDBY:
                 desc = @"Summoned By (GUID)";
                 break;
-            case UnitField_CreatedBy:
+            case UNIT_FIELD_CREATEDBY:
                 desc = @"Created By (GUID)";
                 break;
-            case UnitField_Target:
+            case UNIT_FIELD_TARGET:
                 desc = @"Target (GUID)";
                 break;
-            case UnitField_Channel_Object:
+            case UNIT_FIELD_CHANNEL_OBJECT:
                 desc = @"Channel Target (GUID)";
                 break;
-
-            case UnitField_Health:
+			case UNIT_CHANNEL_SPELL:
+                desc = @"Channel Spell";
+                break;
+			case UNIT_FIELD_BYTES_0:
+                desc = @"Info Flags (bytes_0)";
+                break;
+            case UNIT_FIELD_HEALTH:
                 desc = @"Health, Current";
                 break;
-            case UnitField_Power1:
+            case UNIT_FIELD_POWER1:
                 desc = @"Mana, Current";
                 break;
-            case UnitField_Power2:
+            case UNIT_FIELD_POWER2:
                 desc = @"Rage, Current";
                 break;
-            case UnitField_Power3:
+            case UNIT_FIELD_POWER3:
                 desc = @"Focus, Current";
                 break;
-            case UnitField_Power4:
+            case UNIT_FIELD_POWER4:
                 desc = @"Energy, Current";
                 break;
-            case UnitField_Power5:
+            case UNIT_FIELD_POWER5:
                 desc = @"Happiness, Current";
                 break;
-            case UnitField_Power7:
+			case UNIT_FIELD_POWER6:
+                desc = @"Power 6";
+                break;
+            case UNIT_FIELD_POWER7:
                 desc = @"Runic Power, Current";
                 break;
+			case UNIT_FIELD_POWER8:
+                desc = @"Power 8";
+                break;
+			case UNIT_FIELD_POWER9:
+                desc = @"Power 9";
+                break;
+			case UNIT_FIELD_POWER10:
+                desc = @"Power 10";
+                break;
+			case UNIT_FIELD_POWER11:
+                desc = @"Power 11";
+                break;
 
-            case UnitField_MaxHealth:
+            case UNIT_FIELD_MAXHEALTH:
                 desc = @"Health, Max";
                 break;
-            case UnitField_MaxPower1:
+            case UNIT_FIELD_MAXPOWER1:
                 desc = @"Mana, Max";
                 break;
-            case UnitField_MaxPower2:
+            case UNIT_FIELD_MAXPOWER2:
                 desc = @"Rage, Max";
                 break;
-            case UnitField_MaxPower3:
+            case UNIT_FIELD_MAXPOWER3:
                 desc = @"Focus, Max";
                 break;
-            case UnitField_MaxPower4:
+            case UNIT_FIELD_MAXPOWER4:
                 desc = @"Energy, Max";
                 break;
-            case UnitField_MaxPower5:
+            case UNIT_FIELD_MAXPOWER5:
                 desc = @"Happiness, Max";
                 break;
-            case UnitField_MaxPower7:
+			case UNIT_FIELD_MAXPOWER6:
+                desc = @"Power 6, Max";
+                break;
+            case UNIT_FIELD_MAXPOWER7:
                 desc = @"Runic Power, Max";
                 break;
+			case UNIT_FIELD_MAXPOWER8:
+                desc = @"Power 8, Max";
+                break;
+			case UNIT_FIELD_MAXPOWER9:
+                desc = @"Power 9, Max";
+                break;
+			case UNIT_FIELD_MAXPOWER10:
+                desc = @"Power 10, Max";
+                break;
+			case UNIT_FIELD_MAXPOWER11:
+                desc = @"Power 11, Max";
+                break;
+				
+			case UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER:
+                desc = @"Regen Modifier";
+                break;
+            case UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER:
+                desc = @"Regen Int Modifier";
+                break;
 
-            case UnitField_Level:
+            case UNIT_FIELD_LEVEL:
                 desc = @"Level";
                 break;
-            case UnitField_FactionTemplate:
+            case UNIT_FIELD_FACTIONTEMPLATE:
                 desc = @"Faction";
                 break;
-            case UnitField_Bytes0:
-                desc = @"Info Flags (bytes0)";
+            case UNIT_FIELD_FLAGS:
+                desc = @"Info Flags (Flags)";
                 break;
-            case UnitField_StatusFlags:
-                desc = @"Status Flags";
-                break;
-
-            case UnitField_MainhandSpeed:
-                desc = @"Mainhand Speed";
-                break;
-            case UnitField_OffhandSpeed:
-                desc = @"Offhand Speed";
-                break;
-            case UnitField_RangedSpeed:
-                desc = @"Ranged Speed";
+            case UNIT_FIELD_FLAGS_2:
+                desc = @"Status Flags (Flags2)";
                 break;
 
-            case UnitField_BoundingRadius:
+            case UNIT_FIELD_BOUNDINGRADIUS:
                 desc = @"Bounding Radius";
                 break;
-            case UnitField_CombatReach:
+            case UNIT_FIELD_COMBATREACH:
                 desc = @"Combat Reach";
                 break;
-            case UnitField_DisplayID:
+            case UNIT_FIELD_DISPLAYID:
                 desc = @"Display ID";
                 break;
-            case UnitField_NativeDisplayID:
+            case UNIT_FIELD_NATIVEDISPLAYID:
                 desc = @"Native Display ID";
                 break;
-            case UnitField_MountDisplayID:
+            case UNIT_FIELD_MOUNTDISPLAYID:
                 desc = @"Mount Display ID";
                 break;
 
-            case UnitField_Bytes_1:
+            case UNIT_FIELD_BYTES_1:
                 desc = @"Unit Bytes 1";
                 break;
+				
+			case UNIT_FIELD_PETNUMBER:
+                desc = @"Pet Number";
+                break;
 
-            case UnitField_PetExperience:
+            case UNIT_FIELD_PETEXPERIENCE:
                 desc = @"Pet Experience";
                 break;
-            case UnitField_PetNextLevelExp:
+            case UNIT_FIELD_PETNEXTLEVELEXP:
                 desc = @"Pet Next Level Experience";
                 break;
 
-            case UnitField_DynamicFlags:
+            case UNIT_DYNAMIC_FLAGS:
                 desc = @"Dynamic Flags";
                 break;
-            case UnitField_ModCastSpeed:
+            case UNIT_MOD_CAST_SPEED:
                 desc = @"Cast Speed Modifier";
                 break;
-            case UnitField_UnitCreatedBySpell:
+            case UNIT_CREATED_BY_SPELL:
                 desc = @"Created by Spell";
                 break;
-            case UnitField_NPCFlags:
+            case UNIT_NPC_FLAGS:
                 desc = @"NPC Flags";
                 break;
 
-            case UnitField_Bytes_2:
+            case UNIT_FIELD_BYTES_2:
                 desc = @"Unit Bytes 2";
                 break;
         }
-        
-        /*
-        int buffOffset, buffSlots, debuffOffset, debuffSlots;
-        if([self isPlayer]) {
-            buffOffset      = PLAYER_BUFFS_OFFSET;
-            buffSlots       = PLAYER_BUFF_SLOTS;
-            debuffOffset    = PLAYER_DEBUFFS_OFFSET;
-            debuffSlots     = PLAYER_DEBUFF_SLOTS;
-        } else {
-            buffOffset      = MOB_BUFFS_OFFSET;
-            buffSlots       = MOB_BUFF_SLOTS;
-            debuffOffset    = MOB_DEBUFFS_OFFSET;
-            debuffSlots     = MOB_DEBUFF_SLOTS;
-        }
-
-        // buffs
-        if( (revOffset >= buffOffset) && (revOffset < debuffOffset) ) {
-            UInt32 buff = 0;
-            if([_memory loadDataForObject: self atAddress: ([self infoAddress] + revOffset) Buffer: (Byte*)&buff BufLength: sizeof(buff)] && buff) {
-                NSString *name = nil;
-                if( (name = [[[SpellController sharedSpells] spellForID: [NSNumber numberWithInt: buff]] name])) {
-                    desc = [NSString stringWithFormat: @"[Buff] %@", name];
-                } else {
-                    desc = [NSString stringWithFormat: @"[Buff] %d", buff];
-                }
-            } else if(revOffset == buffOffset) {
-                desc = [NSString stringWithFormat: @"Buffs Start (%d total)", buffSlots];
-            }
-        }
-        
-        // debuffs
-        if(revOffset >= debuffOffset && revOffset < (debuffOffset + debuffSlots * 4)) {
-            UInt32 buff = 0;
-            if([_memory loadDataForObject: self atAddress: ([self infoAddress] + revOffset) Buffer: (Byte*)&buff BufLength: sizeof(buff)] && buff) {
-                NSString *name = nil;
-                if( (name = [[[SpellController sharedSpells] spellForID: [NSNumber numberWithInt: buff]] name])) {
-                    desc = [NSString stringWithFormat: @"[Debuff] %@", name];
-                } else {
-                    desc = [NSString stringWithFormat: @"[Debuff] %d", buff];
-                }
-            } else if(revOffset == debuffOffset) {
-                desc = [NSString stringWithFormat: @"Debuffs Start (%d total)", debuffSlots];
-            }
-        }*/
     }
     
     if(desc) return desc;

@@ -16,7 +16,7 @@ enum NodeDataFields
     GAMEOBJECT_POS_Z            = 0xE8,
 };
 
-enum eGameObjectFields
+/*enum eGameObjectFields
 {
     OBJECT_FIELD_CREATED_BY     = 0x18 , // Type: Guid , Size: 2
     GAMEOBJECT_DISPLAYID        = 0x20 , // Type: Int32, Size: 1
@@ -39,7 +39,7 @@ enum eGameObjectFields
     GAMEOBJECT_FACTION          = 0x54 , // Type: Int32, Size: 1
     GAMEOBJECT_LEVEL            = 0x58 , // Type: Int32, Size: 1
     GAMEOBJECT_BYTES_1          = 0x44 , // Type: Int32, Size: 1
-};
+};*/
 
 #define NODE_NAMESTRUCT_POINTER_OFFSET     0x198
 

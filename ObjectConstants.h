@@ -7,6 +7,8 @@
  *
  */
 
+#import "Objects_Enum.h"
+
 enum eObjectTypeID {
     TYPEID_UNKNOWN          = 0,
 
@@ -51,13 +53,7 @@ enum eObjectBase {
    OBJECT_GUID_ALL64        = 0x28, // GUID
    OBJECT_STRUCT3_POINTER   = 0x30, // "previous?"
    OBJECT_STRUCT4_POINTER   = 0x34, // "next?"
+   OBJECT_UNIT_FIELDS_PTR	= 0xEC,
    
 };
 
-enum eObjectFields {
-   OBJECT_FIELD_GUID                             = 0x0  , // Type: Guid , Size: 2
-   OBJECT_FIELD_TYPE                             = 0x8  , // Type: Int32, Size: 1
-   OBJECT_FIELD_ENTRY                            = 0xC  , // Type: Int32, Size: 1
-   OBJECT_FIELD_SCALE_X                          = 0x10 , // Type: Float, Size: 1
-   OBJECT_FIELD_PADDING                          = 0x14 , // Type: Int32, Size: 1
-};

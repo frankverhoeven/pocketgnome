@@ -677,7 +677,7 @@ static PlayerDataController* sharedController = nil;
         //ret2 = [[self wowMemory] saveDataForAddress: self atAddress: ([offsetController offset:@"TARGET_TABLE_STATIC"] + TARGET_MOUSEOVER) Buffer: (Byte *)&targetID BufLength: sizeof(targetID)];
         
         // and to the player table
-        ret3 = [memory saveDataForAddress: ([self infoAddress] + UnitField_Target) Buffer: (Byte *)&targetID BufLength: sizeof(targetID)];
+        ret3 = [memory saveDataForAddress: ([[self player] unitFieldAddress] + UNIT_FIELD_TARGET) Buffer: (Byte *)&targetID BufLength: sizeof(targetID)];
 		
         if(ret1 && ret3)    
             return YES;
@@ -741,7 +741,7 @@ static PlayerDataController* sharedController = nil;
 
 - (UInt64)targetID {
     UInt64 value = 0;
-    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Target) Buffer: (Byte*)&value BufLength: sizeof(value)] && value) {
+    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: ([[self player] unitFieldAddress] + UNIT_FIELD_TARGET) Buffer: (Byte*)&value BufLength: sizeof(value)] && value) {
         return value;
     }
     return 0;
@@ -781,7 +781,7 @@ static PlayerDataController* sharedController = nil;
 
 - (UInt32)stateFlags {
     UInt32 value = 0;
-    [[controller wowMemoryAccess] loadDataForObject: self atAddress: [self infoAddress] + UnitField_StatusFlags Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [[controller wowMemoryAccess] loadDataForObject: self atAddress: [[self player] unitFieldAddress] + UNIT_FIELD_FLAGS_2 Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
     
     // polymorph sets bits 22 and 29
@@ -1021,7 +1021,7 @@ static PlayerDataController* sharedController = nil;
 
 - (UInt32)level {
     UInt32 value = 0;
-    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self infoAddress] + UnitField_Level) Buffer: (Byte *)&value BufLength: sizeof(value)] && value) {
+    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: ([[self player] unitFieldAddress] + UNIT_FIELD_LEVEL) Buffer: (Byte *)&value BufLength: sizeof(value)] && value) {
         return value;
     }
     return 0;
@@ -1029,7 +1029,7 @@ static PlayerDataController* sharedController = nil;
 
 - (UInt32)factionTemplate {
     UInt32 value = 0;
-    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self infoAddress] + UnitField_FactionTemplate) Buffer: (Byte *)&value BufLength: sizeof(value)] && value) {
+    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: ([[self player] unitFieldAddress] + UNIT_FIELD_FACTIONTEMPLATE) Buffer: (Byte *)&value BufLength: sizeof(value)] && value) {
         return value;
     }
     return 0;
@@ -1083,19 +1083,6 @@ static PlayerDataController* sharedController = nil;
     if( memory && [self playerIsValid:self] ) {  // ([botController isBotting] || [[self view] superview]) && 
         
         Player *player = [self player];
-        
-        // the stance value doesn't seem to exist in 3.0.8
-        /*UInt32 stance = [player currentStance];
-        if(stance) {
-            Spell *stanceSpell = [[SpellController sharedSpells] spellForID: [NSNumber numberWithUnsignedInt: stance]];
-            if(stanceSpell.name) {
-                [stanceText setStringValue: [NSString stringWithFormat: @"%@ (%d)", stanceSpell.name, stance]];
-            } else {
-                [stanceText setStringValue: [NSString stringWithFormat: @"%d", stance]];
-            }
-        } else {
-            [stanceText setStringValue: @"No stance detected."];
-        }*/
         
         // load health
         [self setHealth: [player currentHealth]];

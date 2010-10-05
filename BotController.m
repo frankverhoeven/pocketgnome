@@ -8336,6 +8336,9 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
+	NSLog(@"Testing this out! %d", [[playerController player] charm]);
+	
+	
 	/*
 	 UInt32 address = 0xC2141C;
 	 

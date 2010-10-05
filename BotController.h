@@ -442,10 +442,6 @@
 - (void)stopBotActions;
 - (void)joinBGCheck;
 
-// hackish stuff
-- (IBAction)toggleWallWalk: (id)sender;
-- (IBAction)toggleAllChat: (id)sender;
-
 // test stuff
 - (IBAction)test: (id)sender;
 - (IBAction)test2: (id)sender;

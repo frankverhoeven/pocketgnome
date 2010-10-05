@@ -21,6 +21,8 @@
         _baseAddress = nil;
         _infoAddress = nil;
 		_notInObjectListCounter = 0;
+		_objectFieldAddress = 0;
+		_unitFieldAddress = 0;
         self.memoryAccess = nil;
         self.refreshDate = [NSDate distantFuture];
     }
@@ -99,6 +101,29 @@
     }
     
     return _infoAddress ? [_infoAddress unsignedIntValue] : 0;
+}
+
+- (UInt32)objectFieldAddress{
+	
+	if ( _objectFieldAddress ){
+		return _objectFieldAddress;
+	}
+	
+	// read it
+	[_memory loadDataForObject: self atAddress: ([self baseAddress] + OBJECT_FIELDS_PTR) Buffer: (Byte *)&_objectFieldAddress BufLength: sizeof(_objectFieldAddress)];
+	return _objectFieldAddress;
+}
+
+- (UInt32)unitFieldAddress{
+	
+	if ( _unitFieldAddress ){
+		return _unitFieldAddress;
+	}
+	
+	// read it
+	[_memory loadDataForObject: self atAddress: ([self baseAddress] + OBJECT_UNIT_FIELDS_PTR) Buffer: (Byte *)&_unitFieldAddress BufLength: sizeof(_unitFieldAddress)];
+
+	return _unitFieldAddress;
 }
 
 #pragma mark -
@@ -292,6 +317,9 @@
                 break;
             case OBJECT_STRUCT4_POINTER:;
                 desc = @"Next Structure Pointer";
+                break;
+			case OBJECT_UNIT_FIELDS_PTR:;
+                desc = @"Unit Fields Pointer";
                 break;
         }
     } else {

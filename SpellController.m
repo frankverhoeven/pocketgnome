@@ -85,12 +85,7 @@ static SpellController *sharedSpells = nil;
             _spellBook = [[NSKeyedUnarchiver unarchiveObjectWithData: spellBook] mutableCopy];
         } else
             _spellBook = [[NSMutableDictionary dictionary] retain];
-        
-        // populate known spells array
-        //for(Spell *spell in [_spellBook allValues]) {
-        //    [_knownSpells addObject: spell];
-        //}
-        
+
         // register notifications
         [[NSNotificationCenter defaultCenter] addObserver: self
                                                  selector: @selector(applicationWillTerminate:) 
