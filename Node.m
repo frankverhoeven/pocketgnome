@@ -11,41 +11,16 @@
 
 enum NodeDataFields
 {
-    GAMEOBJECT_POS_X            = 0xE0,
-    GAMEOBJECT_POS_Y            = 0xE4,
-    GAMEOBJECT_POS_Z            = 0xE8,
+    GAMEOBJECT_POS_X            = 0x104,
+    GAMEOBJECT_POS_Y            = 0x108,
+    GAMEOBJECT_POS_Z            = 0x10C,
 };
 
-/*enum eGameObjectFields
-{
-    OBJECT_FIELD_CREATED_BY     = 0x18 , // Type: Guid , Size: 2
-    GAMEOBJECT_DISPLAYID        = 0x20 , // Type: Int32, Size: 1
-    GAMEOBJECT_FLAGS            = 0x24 , // Type: Int32, Size: 1
-    GAMEOBJECT_ROTATION         = 0x28 , // Type: Float, Size: 4
-    // 0x2C
-    GAMEOBJECT_PARENTROTATION   = 0x30,
-    // 0x34
-    // 0x38
-    // 0x3C
-    
-    // 3.1: wtf - position is no longer here? (see NodeDataFields above)
-    //GAMEOBJECT_POS_X            = 0x40 , // Type: Float, Size: 1
-    //GAMEOBJECT_POS_Y            = 0x44 , // Type: Float, Size: 1
-    //GAMEOBJECT_POS_Z            = 0x48 , // Type: Float, Size: 1
-    
-    // 3.1 - these offsets are unverified!
-    GAMEOBJECT_FACING           = 0x4C , // Type: Float, Size: 1
-    GAMEOBJECT_DYN_FLAGS        = 0x50 , // Type: Int32, Size: 1
-    GAMEOBJECT_FACTION          = 0x54 , // Type: Int32, Size: 1
-    GAMEOBJECT_LEVEL            = 0x58 , // Type: Int32, Size: 1
-    GAMEOBJECT_BYTES_1          = 0x44 , // Type: Int32, Size: 1
-};*/
-
-#define NODE_NAMESTRUCT_POINTER_OFFSET     0x198
+#define NODE_NAMESTRUCT_POINTER_OFFSET     0x1BC
 
 enum eNodeNameStructFields {
-    NAMESTRUCT_NAME_PTR         = 0x90,
-    NAMESTRUCT_ENTRY_ID         = 0xA0,
+    NAMESTRUCT_NAME_PTR         = 0x94,
+    NAMESTRUCT_ENTRY_ID         = 0xA4,
 };
 
 @interface Node ()
@@ -134,7 +109,7 @@ enum eNodeNameStructFields {
 
 - (NodeFlags)flags {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + GAMEOBJECT_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + GAMEOBJECT_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return 0;
@@ -142,7 +117,7 @@ enum eNodeNameStructFields {
 
 - (GUID)owner {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + OBJECT_FIELD_CREATED_BY) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + OBJECT_FIELD_CREATED_BY) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return 0;
@@ -152,7 +127,7 @@ enum eNodeNameStructFields {
 //	I use it for the gates in strand
 - (UInt8)objectHealth{
     UInt8 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + GAMEOBJECT_BYTES_1 + 0x3) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + GAMEOBJECT_BYTES_1 + 0x3) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return -1;
@@ -160,7 +135,7 @@ enum eNodeNameStructFields {
 
 - (UInt32)nodeType {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + GAMEOBJECT_BYTES_1) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + GAMEOBJECT_BYTES_1) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return ((CFSwapInt32HostToLittle(value) >> 8) & 0xFF);
     }
     return -1;
@@ -178,42 +153,11 @@ enum eNodeNameStructFields {
 // 1 read
 - (BOOL)validToLoot {
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + GAMEOBJECT_BYTES_1) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self unitFieldAddress] + GAMEOBJECT_BYTES_1) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return (CFSwapInt32HostToLittle(value) & 0xFF);
     }
     return NO;
 }
-
-/*
-- (void)monitor{
-	
-	if ( !self || ![self isValid] ){
-		log(LOG_GENERAL, @"[Node] Invalid %@", self);
-		return;
-	}
-	
-	UInt16 value, value1, value2, value3, value4;
-	[_memory loadDataForObject: self atAddress: ([self baseAddress] + 0xB6) Buffer: (Byte *)&value BufLength: sizeof(value)];
-	[_memory loadDataForObject: self atAddress: ([self baseAddress] + 0xB0) Buffer: (Byte *)&value1 BufLength: sizeof(value1)];
-	[_memory loadDataForObject: self atAddress: ([self baseAddress] + 0xB2) Buffer: (Byte *)&value2 BufLength: sizeof(value2)];
-	[_memory loadDataForObject: self atAddress: ([self baseAddress] + 0xC0) Buffer: (Byte *)&value3 BufLength: sizeof(value3)];
-	[_memory loadDataForObject: self atAddress: ([self infoAddress] + GAMEOBJECT_BYTES_1) Buffer: (Byte *)&value4 BufLength: sizeof(value4)];
-	
-	
-	log(LOG_GENERAL, @"[Node] %d %d %d %d %d 0x%X %@", value, value1, value2, value3, [self validToLoot], value4, self);
-	
-	// before looted
-	//	[Node] 196 20400 11983 255 1 0x301 <Node: "Saronite Deposit" (189980)>
-	// during looting
-	//	[Node] 196 20400 11983 255 1 0x301 <Node: "Saronite Deposit" (189980)>
-	// shortly after looting
-	//	[Node] 212 20400 11983 255 0 0x300 <Node: "Saronite Deposit" (189980)>
-	// next change
-	//	[Node] 197 0 0 0 0 0x300 <Node: "Saronite Deposit" (189980)>
-	
-	[self performSelector:@selector(monitor) withObject:nil afterDelay:0.1f];	
-}*/
-
 
 - (NSImage*)imageForNodeType: (UInt32)typeID {
     switch(typeID) {

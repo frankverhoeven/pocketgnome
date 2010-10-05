@@ -35,6 +35,8 @@ typedef enum {
 
 @interface Item : WoWObject {
     NSString *_name;
+	
+	UInt32 _itemFieldsAddress;
     
     NSURLConnection *_connection;
     NSMutableData *_downloadData;

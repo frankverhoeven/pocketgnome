@@ -53,7 +53,9 @@ enum eObjectBase {
    OBJECT_GUID_ALL64        = 0x28, // GUID
    OBJECT_STRUCT3_POINTER   = 0x30, // "previous?"
    OBJECT_STRUCT4_POINTER   = 0x34, // "next?"
+	
    OBJECT_UNIT_FIELDS_PTR	= 0xEC,
+   ITEM_FIELDS_PTR			= 0xF0,
    
 };
 

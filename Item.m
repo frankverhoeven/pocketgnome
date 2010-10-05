@@ -1,5 +1,5 @@
 //
-//  Item.m
+//  Item.m[self itemFieldsAddress]
 //  Pocket Gnome
 //
 //  Created by Jon Drummond on 12/20/07.
@@ -14,8 +14,8 @@ enum eItemObject {
     // they are back-to-back values that look like bit fields, eg
     // 1) 0x8FF0204 [?] [?] [subType] [itemType]
     // 2) 0x5       [?] [?] [EquipLoc2?] [EquipLoc1]
-    Item_InfoField1     = 0x390,
-    Item_InfoField2     = 0x394,
+    Item_InfoField1     = 0x3FC,
+    Item_InfoField2     = 0x400,
 };
 
 enum EnchantmentSlot {
@@ -290,6 +290,7 @@ enum ItemFlags
     self = [super init];
     if (self != nil) {
         _name = nil;
+		_itemFieldsAddress = 0;
     }
     return self;
 }
@@ -324,6 +325,17 @@ enum ItemFlags
         return [NSString stringWithFormat: @"<Item \"%@\" (%d) x%d>", [self name], [self entryID], stack];
 }
 
+- (UInt32)itemFieldsAddress{
+	if ( _itemFieldsAddress ){
+		return _itemFieldsAddress;
+	}
+	
+	// read it
+	[_memory loadDataForObject: self atAddress: ([self baseAddress] + ITEM_FIELDS_PTR) Buffer: (Byte *)&_itemFieldsAddress BufLength: sizeof(_itemFieldsAddress)];
+	
+	return _itemFieldsAddress; 
+}
+
 #pragma mark -
 
 - (NSString*)name {
@@ -349,7 +361,7 @@ enum ItemFlags
 
     [_connection cancel];
     [_connection release];
-    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://www.wowhead.com/?item=%d&xml", [self entryID]]]] delegate: self];
+    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://cata.wowhead.com/?item=%d&xml", [self entryID]]]] delegate: self];
     if(_connection) {
         [_downloadData release];
         _downloadData = [[NSMutableData data] retain];
@@ -808,44 +820,44 @@ enum ItemFlags
 
 - (UInt64)ownerUID {
     UInt64 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_OWNER) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_OWNER) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 - (UInt64)containerUID {
     UInt64 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_CONTAINED) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_CONTAINED) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 - (UInt64)creatorUID {
     UInt64 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_CREATOR) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_CREATOR) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 - (UInt64)giftCreatorUID {
     UInt64 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_GIFTCREATOR) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_GIFTCREATOR) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 // 1 read
 - (UInt32)count {
     UInt32 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_STACK_COUNT) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_STACK_COUNT) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 - (UInt32)duration {
     UInt32 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_DURATION) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_DURATION) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 - (UInt32)charges {
     UInt32 value[5];
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_SPELL_CHARGES) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_SPELL_CHARGES) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         int i;
         for(i=0; i<5; i++) {
             if(value[i] > 0) {
@@ -858,21 +870,21 @@ enum ItemFlags
 
 - (UInt32)flags {
     UInt32 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return value;
 }
 
 // 1 read
 - (NSNumber*)durability {
     UInt32 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_DURABILITY) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_DURABILITY) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return [NSNumber numberWithUnsignedInt: value];
 }
 
 // 1 read
 - (NSNumber*)maxDurability {
     UInt32 value = 0;
-    [_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_MAXDURABILITY) Buffer: (Byte *)&value BufLength: sizeof(value)];
+    [_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_MAXDURABILITY) Buffer: (Byte *)&value BufLength: sizeof(value)];
     return [NSNumber numberWithUnsignedInt: value];
 }
 
@@ -880,7 +892,7 @@ enum ItemFlags
     if(slotNum < 0 || slotNum >= MAX_ENCHANTMENT_SLOT) return 0;
     
     UInt32 value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + ITEM_FIELD_ENCHANTMENT_1_1 + ENCHANTMENT_MAX_OFFSET*sizeof(value)*slotNum) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + ITEM_FIELD_ENCHANTMENT_1_1 + ENCHANTMENT_MAX_OFFSET*sizeof(value)*slotNum) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         return value;
     }
     return 0;
@@ -909,7 +921,7 @@ enum ItemFlags
 - (UInt32)bagSize {
     if([self isBag]) {
         UInt32 value = 0;
-        if([_memory loadDataForObject: self atAddress: ([self infoAddress] + CONTAINER_FIELD_NUM_SLOTS) Buffer: (Byte *)&value BufLength: sizeof(value)])
+        if([_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + CONTAINER_FIELD_NUM_SLOTS) Buffer: (Byte *)&value BufLength: sizeof(value)])
             return value;
     }
     return 0;
@@ -922,7 +934,7 @@ enum ItemFlags
 
     if ( [self isBag] ) {
         UInt64 value = 0;
-        if([_memory loadDataForObject: self atAddress: ([self infoAddress] + CONTAINER_FIELD_SLOT_1 + (CONTAINER_FIELD_SLOT_SIZE*(slotNum-1)) ) Buffer: (Byte *)&value BufLength: sizeof(value)])
+        if([_memory loadDataForObject: self atAddress: ([self itemFieldsAddress] + CONTAINER_FIELD_SLOT_1 + (CONTAINER_FIELD_SLOT_SIZE*(slotNum-1)) ) Buffer: (Byte *)&value BufLength: sizeof(value)])
             return value;
     }
 	

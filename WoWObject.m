@@ -321,6 +321,9 @@
 			case OBJECT_UNIT_FIELDS_PTR:;
                 desc = @"Unit Fields Pointer";
                 break;
+			case ITEM_FIELDS_PTR:;
+                desc = @"Item Fields Pointer";
+                break;
         }
     } else {
         offset = offset - ([self infoAddress] - [self baseAddress]);

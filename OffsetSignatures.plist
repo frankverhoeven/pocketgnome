@@ -292,25 +292,6 @@
 			<string></string>
 		</dict>
 	</dict>
-	<key>LoginState</key>
-	<dict>
-		<key>Intel</key>
-		<dict>
-			<key>Signature</key>
-			<string>\xC7\x44\x24\x08\xFF\xFF\xFF\x7F\xC7\x44\x24\x04\xF0\x12\xA9\x00\xC7\x04\x24\x20\xBD\xD8\x00\xE8\xF4\xD2\xDE\xFF\x85\xC0\x75\x8F</string>
-			<key>Mask</key>
-			<string>xxxxxxxxxxxx%%%%xxx????x????xxxx</string>
-			<key>Comment</key>
-			<string>3.3.2: from sub_2B7C40</string>
-		</dict>
-		<key>ppc</key>
-		<dict>
-			<key>Signature</key>
-			<string></string>
-			<key>Mask</key>
-			<string></string>
-		</dict>
-	</dict>
 	<key>CHATLOG_START</key>
 	<dict>
 		<key>Intel</key>
@@ -354,11 +335,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Comment</key>
-			<string>For 3.3.0: sub_5A5870</string>
+			<string>From 4.0.3: sub_5EE2A0</string>
 			<key>Signature</key>
-			<string>\xC7\x44\x24\x08\xB8\x0B\x00\x00\x89\x5C\x24\x04\xC7\x04\x24\xE0\x29\xFA\x00</string>
+			<string>\x8D\x45\x0C\xBB\x00\xCF\x23\x01\x8D\xB5\x4C\xF3\xFF\xFF\x89\x54\x24\x08\x89\x45\xE4</string>
 			<key>Mask</key>
-			<string>xxxxxxxxxxxxxxx????</string>
+			<string>xxxx????xxxxxxxxxxxxx</string>
 		</dict>
 		<key>ppc</key>
 		<dict>

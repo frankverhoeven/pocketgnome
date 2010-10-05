@@ -144,7 +144,7 @@
     
     [_connection cancel];
     [_connection release];
-    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://www.wowhead.com/?quest=%@", [self questID]]]] delegate: self];
+    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://cata.wowhead.com/?quest=%@", [self questID]]]] delegate: self];
     if(_connection) {
         [_downloadData release];
         _downloadData = [[NSMutableData data] retain];
