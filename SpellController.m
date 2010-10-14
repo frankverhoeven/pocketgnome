@@ -170,12 +170,12 @@ static SpellController *sharedSpells = nil;
 	
 		if ( totalSpells > 0 && spellBookInfoPtr > 0x0 ){
 			
-			UInt32 spellStruct = 0, spellID = 0/*, isKnown = 0*/;
+			UInt32 spellStruct = 0, spellID = 0, isKnown = 0;
 			
 			for ( i = 0; i <= totalSpells; i++ ){
 				[memory loadDataForObject: self atAddress: spellBookInfoPtr + i * 4 Buffer: (Byte *)&spellStruct BufLength: sizeof(spellStruct)];
 				[memory loadDataForObject: self atAddress: spellStruct + 0x4 Buffer: (Byte *)&spellID BufLength: sizeof(spellID)];
-				//[memory loadDataForObject: self atAddress: spellStruct Buffer: (Byte *)&isKnown BufLength: sizeof(isKnown)];	// not needed
+				[memory loadDataForObject: self atAddress: spellStruct Buffer: (Byte *)&isKnown BufLength: sizeof(isKnown)];	// not needed
 				
 				// we already have the spell - yay!
 				Spell *spell = [self spellForID:[NSNumber numberWithInt:spellID]];
@@ -185,7 +185,11 @@ static SpellController *sharedSpells = nil;
 					spell = [Spell spellWithID: [NSNumber numberWithUnsignedInt: spellID]];
                     [self addSpellAsRecognized: spell];
 				}
-				[playerSpells addObject: spell];
+				
+				// then we know the spell!
+				if ( isKnown != 2 ){
+					[playerSpells addObject: spell];
+				}
 			}
 		}
 	}

@@ -449,11 +449,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x8B\x40\x04\x8B\x40\x0C\xC7\x04\x24\x20\x4A\x0B\x01\x89\x44\x24\x08\x8B\x45\xE4\x89\x44\x24\x04</string>
+			<string>\xC7\x44\x24\x08\x00\x00\x00\x00\x8B\x55\x0C\x8B\x02\xC7\x04\x24\xE0\x81\x0A\x01</string>
 			<key>Mask</key>
-			<string>xxxxxxxxx????xxxxxxxxxxx</string>
+			<string>xxxxxxxxxxxxxxxx????</string>
 			<key>Comment</key>
-			<string>For 3.3.0: sub_32B9B0</string>
+			<string>From 4.0.1: CGGameUI__ShowSpellFailed</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -548,11 +548,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\xE8\x23\x88\x73\x00\x89\xC2\x8B\x85\x8C\xF5\xFF\xFF\x3B\x05\x50\x3A\x34\x01\x89\xC1</string>
+			<string>\xE8\xC2\xEB\x5F\x00\x8B\x9D\x8C\xF5\xFF\xFF\x3B\x1D\x0C\x83\x0A\x01\x89\xDE\x89\xC2\x0F\x84\xDA\x06\x00\x00</string>
 			<key>Mask</key>
-			<string>x%%%%xxxxxxxxxx????xx</string>
+			<string>x%%%%xxxxxxxx????xxxxxx????</string>
 			<key>Comment</key>
-			<string>From 4.0.3: CGGameUI__ShowSpellFailed</string>
+			<string>From 4.0.1: CGGameUI__ShowSpellFailed</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -630,11 +630,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x8B\x1D\xEC\xE4\xE3\x00\x0F\xB6\x0D\xE0\xE4\xE3\x00\x31\xD3\x8B\x15\xE8\xE4\xE3\x00\x31\xC2\x31\xC0\x09\xD3\x5B\x0F\x44\xC1\xC9\xC3</string>
+			<string>\x74\xB7\x0F\xB6\x05\x0C\x76\xE9\x00\x83\xC4\x24\x5B\xC9\xC3</string>
 			<key>Mask</key>
-			<string>xx%%%%xxx????xxxx%%%%xxxxxxxxxxxx</string>
+			<string>xxxxx????xxxxxx</string>
 			<key>Comment</key>
-			<string>From 3.3.0: sub_588A90</string>
+			<string>From 4.0.1: GetComboPoints</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -655,7 +655,7 @@
 			<key>Mask</key>
 			<string>xx%%%%xxxxx????xx????xxxxxx????xxxxxx????xxxxxx????x</string>
 			<key>Comment</key>
-			<string>From 4.0.3: DefaultServerLogin</string>
+			<string>From 4.0.1: GetRealmName</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -691,11 +691,13 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x53\x89\xD3\x83\xEC\x30\x80\x3D\xA0\xD2\x26\x01\x00\x0F\x45\xF0\xB8\x20\xD8\x26\x01</string>
+			<string>\x55\x31\xC0\x89\xE5\xBA\xE0\x22\xFD\x00\x80\x3D\x01\xCE\xE9\x00\x00</string>
 			<key>Mask</key>
-			<string>xxxxxxxx%%%%xxxxx????</string>
+			<string>xxxxxx????xx????x</string>
 			<key>AdditionalOffset</key>
 			<string>0x6</string>
+			<key>Count</key>
+			<string>2</string>
 			<key>Comment</key>
 			<string>From 4.0.3: sub_82F550</string>
 		</dict>
