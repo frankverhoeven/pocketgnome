@@ -23,7 +23,6 @@
         _range = nil;
         _cooldown = nil;
         _name = nil;
-        _rank = nil;
         _dispelType = nil;
         _school = nil;
 		_mount = nil;
@@ -58,7 +57,6 @@
         self.ID = [decoder decodeObjectForKey: @"SpellID"];
         self.range = [decoder decodeObjectForKey: @"Range"];
         self.name = [decoder decodeObjectForKey: @"Name"];
-        self.rank = [decoder decodeObjectForKey: @"Rank"];
         self.cooldown = [decoder decodeObjectForKey: @"Cooldown"];
         self.school = [decoder decodeObjectForKey: @"School"];
         self.dispelType = [decoder decodeObjectForKey: @"DispelType"];
@@ -82,7 +80,6 @@
 {
     [coder encodeObject: self.ID forKey: @"SpellID"];
     [coder encodeObject: self.name forKey: @"Name"];
-    [coder encodeObject: self.rank forKey: @"Rank"];
     [coder encodeObject: self.range forKey: @"Range"];
     [coder encodeObject: self.school forKey: @"School"];
     [coder encodeObject: self.cooldown forKey: @"Cooldown"];
@@ -97,7 +94,6 @@
     self.ID = nil;
     self.range = nil;
     self.name = nil;
-    self.rank = nil;
     self.cooldown = nil;
     self.dispelType = nil;
     self.school = nil;
@@ -156,26 +152,6 @@
     @synchronized (@"Name") {
         temp = _name;
         _name = name;
-    }
-    [self didChangeValueForKey: @"fullName"];
-    [temp release];
-}
-
-- (NSNumber*)rank {
-    NSNumber *temp = nil;
-    @synchronized (@"Rank") {
-        temp = [_rank retain];
-    }
-    return [temp autorelease];
-}
-
-- (void)setRank: (NSNumber*)rank {
-    id temp = nil;
-    [rank retain];
-    [self willChangeValueForKey: @"fullName"];
-    @synchronized (@"Rank") {
-        temp = _rank;
-        _rank = rank;
     }
     [self didChangeValueForKey: @"fullName"];
     [temp release];
@@ -272,15 +248,9 @@
 
 - (NSString*)fullName {
     NSString *name = nil;
-    NSNumber *rank = nil;
     @synchronized(@"Name") {
         name = self.name;
     }
-    @synchronized(@"Rank") {
-        rank = self.rank;
-    }
-    if(rank)
-        return [NSString stringWithFormat: @"%@ (Rank %@)", name, rank];
     return name;
 }
 
@@ -347,7 +317,6 @@
 //#define COOLDOWN_SEPARATOR  @"<tr><th>Cooldown</th><td>"
 
 #define NAME_SEPARATOR      @"<title>"
-#define RANK_SEPARATOR      @"<b class=\"q0\">Rank "
 #define SCHOOL_SEPARATOR    @"School</th><td>"
 #define MECHANIC_SEPARATOR	@"Mechanic</th><td>"
 #define DISPEL_SEPARATOR    @"Dispel type</th><td style=\"border-bottom: 0\">"
@@ -369,7 +338,7 @@
     
     [_connection cancel];
     [_connection release];
-    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://cata.wowhead.com/?spell=%@", [self ID]]]] delegate: self];
+    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://wowhead.com/?spell=%@", [self ID]]]] delegate: self];
 	if(_connection) {
         [_downloadData release];
         _downloadData = [[NSMutableData data] retain];
@@ -458,19 +427,6 @@
                 } else {
                     self.name = @"";
                 }
-            }
-        } else {
-            [scanner setScanLocation: scanSave]; // some spells dont have ranks
-        }
-        
-        // get spell rank
-        scanSave = [scanner scanLocation];
-        if([scanner scanUpToString: RANK_SEPARATOR intoString: nil] && [scanner scanString: RANK_SEPARATOR intoString: nil]) {
-            int rank = 0;
-            if([scanner scanInt: &rank] && rank) {
-                self.rank = [NSNumber numberWithInt: rank];
-            } else {
-                self.rank = [NSNumber numberWithInt: 0];
             }
         } else {
             [scanner setScanLocation: scanSave]; // some spells dont have ranks
@@ -612,7 +568,7 @@
         } else {
             [scanner setScanLocation: scanSave]; // some spells dont have cooldowns
 			
-			// log(LOG_GENERAL, @"Loaded: %@; Rank %@; %@ yards; %@ seconds; school: %@; dispel: %@", self.name, self.rank, self.range, self.cooldown, self.school, self.dispelType);
+			// log(LOG_GENERAL, @"Loaded: %@; %@ yards; %@ seconds; school: %@; dispel: %@", self.name, self.range, self.cooldown, self.school, self.dispelType);
         }
 		
 		
@@ -632,7 +588,7 @@
 		[scanner setScanLocation: scanSave];
 		
 		if ( [self.mount intValue] > 0 ){
-			log(LOG_GENERAL, @"mount: %@  %@ %@", [self ID], self.mount, self.mechanic);
+			//log(LOG_GENERAL, @"mount: %@  %@ %@", [self ID], self.mount, self.mechanic);
 		}
 		
 		// get if this is a fast mount

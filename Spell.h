@@ -20,7 +20,6 @@ enum mountType {
     NSNumber *_spellID;
     
     NSString *_name;
-    NSNumber *_rank;
     NSNumber *_range;
     NSString *_dispelType;
     NSString *_school;
@@ -41,8 +40,6 @@ enum mountType {
 - (void)setID: (NSNumber*)ID;
 - (NSString*)name;
 - (void)setName: (NSString*)name;
-- (NSNumber*)rank;
-- (void)setRank: (NSNumber*)rank;
 - (NSNumber*)range;
 - (void)setRange: (NSNumber*)range;
 - (NSNumber*)cooldown;

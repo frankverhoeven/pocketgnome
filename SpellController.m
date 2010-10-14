@@ -48,7 +48,6 @@ typedef struct WoWCooldown {
 } WoWCooldown;
 
 @interface SpellController (Internal)
-- (BOOL)isSpellListValid;
 - (void)buildSpellMenu;
 - (void)synchronizeSpells;
 - (NSArray*)mountsBySpeed: (int)speed;
@@ -78,9 +77,13 @@ static SpellController *sharedSpells = nil;
         _playerSpells = [[NSMutableArray array] retain];
 		_playerCooldowns = [[NSMutableArray array] retain];
         _cooldowns = [[NSMutableDictionary dictionary] retain];
+		
+		// remove the old spell book
+		[[NSUserDefaults standardUserDefaults] removeObjectForKey:@"SpellBook"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
     
-        
-        NSData *spellBook = [[NSUserDefaults standardUserDefaults] objectForKey: @"SpellBook"];
+        // new spell book for cata!
+        NSData *spellBook = [[NSUserDefaults standardUserDefaults] objectForKey: @"SpellBookCata"];
         if(spellBook) {
             _spellBook = [[NSKeyedUnarchiver unarchiveObjectWithData: spellBook] mutableCopy];
         } else
@@ -118,7 +121,9 @@ static SpellController *sharedSpells = nil;
 }
 
 - (void)playerIsValid: (NSNotification*)notification {
+
     [self reloadPlayerSpells];
+	
     
     int numLoaded = 0;
     for(Spell *spell in [self playerSpells]) {
@@ -142,16 +147,8 @@ static SpellController *sharedSpells = nil;
 #pragma mark -
 #pragma mark Internal
 
-- (BOOL)isSpellListValid {
-    uint32_t value = 0;
-    if([[controller wowMemoryAccess] loadDataForObject: self atAddress: [offsetController offset:@"KNOWN_SPELLS_STATIC"] Buffer: (Byte *)&value BufLength: sizeof(value)] && value) {
-        return ( (value > 0) && (value < 100000) );
-    }
-    return NO;
-}
-
 - (void)synchronizeSpells {
-    [[NSUserDefaults standardUserDefaults] setObject: [NSKeyedArchiver archivedDataWithRootObject: _spellBook] forKey: @"SpellBook"];
+    [[NSUserDefaults standardUserDefaults] setObject: [NSKeyedArchiver archivedDataWithRootObject: _spellBook] forKey: @"SpellBookCata"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -161,29 +158,41 @@ static SpellController *sharedSpells = nil;
     if( !memory ) return;
     
     int i;
-    uint32_t value = 0;
-
-    // scan the list of known spells
-    NSMutableArray *playerSpells = [NSMutableArray array];
-    if( [playerController playerIsValid:self] && [self isSpellListValid] ) {
-        for(i=0; ; i++) {
-            // load all known spells into a temp array
-            if([memory loadDataForObject: self atAddress: [offsetController offset:@"KNOWN_SPELLS_STATIC"] + (i*4) Buffer: (Byte *)&value BufLength: sizeof(value)] && value) {
-                Spell *spell = [self spellForID: [NSNumber numberWithUnsignedInt: value]];
-                if( !spell ) {
-                    // create a new spell if necessary
-                    spell = [Spell spellWithID: [NSNumber numberWithUnsignedInt: value]];
+    	
+	// find known spells
+	UInt32 offset = [offsetController offset:@"lua_GetSpellBookItemInfo"];
+	NSMutableArray *playerSpells = [NSMutableArray array];
+	if ( [playerController playerIsValid:self] && offset ){
+	
+		UInt32 totalSpells = 0, spellBookInfoPtr = 0;
+		[memory loadDataForObject: self atAddress: offset Buffer: (Byte *)&totalSpells BufLength: sizeof(totalSpells)];
+		[memory loadDataForObject: self atAddress: offset + 0x4 Buffer: (Byte *)&spellBookInfoPtr BufLength: sizeof(spellBookInfoPtr)];
+	
+		if ( totalSpells > 0 && spellBookInfoPtr > 0x0 ){
+			
+			UInt32 spellStruct = 0, spellID = 0/*, isKnown = 0*/;
+			
+			for ( i = 0; i <= totalSpells; i++ ){
+				[memory loadDataForObject: self atAddress: spellBookInfoPtr + i * 4 Buffer: (Byte *)&spellStruct BufLength: sizeof(spellStruct)];
+				[memory loadDataForObject: self atAddress: spellStruct + 0x4 Buffer: (Byte *)&spellID BufLength: sizeof(spellID)];
+				//[memory loadDataForObject: self atAddress: spellStruct Buffer: (Byte *)&isKnown BufLength: sizeof(isKnown)];	// not needed
+				
+				// we already have the spell - yay!
+				Spell *spell = [self spellForID:[NSNumber numberWithInt:spellID]];
+				
+				// never seen it before, lets create it
+				if ( !spell ){
+					spell = [Spell spellWithID: [NSNumber numberWithUnsignedInt: spellID]];
                     [self addSpellAsRecognized: spell];
-                }
-                [playerSpells addObject: spell];
-            } else {
-                break;
-            }
-        }
-    }
+				}
+				[playerSpells addObject: spell];
+			}
+		}
+	}
 	
 	// scan the list of mounts!
 	NSMutableArray *playerMounts = [NSMutableArray array];
+	uint32_t value = 0;
 	if( [playerController playerIsValid:self] ){
 		UInt32 mountAddress = 0;
 		
@@ -338,44 +347,6 @@ static SpellController *sharedSpells = nil;
     return [_spellBook objectForKey: spellID];
 }
 
-- (Spell*)highestRankOfSpell: (Spell*)incSpell withBook:(id)spellBook{
-	if( !incSpell || !spellBook || [spellBook count] == 0 )
-		return nil;
-	
-    Spell *highestRankSpell = incSpell;
-	
-	NSArray *spellList = [NSArray array];
-	if ( [spellBook isKindOfClass:[NSArray array]] ){
-		spellList = spellBook;
-	}
-	else if ( [spellBook isKindOfClass:[NSDictionary dictionary]] ){
-		spellList = [(NSDictionary*)spellBook allValues];
-	}
-	
-    for ( Spell *spell in spellList ){
-		
-        // if the spell names match
-        if ( [spell name] && [spell rank] && [[spell name] isEqualToString: [incSpell name]] ){
-			
-            // see which one has the higher rank
-            if ( [[spell rank] intValue] > [[highestRankSpell rank] intValue] ){
-                highestRankSpell = spell;
-			}
-        }
-    }
-    
-    return highestRankSpell;
-}
-
-- (Spell*)highestRankOfSpellForPlayer: (Spell*)incSpell {
-	return [self highestRankOfSpell:incSpell withBook:_playerSpells]; 
-}
-
-
-- (Spell*)highestRankOfSpell: (Spell*)incSpell {
-	return [self highestRankOfSpell:incSpell withBook:_spellBook]; 
-}
-
 - (Spell*)playerSpellForName: (NSString*)spellName{
 	if(!spellName) return nil;
 
@@ -515,7 +486,7 @@ static SpellController *sharedSpells = nil;
     
     // make sure our state is valid
     MemoryAccess *memory = [controller wowMemoryAccess];
-    if( !memory || ![self isSpellListValid] )  {
+    if( !memory )  {
         NSBeep();
         return;
     }
@@ -1061,11 +1032,7 @@ static SpellController *sharedSpells = nil;
 				Spell *spell = [self spellForID:actionID];
 				
 				if ( spell ){
-					NSString *rank = @"";
-					if ( [spell rank] ){
-						rank = [NSString stringWithFormat:@" Rank: %@", [spell rank]];
-					}
-					[error appendString:[NSString stringWithFormat:@"Spell: %@ <%@>%@\n", [spell name], actionID, rank]];
+					[error appendString:[NSString stringWithFormat:@"Spell: %@ <%@>\n", [spell name], actionID]];
 				}
 				else{
 					[error appendString:[NSString stringWithFormat:@"Spell: <%@>\n", actionID]];

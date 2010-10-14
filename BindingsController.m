@@ -184,9 +184,9 @@ typedef struct WoWBinding {
 	
 	// find the address of our key bindings manager
 	if ( [memory loadDataForObject: self atAddress: offset Buffer: (Byte*)&bindingsManager BufLength: sizeof(bindingsManager)] && bindingsManager ){
-		
+
 		// load the first struct
-		[memory loadDataForObject: self atAddress: bindingsManager + 0xD4 Buffer: (Byte*)&firstStruct BufLength: sizeof(firstStruct)];
+		[memory loadDataForObject: self atAddress: bindingsManager + 0xC4 Buffer: (Byte*)&firstStruct BufLength: sizeof(firstStruct)];
 		
 		structPointer = firstStruct;
 		

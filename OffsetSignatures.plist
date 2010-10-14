@@ -82,11 +82,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x89\x5C\x24\x04\xC7\x44\x24\x08\x86\x01\x00\x00\xC7\x04\x24\x00\xD1\x26\x01</string>
+			<string>\xC7\x44\x24\x08\x86\x01\x00\x00\xC7\x04\x24\xC0\x1B\xFD\x00\x89\x44\x24\x04</string>
 			<key>Mask</key>
-			<string>xxxxxxxxxxxxxxx????</string>
+			<string>xxxxxxxxxxx????xxxx</string>
 			<key>Comment</key>
-			<string>From 4.0.3: sub_82E700</string>
+			<string>From 4.0.1: sub_6F93C0</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -103,11 +103,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x8B\x45\xF4\x8D\x04\x80\x8B\x04\x85\x68\xAF\x26\x01</string>
+			<string>\xC1\xE6\x04\x8B\x86\xE4\xFA\xFC\x00\x2D\x00\x00\x00\x80</string>
 			<key>Mask</key>
-			<string>xxxxxxxxx????</string>
+			<string>xxxxx????xxxxx</string>
 			<key>Comment</key>
-			<string>4.0.3: lua_GetNumCompanions</string>
+			<string>4.0.1: lua_GetNumCompanions</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -122,13 +122,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\xA1\x00\xC9\x12\x01\x85\xC0\x89\x45\xE4\x0F\x84\xAC\x00\x00\x00</string>
+			<string>\xA1\x40\xAF\xE9\x00\x31\xDB\x89\x45\xE4\xC7\x44\x24\x08\x00\x00\x00\x00</string>
 			<key>Mask</key>
-			<string>x????xxxxxxx????</string>
-			<key>Count</key>
-			<string>2</string>
+			<string>x????xxxxxxxxxxxxx</string>
 			<key>Comment</key>
-			<string>From 4.0.3: lua_GetBindingKey</string>
+			<string>From 4.0.1: lua_GetBindingKey</string>
 		</dict>
 		<key>ppc</key>
 		<dict>
@@ -585,16 +583,16 @@
 			<string>0x10000</string>
 		</dict>
 	</dict>
-	<key>KNOWN_SPELLS_STATIC</key>
+	<key>lua_GetSpellBookItemInfo</key>
 	<dict>
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\xE8\xEF\x49\xC3\x00\xC7\x44\x24\x08\x00\x10\x00\x00\xC7\x44\x24\x04\x00\x00\x00\x00\xC7\x04\x24\x40\xAC\xFC\x00\xE8\xD3\x49\xC3\x00</string>
+			<string>\x78\x24\x85\xC0\x75\x30\x3B\x15\x68\xFB\xFC\x00</string>
 			<key>Mask</key>
-			<string>x%%%%xxxxxxxxxxxxxxxxxxx????x%%%%</string>
+			<string>xxxxxxxx????</string>
 			<key>Comment</key>
-			<string>From 3.3.0: sub_65E7F0</string>
+			<string>From 4.0.1: lua_GetSpellBookItemInfo</string>
 		</dict>
 		<key>ppc</key>
 		<dict>

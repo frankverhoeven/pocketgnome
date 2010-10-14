@@ -24,6 +24,7 @@
  */
 
 #import <Cocoa/Cocoa.h>
+#import "ClientDbDefines.h"
 
 // offsets listed are for windows, i'm too lazy to remove
 typedef enum ClientDbType{

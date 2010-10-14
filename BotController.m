@@ -8336,7 +8336,11 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
-	NSLog(@"Testing this out! %d", [[playerController player] charm]);
+	SpellDbc spell;
+	NSLog(@"O rly? %@", databaseManager);
+	[databaseManager getObjectForRow:34898 withTable:Spell_ withStruct:&spell withStructSize:(size_t)sizeof(spell)];
+	
+	NSLog(@"What did we find? 0x%X", spell.Id);
 	
 	
 	/*

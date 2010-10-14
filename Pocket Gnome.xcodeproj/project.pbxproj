@@ -1305,7 +1305,6 @@
 		29B97314FDCFA39411CA2CEA /* WoWWaypoint */ = {
 			isa = PBXGroup;
 			children = (
-				03FE91AB125FB5C700A40445 /* Lua */,
 				83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				7D97730C0D2DBF2800E6D8F9 /* GUI Controllers */,
@@ -1329,6 +1328,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				03FE91AB125FB5C700A40445 /* Lua */,
 				7D41E8B60DEA31DD00118EA0 /* ImageAndTextCell.h */,
 				7D41E8B70DEA31DD00118EA0 /* ImageAndTextCell.m */,
 				7D2167440DC4566600D5A815 /* PTKeyCode */,

@@ -172,6 +172,8 @@ typedef struct ClientDb {
 	if ( memory && [memory isValid] ){
         
 		UInt32 firstOffset = [offsetController offset:@"ClientDb_RegisterBase"] + 0x21;
+		NSLog(@"first is what? 0x%X", firstOffset);
+		
 		int i = 0;
 		for ( ; i < 0xEC; i++ ){
 			UInt32 ptr = [memory readInt:firstOffset + (0x29*i) withSize:sizeof(UInt32)];
@@ -180,7 +182,7 @@ typedef struct ClientDb {
 			
 			[_tables setObject:[NSNumber numberWithUnsignedInt:tableAddress] forKey:[NSNumber numberWithInt:offset]];       // 0x194
 			
-			//PGLog(@"[%d] Adding address 0x%X for 0x%X", i, tableAddress, offset);
+			PGLog(@"[%d] Adding address 0x%X for 0x%X", i, tableAddress, offset);
 		}
 	}
 	

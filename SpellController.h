@@ -55,8 +55,6 @@
 
 - (Spell*)spellForName: (NSString*)name;
 - (Spell*)spellForID: (NSNumber*)spellID;
-- (Spell*)highestRankOfSpell: (Spell*)spell;
-- (Spell*)highestRankOfSpellForPlayer: (Spell*)spell;
 - (Spell*)playerSpellForName: (NSString*)spellName;
 - (Spell*)mountSpell: (int)type andFast:(BOOL)isFast;
 - (int)mountsLoaded;

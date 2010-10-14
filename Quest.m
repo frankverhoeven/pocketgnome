@@ -127,7 +127,6 @@
 #define ITEM_NUM_SEPERATOR		@"</a></span>&nbsp;("
 #define REWARDS_SEPERATOR		@"<h3>Rewards</h3>"
 
-#define RANK_SEPARATOR      @"<b class=\"q0\">Rank "
 #define SCHOOL_SEPARATOR    @"School</th><td>"
 #define DISPEL_SEPARATOR    @"Dispel type</th><td style=\"border-bottom: 0\">"
 #define COST_SEPARATOR      @"Cost</th><td style=\"border-top: 0\">"
@@ -144,7 +143,7 @@
     
     [_connection cancel];
     [_connection release];
-    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://cata.wowhead.com/?quest=%@", [self questID]]]] delegate: self];
+    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://wowhead.com/?quest=%@", [self questID]]]] delegate: self];
     if(_connection) {
         [_downloadData release];
         _downloadData = [[NSMutableData data] retain];
