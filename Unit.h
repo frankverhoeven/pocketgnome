@@ -50,17 +50,14 @@ enum eUnitBaseFields {
     
     // BaseField_CurrentStance          = 0xB40, // this seems to have dissapeared in 3.0.8
     
-    BaseField_Auras_ValidCount          = 0xDBC,
-    BaseField_Auras_Start               = 0xC3C,
+    BaseField_Auras_ValidCount          = 0xF24,
+    BaseField_Auras_Start               = 0xCE4,
     
     // I'm not entirely sure what the story is behind these pointers
     // but it seems that once the player hits > 16 buffs/debuffs (17 or more)
     // the Aura fields in the player struct is abandoned and moves elsewhere
-    BaseField_Auras_OverflowValidCount  = 0xC40,
-    BaseField_Auras_OverflowPtr1        = 0xC44,    // 3.0.8-9: i could not verify overflow 2, 3, 4
-    // BaseField_Auras_OverflowPtr2        = 0xEA4, // but since they aren't actually used, I don't think it matters.
-    // BaseField_Auras_OverflowPtr3        = 0xF3C,
-    // BaseField_Auras_OverflowPtr4        = 0xF94,
+    BaseField_Auras_OverflowValidCount  = 0xCE8,
+    BaseField_Auras_OverflowPtr1        = 0xCEC,
 };
 
 // Added from: http://www.mmowned.com/forums/wow-memory-editing/257771-wow-constant-data-enums-structs-etc.html

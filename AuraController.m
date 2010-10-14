@@ -88,6 +88,9 @@ typedef struct WoWAura {
     UInt32  bytes;
     UInt32  duration;
     UInt32  expiration;
+	UInt32	unk1;
+	UInt32	unk2;
+	UInt32	unk3;
 } WoWAura;
 
 
@@ -126,64 +129,20 @@ typedef struct WoWAura {
     // get the number of valid aura buckets
     [wowMemory readAddress: ([unit baseAddress] + BaseField_Auras_ValidCount) Buffer: (Byte*)&validAuras BufLength: sizeof(validAuras)];
 	
-	/*
-	SInt32 tableLocation = 0;
-	UInt32 tableAddress = 0;
-	[wowMemory readAddress: ([unit baseAddress] + 0xDB4) Buffer: (Byte*)&tableLocation BufLength: sizeof(tableLocation)];
-	
-	if ( tableLocation == -1 ){
-		tableAddress = [unit baseAddress] + 0xC4C;
-	}
-	else{
-		tableAddress = [unit baseAddress] + 0xC34;
-	}
-	
-	
-	
-	NSMutableArray *auras = [NSMutableArray array];
-	// Read the first aura!
-	WoWAura aura;
-	[wowMemory loadDataForObject: self atAddress: (tableAddress) + sizeof(aura) Buffer:(Byte*)&aura BufLength: sizeof(aura)];
-	if(IDs) [auras addObject: [NSNumber numberWithUnsignedInt: aura.entryID]];
-	else    [auras addObject: [Aura auraEntryID: aura.entryID 
-										   GUID: aura.guid
-										  bytes: aura.bytes 
-									   duration: aura.duration 
-									 expiration: aura.expiration]];
-	
-	// While we have valid spells!
-	UInt i = 1;
-	while ( aura.entryID != 0 ){
-		
-		[wowMemory loadDataForObject: self atAddress: (tableAddress) + i*sizeof(aura) Buffer:(Byte*)&aura BufLength: sizeof(aura)];
-		
-		
-		if(IDs) [auras addObject: [NSNumber numberWithUnsignedInt: aura.entryID]];
-		else    [auras addObject: [Aura auraEntryID: aura.entryID 
-											   GUID: aura.guid
-											  bytes: aura.bytes 
-										   duration: aura.duration 
-										 expiration: aura.expiration]];
-		
-		//log(LOG_GENERAL, @"Found aura %d.", aura.entryID);
-		
-		i++;
-	}
-	*/
-	
     // we're overflowing. try the backup.
-    if(validAuras == 0xFFFFFFFF) {
+    if ( validAuras == 0xFFFFFFFF) {
         [wowMemory readAddress: ([unit baseAddress] + BaseField_Auras_OverflowValidCount) Buffer: (Byte*)&validAuras BufLength: sizeof(validAuras)];
-		//log(LOG_GENERAL, @"[Auras] Lot of auras! Switching to backup!");
+		log(LOG_GENERAL, @"[Auras] Lot of auras! Switching to backup!");
 	}
     
     if ( validAuras <= 0 || validAuras > 500 ) {
-		//log(LOG_GENERAL, @"[Auras] Not a valid aura count %d", validAuras);
+		log(LOG_GENERAL, @"[Auras] Not a valid aura count %d", validAuras);
 		return nil;
 	}
 	
     UInt32 aurasAddress = [unit baseAddress] + BaseField_Auras_Start;
-    if(validAuras > 16) {
+    if ( validAuras > 16 ) {
+		
         // aura overflow
         UInt32 newAddr = 0;
         if([wowMemory loadDataForObject: self atAddress: ([unit baseAddress] + BaseField_Auras_OverflowPtr1) Buffer: (Byte*)&newAddr BufLength: sizeof(newAddr)] && newAddr) {
@@ -733,8 +692,7 @@ typedef struct WoWAura {
             // build our info dict for the auras window
             Spell *spell = [[SpellController sharedSpells] spellForID: auraID];
             NSString *name = ([spell name] ? [spell name] : @"(Unknown)");
-            
-            
+
             float timeRemaining = [aura expiration] ? ([aura expiration] - currentTime)/1000.0f : INFINITY;
             NSDate *expiration = [aura expiration] ? [NSDate dateWithTimeIntervalSinceNow: timeRemaining] : [NSDate distantFuture];
             
