@@ -145,6 +145,7 @@ static Controller* sharedController = nil;
 		[self release];
 		self = sharedController;
 	} else if(self != nil) {
+		
         sharedController = self;
         _items = [[NSMutableArray array] retain];
         _mobs = [[NSMutableArray array] retain];

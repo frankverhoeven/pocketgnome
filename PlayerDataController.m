@@ -250,6 +250,7 @@ static PlayerDataController* sharedController = nil;
 // 4 reads
 //  could take this down to 3 if we store the global GUID somewhere + ONLY reset when player is invalid
 - (BOOL)playerIsValid: (id)sender {
+
     // check that our so-called player struct has the correct signature
     MemoryAccess *memory = [controller wowMemoryAccess];
     
@@ -336,13 +337,14 @@ static PlayerDataController* sharedController = nil;
         _lastState = YES;
         [self didChangeValueForKey: @"playerIsValid"];
         [self didChangeValueForKey: @"playerHeader"];
-        
+		
         // reset internal state info variables
         self.wasDead = [self isDead];
         savedLevel = 0;
 
         // and start the update process
         [self performSelector: @selector(refreshPlayerData) withObject: nil afterDelay: _updateFrequency];
+
         return;
     }
     

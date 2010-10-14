@@ -181,11 +181,13 @@ static MemoryAccess *sharedMemoryAccess = nil;
     
     
     NSString *className = [object className];
-    if( [_loaderDict objectForKey: className]) {
-        [_loaderDict setObject: [NSNumber numberWithInt: [[_loaderDict objectForKey: className] intValue]+1] forKey: className];
-    } else {
-        [_loaderDict setObject: [NSNumber numberWithInt: 1] forKey: className];
-    }
+	if ( className ){
+		if( [_loaderDict objectForKey: className]) {
+			[_loaderDict setObject: [NSNumber numberWithInt: [[_loaderDict objectForKey: className] intValue]+1] forKey: className];
+		} else {
+			[_loaderDict setObject: [NSNumber numberWithInt: 1] forKey: className];
+		}
+	}
 	
 	/*
 	 if(readsProcessed % 20000 == 0) {

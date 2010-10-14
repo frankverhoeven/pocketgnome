@@ -46,7 +46,7 @@ enum eUnitBaseFields {
     
     BaseField_SelectionFlags            = 0xA80,	// (1 << 12) when a unit is selected, (1 << 13) when it is focused
     
-    BaseField_Player_CurrentTime        = 0xAB0,
+    //BaseField_Player_CurrentTime        = 0xAB0,	// disappeared as of 4.x
     
     // BaseField_CurrentStance          = 0xB40, // this seems to have dissapeared in 3.0.8
     

@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10C540</string>
-		<string key="IBDocument.InterfaceBuilderVersion">732</string>
-		<string key="IBDocument.AppKitVersion">1038.25</string>
-		<string key="IBDocument.HIToolboxVersion">458.00</string>
+		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.InterfaceBuilderVersion">762</string>
+		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
@@ -15,7 +15,7 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>732</string>
+				<string>762</string>
 				<string>1</string>
 			</object>
 		</object>
@@ -1687,7 +1687,7 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="795233067">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1696,7 +1696,6 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 81}, {375, 17}}</string>
 							<reference key="NSSuperview" ref="795233067"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1021952606">
 								<int key="NSCellFlags">68288064</int>
@@ -1713,7 +1712,6 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{299, 12}, {96, 32}}</string>
 							<reference key="NSSuperview" ref="795233067"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="193914119">
 								<int key="NSCellFlags">67239424</int>
@@ -1734,7 +1732,6 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{190, 12}, {109, 32}}</string>
 							<reference key="NSSuperview" ref="795233067"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="870604624">
 								<int key="NSCellFlags">67239424</int>
@@ -1755,7 +1752,6 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{17, 56}, {103, 17}}</string>
 							<reference key="NSSuperview" ref="795233067"/>
-							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="977326868">
 								<int key="NSCellFlags">68288064</int>
@@ -1769,8 +1765,6 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 						</object>
 					</object>
 					<string key="NSFrameSize">{409, 118}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -4339,14 +4333,10 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<string>test2:</string>
 							<string>test:</string>
 							<string>testHotkey:</string>
-							<string>toggleAllChat:</string>
-							<string>toggleWallWalk:</string>
 							<string>updateStatus:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -6564,6 +6554,7 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
+		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin.macosx</string>
 			<integer value="1050" key="NS.object.0"/>
@@ -6579,5 +6570,36 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<string key="IBDocument.LastKnownRelativeProjectPath">Pocket Gnome.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<bool key="EncodedWithXMLCoder">YES</bool>
+			<object class="NSArray" key="dict.sortedKeys">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>HotkeyFinished</string>
+				<string>InteractWithTarget</string>
+				<string>InterfaceBars</string>
+				<string>Keybindings</string>
+				<string>NSActionTemplate</string>
+				<string>NSMenuCheckmark</string>
+				<string>NSMenuMixedState</string>
+				<string>NSSwitch</string>
+				<string>Result</string>
+				<string>Spell_Holy_MindVision</string>
+				<string>TypeShortcut</string>
+			</object>
+			<object class="NSMutableArray" key="dict.values">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{189, 39}</string>
+				<string>{499, 186}</string>
+				<string>{575, 213}</string>
+				<string>{489, 104}</string>
+				<string>{15, 15}</string>
+				<string>{9, 8}</string>
+				<string>{7, 2}</string>
+				<string>{15, 15}</string>
+				<string>{300, 102}</string>
+				<string>{67.7747, 67.7747}</string>
+				<string>{187, 39}</string>
+			</object>
+		</object>
 	</data>
 </archive>

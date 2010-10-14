@@ -235,7 +235,6 @@
 		7D41EEF10DECD7C600118EA0 /* Troll-Male_Small.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7D41EEDF0DECD7C600118EA0 /* Troll-Male_Small.gif */; };
 		7D41EEFD0DECD85000118EA0 /* NightElf-Male_Small.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7D41EEFB0DECD85000118EA0 /* NightElf-Male_Small.gif */; };
 		7D41EEFE0DECD85000118EA0 /* NightElf-Female_Small.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7D41EEFC0DECD85000118EA0 /* NightElf-Female_Small.gif */; };
-		7D45A6BA0E4461CA008A3601 /* BonjourController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45A6B90E4461CA008A3601 /* BonjourController.m */; };
 		7D45A6CC0E4461DE008A3601 /* NSData+SockAddr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45A6CB0E4461DE008A3601 /* NSData+SockAddr.m */; };
 		7D4AFB340D9EDBF100A33CE1 /* bad.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7D4AFB320D9EDBF100A33CE1 /* bad.tif */; };
 		7D4AFB350D9EDBF100A33CE1 /* good.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7D4AFB330D9EDBF100A33CE1 /* good.tif */; };
@@ -383,7 +382,6 @@
 		7DE983820E2B2BA800F41293 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DE983810E2B2BA800F41293 /* NSString+Extras.m */; };
 		7DF445530E241ABA0075B96B /* TotemConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DF445520E241ABA0075B96B /* TotemConditionController.m */; };
 		7DF445550E241AE30075B96B /* TotemCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DF445540E241AE30075B96B /* TotemCondition.xib */; };
-		83A9BBF21178BA03003E3683 /* buildnumber.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -759,8 +757,6 @@
 		7D41EEDF0DECD7C600118EA0 /* Troll-Male_Small.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "Troll-Male_Small.gif"; sourceTree = "<group>"; };
 		7D41EEFB0DECD85000118EA0 /* NightElf-Male_Small.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "NightElf-Male_Small.gif"; sourceTree = "<group>"; };
 		7D41EEFC0DECD85000118EA0 /* NightElf-Female_Small.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "NightElf-Female_Small.gif"; sourceTree = "<group>"; };
-		7D45A6B80E4461CA008A3601 /* BonjourController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BonjourController.h; sourceTree = "<group>"; };
-		7D45A6B90E4461CA008A3601 /* BonjourController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BonjourController.m; sourceTree = "<group>"; };
 		7D45A6CA0E4461DE008A3601 /* NSData+SockAddr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SockAddr.h"; sourceTree = "<group>"; };
 		7D45A6CB0E4461DE008A3601 /* NSData+SockAddr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SockAddr.m"; sourceTree = "<group>"; };
 		7D4AFB320D9EDBF100A33CE1 /* bad.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = bad.tif; sourceTree = "<group>"; };
@@ -976,9 +972,8 @@
 		7DF445510E241ABA0075B96B /* TotemConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotemConditionController.h; sourceTree = "<group>"; };
 		7DF445520E241ABA0075B96B /* TotemConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotemConditionController.m; sourceTree = "<group>"; };
 		7DF445540E241AE30075B96B /* TotemCondition.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotemCondition.xib; sourceTree = "<group>"; };
-		83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = buildnumber.xcconfig; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* Pocket Gnome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pocket Gnome.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* ggteabag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ggteabag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02F3C541182C37E000F4037 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		D02F3C551182C37E000F4037 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		D02F3C5B1182C497000F4037 /* MailActionProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailActionProfile.h; sourceTree = "<group>"; };
@@ -1236,8 +1231,6 @@
 				03981E77112B898E0081835F /* MovementController.m */,
 				7D06F0400D23058B00DA4E99 /* AuraController.h */,
 				7D06F0410D23058B00DA4E99 /* AuraController.m */,
-				7D45A6B80E4461CA008A3601 /* BonjourController.h */,
-				7D45A6B90E4461CA008A3601 /* BonjourController.m */,
 				7D370C050E7366DC002FE3A4 /* ActionMenusController.h */,
 				7D370C060E7366DC002FE3A4 /* ActionMenusController.m */,
 				034429BE0FAA3E5600E9DE03 /* QuestController.h */,
@@ -1297,7 +1290,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* Pocket Gnome.app */,
+				8D1107320486CEB800E47090 /* ggteabag.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1305,7 +1298,6 @@
 		29B97314FDCFA39411CA2CEA /* WoWWaypoint */ = {
 			isa = PBXGroup;
 			children = (
-				83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				7D97730C0D2DBF2800E6D8F9 /* GUI Controllers */,
 				7D65C8F60D2EE0B100C50DF7 /* GUI Subclasses */,
@@ -1939,7 +1931,7 @@
 			name = "Pocket Gnome";
 			productInstallPath = "$(HOME)/Applications";
 			productName = WoWWaypoint;
-			productReference = 8D1107320486CEB800E47090 /* Pocket Gnome.app */;
+			productReference = 8D1107320486CEB800E47090 /* ggteabag.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2170,7 +2162,6 @@
 				034126C4113570E100BE6819 /* PvP.xib in Resources */,
 				0352F46611376DA5005B28D6 /* PVP.png in Resources */,
 				03A3211B114E9AC2000D23EE /* JumpToWaypointAction.xib in Resources */,
-				83A9BBF21178BA03003E3683 /* buildnumber.xcconfig in Resources */,
 				03CD6AC41183D5AC00CCABFE /* Profiles.xib in Resources */,
 				0331619611AAF1B900467490 /* appcast.xml in Resources */,
 			);
@@ -2264,7 +2255,6 @@
 				7DE983820E2B2BA800F41293 /* NSString+Extras.m in Sources */,
 				7DE53DDB0E32B84C00C59033 /* IgnoreEntry.m in Sources */,
 				7DB8222F0E33384300661394 /* TempEnchantConditionController.m in Sources */,
-				7D45A6BA0E4461CA008A3601 /* BonjourController.m in Sources */,
 				7D45A6CC0E4461DE008A3601 /* NSData+SockAddr.m in Sources */,
 				7DBEC7DB0E4512D800994A7A /* GrabWindow.m in Sources */,
 				7D7C66BC0E58E92F002A6C96 /* TargetTypeConditionController.m in Sources */,
@@ -2400,7 +2390,6 @@
 /* Begin XCBuildConfiguration section */
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
@@ -2461,7 +2450,6 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */;
 			buildSettings = {
 				ALTERNATE_GROUP = "$(INSTALL_GROUP)";
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";
@@ -2484,7 +2472,6 @@
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 83A9BBF11178BA03003E3683 /* buildnumber.xcconfig */;
 			buildSettings = {
 				ALTERNATE_GROUP = "$(INSTALL_GROUP)";
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT_PRE_XCODE_3_1)";

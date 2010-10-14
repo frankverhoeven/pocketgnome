@@ -854,12 +854,6 @@ enum SheathState
             case BaseField_Auras_OverflowValidCount:
                 desc = @"Auras Valid Count 2";
                 break;
-				
-            case BaseField_Player_CurrentTime:
-                if([self isPlayer]) {
-                    desc = @"Current Time";
-                }
-                break;
         }
     } else {
         int revOffset = offset - ([self unitFieldAddress] - [self baseAddress]);

@@ -172,7 +172,7 @@ static SpellController *sharedSpells = nil;
 			
 			UInt32 spellStruct = 0, spellID = 0, isKnown = 0;
 			
-			for ( i = 0; i <= totalSpells; i++ ){
+			for ( i = 0; i < totalSpells; i++ ){
 				[memory loadDataForObject: self atAddress: spellBookInfoPtr + i * 4 Buffer: (Byte *)&spellStruct BufLength: sizeof(spellStruct)];
 				[memory loadDataForObject: self atAddress: spellStruct + 0x4 Buffer: (Byte *)&spellID BufLength: sizeof(spellID)];
 				[memory loadDataForObject: self atAddress: spellStruct Buffer: (Byte *)&isKnown BufLength: sizeof(isKnown)];	// not needed

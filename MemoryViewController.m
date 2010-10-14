@@ -112,7 +112,6 @@ typedef enum ViewTypes {
 }
 
 - (void)setRefreshFrequency: (float)frequency {
- 	log(LOG_FUNCTION, @"setRefreshFrequency called.");
     [_refreshTimer invalidate];
     [_refreshTimer release];
 	
