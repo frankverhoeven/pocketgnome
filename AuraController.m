@@ -746,9 +746,7 @@ typedef struct WoWAura {
         [_playerAuras sortUsingDescriptors: [aurasPanelTable sortDescriptors]];
         [aurasPanelTable reloadData];
     }
-	
-	NSLog(@"scanning buffs...");
-    
+
     _firstRun = NO;
     [self performSelector: @selector(scanAllBuffs:) withObject: nil afterDelay: 1.0];
 }
