@@ -8336,6 +8336,52 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
+	// this is how much fun I am!!!
+	
+	NSLog(@"Time: %d", [playerController currentTime]);
+	
+	return;
+	
+	
+	/*
+	
+	
+	MemoryAccess *memory = [controller wowMemoryAccess];
+	
+	UInt32 UIBase = 0x0, FirstFrame = 0x0, NextFrame = 0x0;;
+	[memory loadDataForObject: self atAddress: 0xE9EA00 Buffer: (Byte*)&UIBase BufLength: sizeof(UIBase)];
+	[memory loadDataForObject: self atAddress: 0xE9EA00 + 0xCE4 Buffer: (Byte*)&FirstFrame BufLength: sizeof(FirstFrame)];
+	[memory loadDataForObject: self atAddress: 0xE9EA00 + 0xCDC Buffer: (Byte*)&NextFrame BufLength: sizeof(NextFrame)];
+	
+	UInt32 Frame = FirstFrame;
+	
+	if ( Frame & 1 || !Frame ){
+		Frame = 0;
+	}
+	
+	for ( i = 0; !(Frame & 1); 
+	
+	
+	v1 = *(_DWORD *)(dword_E9EA00 + 0xCE4);
+	if ( v1 & 1 || !v1 )
+		v1 = 0;
+	for ( i = 0; !(v1 & 1); v1 = *(_DWORD *)(*(_DWORD *)(dword_E9EA00 + 0xCDC) + v1 + 4) )
+	{
+		if ( !v1 )
+			break;
+		++i;
+	}
+
+	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	SpellDbc spell;
 	NSLog(@"O rly? %@", databaseManager);
 	[databaseManager getObjectForRow:34898 withTable:Spell_ withStruct:&spell withStructSize:(size_t)sizeof(spell)];

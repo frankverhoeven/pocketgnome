@@ -32,19 +32,20 @@ enum eUnitBaseFields {
     BaseField_RunSpeed_Back             = 0x8F4,	// 3.0.9: 0x844
     BaseField_AirSpeed_Max              = 0x900,	// 3.0.9: 0x850
     
-
-    BaseField_Spell_ToCast              = 0xA54,	// 3.0.9: 0xA28
-    BaseField_Spell_Casting             = 0xA58,	// 3.0.9: 0xA2C
-    BaseField_Spell_TargetGUID_Low      = 0xA5C,	// 3.0.9: 0xA30  (not sure how to verify if 3.1.0 offset is correct)
-    BaseField_Spell_TargetGUID_High     = 0xA62,	// 3.0.9: 0xA34  (not sure how to verify if 3.1.0 offset is correct)
-    BaseField_Spell_TimeStart           = 0xA6C,	// 3.0.9: 0xA38
-    BaseField_Spell_TimeEnd             = 0xA70,	// 3.0.9: 0xA3C
+	// lua_UnitCastingInfo
+    BaseField_Spell_ToCast              = 0xB08,	// 3.0.9: 0xA28
+    BaseField_Spell_Casting             = 0xB0C,	// spell the player is casting
+    BaseField_Spell_TargetGUID_Low      = 0xB10,
+    BaseField_Spell_TargetGUID_High     = 0xB14,
+    BaseField_Spell_TimeStart           = 0xB18,
+    BaseField_Spell_TimeEnd             = 0xB1C,
     
-    BaseField_Spell_Channeling          = 0xA74,	// 3.0.9: 0xA40
-    BaseField_Spell_ChannelTimeStart    = 0xA78,	// 3.0.9: 0xA44
-    BaseField_Spell_ChannelTimeEnd      = 0xA7C,	// 3.0.9: 0xA48
+	// lua_UnitChannelInfo
+    BaseField_Spell_Channeling          = 0xB20,	// this is the spell ID
+    BaseField_Spell_ChannelTimeStart    = 0xB24,	// same time value as currentTime
+    BaseField_Spell_ChannelTimeEnd      = 0xB28,
     
-    BaseField_SelectionFlags            = 0xA80,	// (1 << 12) when a unit is selected, (1 << 13) when it is focused
+    BaseField_SelectionFlags            = 0xB30,	// (1 << 12) when a unit is selected, (1 << 13) when it is focused
     
     //BaseField_Player_CurrentTime        = 0xAB0,	// disappeared as of 4.x
     

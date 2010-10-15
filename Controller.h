@@ -147,7 +147,6 @@ BOOL Ascii2Virtual(char pcar, BOOL *pshift, BOOL *palt, char *pkeycode);
 - (int)getWOWWindowID;
 - (CGRect)wowWindowRect;
 - (unsigned)refreshDelay;
-- (unsigned)refreshDelayReal;
 - (Position*)cameraPosition;
 - (NSString*)wowVersionShort;
 - (NSString*)wowVersionLong;

@@ -1,4 +1,4 @@
-// Version: 4.0.3  Build number: 13117  Build date: Sep 29 2010
+// Version: 4.0.1  Build number: 13164  Build date: Oct  6 2010
 
 /*----------------------------------
  WoW Offset Dumper 0.2 - IDC Script
@@ -8,7 +8,7 @@
  bobbysing, Patrick, Dominik, Azorbix, Tanaris4
  -----------------------------------*/
 
-// Descriptors: 0x01122DC0
+// Descriptors: 0x00E92AA0
 enum eObjectFields
 {
 	OBJECT_FIELD_GUID = 0x0,
@@ -19,7 +19,7 @@ enum eObjectFields
 	OBJECT_FIELD_PADDING = 0x1C,
 	TOTAL_OBJECT_FIELDS = 0x6
 };
-// Descriptors: 0x01122A60
+// Descriptors: 0x00E92740
 enum eItemFields
 {
 	ITEM_FIELD_OWNER = 0x0,
@@ -66,7 +66,7 @@ enum eItemFields
 	ITEM_FIELD_PAD = 0xFC,
 	TOTAL_ITEM_FIELDS = 0x2A
 };
-// Descriptors: 0x01122A20
+// Descriptors: 0x00E92700
 enum eContainerFields
 {
 	CONTAINER_FIELD_NUM_SLOTS = 0x0,
@@ -74,7 +74,7 @@ enum eContainerFields
 	CONTAINER_FIELD_SLOT_1 = 0x8,
 	TOTAL_CONTAINER_FIELDS = 0x3
 };
-// Descriptors: 0x01122280
+// Descriptors: 0x00E91F60
 enum eUnitFields
 {
 	UNIT_FIELD_CHARM = 0x0,
@@ -176,8 +176,8 @@ enum eUnitFields
 	UNIT_FIELD_MAXITEMLEVEL = 0x274,
 	TOTAL_UNIT_FIELDS = 0x61
 };
-// Descriptors: 0x011209A0
-enum ePlayerFields2
+// Descriptors: 0x00E90680
+enum ePlayerFields
 {
 	PLAYER_DUEL_ARBITER = 0x0,
 	PLAYER_FLAGS = 0x8,
@@ -498,7 +498,7 @@ enum ePlayerFields2
 	PLAYER_FIELD_HOME_REALM_TIME_OFFSET = 0x13FC,
 	TOTAL_PLAYER_FIELDS = 0x13D
 };
-// Descriptors: 0x01120900
+// Descriptors: 0x00E905E0
 enum eGameObjectFields
 {
 	OBJECT_FIELD_CREATED_BY = 0x0,
@@ -511,7 +511,7 @@ enum eGameObjectFields
 	GAMEOBJECT_BYTES_1 = 0x2C,
 	TOTAL_GAMEOBJECT_FIELDS = 0x8
 };
-// Descriptors: 0x01120880
+// Descriptors: 0x00E90560
 enum eDynamicObjectFields
 {
 	DYNAMICOBJECT_CASTER = 0x0,
@@ -521,7 +521,7 @@ enum eDynamicObjectFields
 	DYNAMICOBJECT_CASTTIME = 0x14,
 	TOTAL_DYNAMICOBJECT_FIELDS = 0x5
 };
-// Descriptors: 0x011207E0
+// Descriptors: 0x00E904C0
 enum eCorpseFields
 {
 	CORPSE_FIELD_OWNER = 0x0,

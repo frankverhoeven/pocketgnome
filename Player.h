@@ -10,7 +10,7 @@
 #import "Unit.h"
 
 
-enum ePlayerFields {
+enum ePlayerFields2 {
 	PlayerField_Flags                           = 0x3B0, // 3.1: need to verify this!
 
 	// every 0x8 is the full 64-bit GUID of an item the player is wearing
