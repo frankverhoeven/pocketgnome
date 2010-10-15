@@ -165,15 +165,6 @@ BOOL Ascii2Virtual(char pcar, BOOL *pshift, BOOL *palt, char *pkeycode);
 - (UInt32)friendMaskForFaction: (UInt32)faction;
 - (UInt32)enemyMaskForFaction: (UInt32)faction;
 
-// security routines
-- (IBAction)toggleGUIScripting: (id)sender;
-- (IBAction)toggleSecurePrefs: (id)sender;
-- (IBAction)confirmAppRename: (id)sender;
-- (IBAction)renameUseExisting: (id)sender;
-- (IBAction)renameShowHelp: (id)sender;
-
-- (IBAction)testFront: (id)sender;
-
 - (void)traverseNameList;
 
 - (float)getPing;

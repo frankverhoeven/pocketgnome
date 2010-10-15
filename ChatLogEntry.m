@@ -178,6 +178,10 @@
             return @"Battleground (Leader)"; break;
         case 46:
             return @"Restricted"; break;
+		case 53:
+            return @"RealChat (sent)"; break;
+		case 54:
+            return @"RealChat (received)"; break;
         // case 47 - 56, channels 1 through 10?
     }
     return [NSString stringWithFormat: @"Unknown (%@)", type];
@@ -202,9 +206,11 @@
 - (NSString*)typeVerb {
     switch([self.type integerValue]) {
         case 1:
+		case 53:
             return @"says"; break;
         case 6:
             return @"yells"; break;
+		case 54:
         case 7:
         case 8:
             return @"whispers"; break;
@@ -248,7 +254,7 @@
 }
 
 - (NSArray*)whisperTypes {
-    return [NSArray arrayWithObjects: @"7", @"8", @"9", nil];
+    return [NSArray arrayWithObjects: @"7", @"8", @"9", @"53", @"54", nil];
 }
 
 - (BOOL)isWhisperSent {
