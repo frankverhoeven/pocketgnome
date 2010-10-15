@@ -32,7 +32,8 @@ enum eUnitBaseFields {
     BaseField_RunSpeed_Back             = 0x8F4,	// 3.0.9: 0x844
     BaseField_AirSpeed_Max              = 0x900,	// 3.0.9: 0x850
     
-	// lua_UnitCastingInfo 
+	// lua_UnitCastingInfo
+    BaseField_Spell_ToCast              = 0xB00,	// This is the spell we WANT to cast, and are waiting for the server to realize it should cast (the below will be set when it's been verified by the server) 
     BaseField_Spell_Casting             = 0xB0C,	// spell the player is casting
     BaseField_Spell_TargetGUID_Low      = 0xB10,
     BaseField_Spell_TargetGUID_High     = 0xB14,
