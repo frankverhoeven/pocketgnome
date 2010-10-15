@@ -32,16 +32,18 @@ enum eUnitBaseFields {
     BaseField_RunSpeed_Back             = 0x8F4,	// 3.0.9: 0x844
     BaseField_AirSpeed_Max              = 0x900,	// 3.0.9: 0x850
     
-	// lua_UnitCastingInfo
-    BaseField_Spell_ToCast              = 0xB00,	// This is the spell we WANT to cast, and are waiting for the server to realize it should cast (the below will be set when it's been verified by the server) 
-    BaseField_Spell_Casting             = 0xB0C,	// spell the player is casting
-    BaseField_Spell_TargetGUID_Low      = 0xB10,
-    BaseField_Spell_TargetGUID_High     = 0xB14,
-    BaseField_Spell_TimeStart           = 0xB18,
-    BaseField_Spell_TimeEnd             = 0xB1C,
+	// lua_SpellStopCasting
+    //BaseField_Spell_ToCast              = 0xB00,	// This is the spell we WANT to cast, and are waiting for the server to realize it should cast (the below will be set when it's been verified by the server) 
+    
+	// lua_UnitCastingInfo	
+	//BaseField_Spell_Casting             = 0xB0C,	// spell the player is casting
+    //BaseField_Spell_TargetGUID_Low      = 0xB10,	(in lua_UnitCastingInfo, but I don't use them)
+    //BaseField_Spell_TargetGUID_High     = 0xB14,
+    //BaseField_Spell_TimeStart           = 0xB18,
+    //BaseField_Spell_TimeEnd             = 0xB1C,
     
 	// lua_UnitChannelInfo
-    BaseField_Spell_Channeling          = 0xB20,	// this is the spell ID
+    //BaseField_Spell_Channeling          = 0xB20,	// this is the spell ID
     BaseField_Spell_ChannelTimeStart    = 0xB24,	// same time value as currentTime
     BaseField_Spell_ChannelTimeEnd      = 0xB28,
     

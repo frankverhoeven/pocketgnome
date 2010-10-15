@@ -39,6 +39,8 @@
 	BOOL _offsetsLoaded;
 }
 
++ (OffsetController *)sharedController;
+
 - (unsigned long) offset: (NSString*)key;
 
 - (NSDictionary*) offsetWithByteSignature: (NSString*)signature 

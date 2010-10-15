@@ -8336,6 +8336,8 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
+	
+	NSLog(@"Offset? 0x%X", [offsetController offset:@"lua_UnitCastingInfo"]);
 	// this is how much fun I am!!!
 	
 	NSLog(@"Time: %d", [playerController currentTime]);

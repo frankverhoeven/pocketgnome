@@ -883,11 +883,11 @@ static PlayerDataController* sharedController = nil;
     MemoryAccess *memory = [controller wowMemoryAccess];
     if(memory) {
         UInt32 toCastID = 0, castID = 0, channelID = 0;
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_Casting Buffer: (Byte *)&castID BufLength: sizeof(castID)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_Casting"] Buffer: (Byte *)&castID BufLength: sizeof(castID)];
         if(castID > 0) return YES;
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_ToCast Buffer: (Byte *)&toCastID BufLength: sizeof(toCastID)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_ToCast"] Buffer: (Byte *)&toCastID BufLength: sizeof(toCastID)];
         if(toCastID > 0) return YES;
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_Channeling Buffer: (Byte *)&channelID BufLength: sizeof(channelID)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_Channeling"] Buffer: (Byte *)&channelID BufLength: sizeof(channelID)];
         if(channelID > 0) return YES;
         
         /*
@@ -928,7 +928,7 @@ static PlayerDataController* sharedController = nil;
     MemoryAccess *memory = [controller wowMemoryAccess];
     if(memory) {
         UInt32 value = 0;
-        if([memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_Channeling Buffer: (Byte *)&value BufLength: sizeof(value)] && value)
+        if([memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_Channeling"] Buffer: (Byte *)&value BufLength: sizeof(value)] && value)
             return YES;
     }
     return NO;
@@ -949,17 +949,17 @@ static PlayerDataController* sharedController = nil;
     if([self isCasting] && memory) {
         UInt32 value = 0;
         // we have started to cast a spell, but are awaiting server response
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_ToCast Buffer: (Byte *)&value BufLength: sizeof(value)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_ToCast"] Buffer: (Byte *)&value BufLength: sizeof(value)];
         if(value)   return value;
         
         // we are actually casting a spell
         value = 0;
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_Casting Buffer: (Byte *)&value BufLength: sizeof(value)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_Casting"] Buffer: (Byte *)&value BufLength: sizeof(value)];
         if(value) return value;
         
         // we are chanelling a spell
         value = 0;
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_Channeling Buffer: (Byte *)&value BufLength: sizeof(value)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_Channeling"] Buffer: (Byte *)&value BufLength: sizeof(value)];
         if(value) return value;
     }
     return 0;
@@ -974,8 +974,8 @@ static PlayerDataController* sharedController = nil;
             [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_ChannelTimeEnd Buffer: (Byte *)&timeEnd BufLength: sizeof(timeEnd)];
             [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_ChannelTimeStart Buffer: (Byte *)&timeStart BufLength: sizeof(timeStart)];
         } else {
-            [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_TimeEnd Buffer: (Byte *)&timeEnd BufLength: sizeof(timeEnd)];
-            [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_TimeStart Buffer: (Byte *)&timeStart BufLength: sizeof(timeStart)];
+            [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_TimeEnd"] Buffer: (Byte *)&timeEnd BufLength: sizeof(timeEnd)];
+            [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_TimeStart"] Buffer: (Byte *)&timeStart BufLength: sizeof(timeStart)];
         }
         float time = (timeEnd - timeStart) / 1000.0f;
         return time;
@@ -991,7 +991,7 @@ static PlayerDataController* sharedController = nil;
         
         // check to see if we're casting
         UInt32 endTime = 0;
-        [memory loadDataForObject: self atAddress: [self baselineAddress] + BaseField_Spell_TimeEnd Buffer: (Byte *)&endTime BufLength: sizeof(endTime)];
+        [memory loadDataForObject: self atAddress: [self baselineAddress] + [offsetController offset:@"BaseField_Spell_TimeEnd"] Buffer: (Byte *)&endTime BufLength: sizeof(endTime)];
         if(endTime) { // we are casting and it has a designated end time
             //log(LOG_DEV, @"[cast] %d vs. %d", endTime, currentTime);
             if(endTime >= currentTime) {

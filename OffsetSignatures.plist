@@ -2,6 +2,90 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BaseField_Spell_Channeling</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\xC0\x8B\x41\x0C\x8B\x97\x20\x0B</string>
+			<key>Mask</key>
+			<string>xxxxxx??</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitChannelInfo</string>
+		</dict>
+	</dict>
+	<key>BaseField_Spell_ChannelTimeStart</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x8B\x45\xC0\x3B\x87\x28\x0B\x00\x00\x79</string>
+			<key>Mask</key>
+			<string>xxxxx??xxx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitChannelInfo</string>
+		</dict>
+	</dict>
+	<key>BaseField_Spell_ChannelTimeEnd</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x89\x44\x24\x04\xE8\x0B\x0B\x16\x00\x8B\x87\x24\x0B\x00\x00\x2D</string>
+			<key>Mask</key>
+			<string>xxxxx%%%%xx??xxx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitChannelInfo</string>
+		</dict>
+	</dict>
+	<key>BaseField_Spell_ToCast</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x85\xC0\x74\x0E\x8B\x88\x00\x0B\x00\x00\x85\xC9</string>
+			<key>Mask</key>
+			<string>xxxxxx??xxxx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_SpellStopCasting</string>
+		</dict>
+	</dict>
+	<key>BaseField_Spell_TimeStart</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x4C\x24\x04\xE8\x66\x0E\x16\x00\x8B\x87\x18\x0B\x00\x00\x2D\x00\x00\x00\x80\x66\x0F\x6E\xC0</string>
+			<key>Mask</key>
+			<string>xxxx%%%%xx??xxxxxxxxxxx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitCastingInfo</string>
+		</dict>
+	</dict>
+	<key>BaseField_Spell_TimeEnd</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x74\x88\x3B\x9F\x1C\x0B\x00\x00\x79\x80\x8B\x4A\x50\x89\x4D\xB0</string>
+			<key>Mask</key>
+			<string>xxxx??xxxxxxxxxx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitCastingInfo</string>
+		</dict>
+	</dict>
+	<key>BaseField_Spell_Casting</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x74\xB6\xE8\x0B\x7A\x21\x00\x8B\x0D\x38\xC5\x21\x01\x8B\x97\x0C\x0B\x00\x00</string>
+			<key>Mask</key>
+			<string>xxx%%%%xx%%%%xx??xx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitCastingInfo</string>
+		</dict>
+	</dict>
 	<key>BagListOffset</key>
 	<dict>
 		<key>Intel</key>

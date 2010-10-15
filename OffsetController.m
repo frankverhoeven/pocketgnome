@@ -46,11 +46,28 @@ BOOL bDataCompare(const unsigned char* pData, const unsigned char* bMask, const 
 					  withLen:(unsigned long)dw_Len;
 @end
 
+
+
 @implementation OffsetController
+
+static OffsetController* sharedController = nil;
+
++ (OffsetController *)sharedController {
+	if (sharedController == nil)
+		sharedController = [[[self class] alloc] init];
+	return sharedController;
+}
 
 - (id)init{
     self = [super init];
-    if (self != nil) {
+	if ( sharedController ){
+		[self release];
+		self = sharedController;
+	}
+    else if (self != nil) {
+		
+		sharedController = self;
+		
 		offsets = [[NSMutableDictionary alloc] init];
 		_offsetsLoaded = NO;
 		

@@ -11,6 +11,7 @@
 
 #import "SpellController.h"
 #import "PlayerDataController.h"
+#import "OffsetController.h"
 
 /*
 /// Non Player Character flags
@@ -103,11 +104,11 @@ enum NPCFlags
 - (BOOL)isCasting {
     UInt32 cast = 0, channel = 0;
     if([self isNPC]) {
-        [_memory loadDataForObject: self atAddress: ([self baseAddress] + BaseField_Spell_ToCast) Buffer: (Byte *)&cast BufLength: sizeof(cast)];
-        [_memory loadDataForObject: self atAddress: ([self baseAddress] + BaseField_Spell_Channeling) Buffer: (Byte *)&channel BufLength: sizeof(channel)];
+        [_memory loadDataForObject: self atAddress: ([self baseAddress] + [[OffsetController sharedController] offset:@"BaseField_Spell_ToCast"]) Buffer: (Byte *)&cast BufLength: sizeof(cast)];
+        [_memory loadDataForObject: self atAddress: ([self baseAddress] + [[OffsetController sharedController] offset:@"BaseField_Spell_Channeling"]) Buffer: (Byte *)&channel BufLength: sizeof(channel)];
     } else if([self isPlayer]) {
-        [_memory loadDataForObject: self atAddress: ([self baseAddress] + BaseField_Spell_Casting) Buffer: (Byte *)&cast BufLength: sizeof(cast)];
-        [_memory loadDataForObject: self atAddress: ([self baseAddress] + BaseField_Spell_Channeling) Buffer: (Byte *)&channel BufLength: sizeof(channel)];
+        [_memory loadDataForObject: self atAddress: ([self baseAddress] + [[OffsetController sharedController] offset:@"BaseField_Spell_Casting"]) Buffer: (Byte *)&cast BufLength: sizeof(cast)];
+        [_memory loadDataForObject: self atAddress: ([self baseAddress] + [[OffsetController sharedController] offset:@"BaseField_Spell_Channeling"]) Buffer: (Byte *)&channel BufLength: sizeof(channel)];
     }
     
     if( cast > 0 || channel > 0)
@@ -785,6 +786,7 @@ enum SheathState
     NSString *desc = nil;
     
     if(offset < ([self infoAddress] - [self baseAddress])) {
+		
         switch(offset) {
         
             case BaseField_RunSpeed_Current:
@@ -817,29 +819,6 @@ enum SheathState
             case BaseField_MovementFlags:
                 desc = @"Movement Flags";
                 break;
-                
-            case BaseField_Spell_ToCast:
-                desc = @"Spell ID to cast";
-                break;
-            case BaseField_Spell_Casting:
-                desc = @"Spell ID of casting spell";
-                break;
-            case BaseField_Spell_TimeStart:
-                desc = @"Time of cast start";
-                break;
-            case BaseField_Spell_TimeEnd:
-                desc = @"Time of cast end";
-                break;
-                
-            case BaseField_Spell_Channeling:
-                desc = @"Spell ID channeling";
-                break;
-            case BaseField_Spell_ChannelTimeStart:
-                desc = @"Time of channel start";
-                break;
-            case BaseField_Spell_ChannelTimeEnd:
-                desc = @"Time of channel end";
-                break;
 				
             case BaseField_Auras_Start:
                 desc = @"Start of Auras";
@@ -855,6 +834,30 @@ enum SheathState
                 desc = @"Auras Valid Count 2";
                 break;
         }
+		
+		// dynamic shit
+		if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_Casting"] ){
+			desc = @"Spell ID of casting spell";
+		}
+		else if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_TimeEnd"] ){
+			desc = @"Time of cast end";
+		}
+		else if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_TimeStart"] ){
+			desc = @"Time of cast start";
+		}
+		else if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_ToCast"] ){
+			desc = @"Spell ID to cast";
+		}
+		else if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_Channeling"] ){
+			desc = @"Spell ID channeling";
+		}
+		else if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_ChannelTimeStart"] ){
+			desc = @"Time of channel start";
+		}
+		else if ( offset == [[OffsetController sharedController] offset:@"BaseField_Spell_ChannelTimeEnd"] ){
+			desc = @"Time of channel end";
+		}
+		
     } else {
         int revOffset = offset - ([self unitFieldAddress] - [self baseAddress]);
 

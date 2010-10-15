@@ -1040,7 +1040,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 					</object>
 				</object>
-				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{700, 200}</string>
 				<object class="NSView" key="NSWindowView" id="307790377">
 					<nil key="NSNextResponder"/>
@@ -1149,7 +1149,7 @@
 									<string key="NSColorName">controlColor</string>
 									<object class="NSColor" key="NSColor" id="133276419">
 										<int key="NSColorSpace">3</int>
-										<bytes key="NSWhite">MC42NjY2NjY2NjY3AA</bytes>
+										<bytes key="NSWhite">MC42NjY2NjY2ODY1AA</bytes>
 									</object>
 								</object>
 								<object class="NSColor" key="NSTextColor" id="557612642">
@@ -1184,7 +1184,7 @@
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{700, 277}</string>
-				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSFrameAutosaveName">MainWindow</string>
 			</object>
 			<object class="NSCustomObject" id="148782052">
@@ -1240,7 +1240,7 @@
 				<string key="NSWindowTitle">Rule Editor</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
-				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{749, 477}</string>
 				<object class="NSView" key="NSWindowView" id="94846559">
 					<reference key="NSNextResponder"/>
@@ -2300,7 +2300,7 @@
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{749, 499}</string>
-				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSFrameAutosaveName">RulesEditor</string>
 			</object>
 			<object class="NSCustomView" id="992636968">
@@ -5297,9 +5297,6 @@
 			<object class="NSCustomObject" id="771133398">
 				<string key="NSClassName">PlayersController</string>
 			</object>
-			<object class="NSCustomObject" id="917762779">
-				<string key="NSClassName">BonjourController</string>
-			</object>
 			<object class="NSCustomObject" id="475998322">
 				<string key="NSClassName">ActionMenusController</string>
 			</object>
@@ -5311,7 +5308,7 @@
 				<string key="NSWindowTitle">Aura Tracker</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
-				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="249442898">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -5625,7 +5622,7 @@
 					<string key="NSFrameSize">{416, 246}</string>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSFrameAutosaveName">AuraTrackerWindow</string>
 			</object>
 			<object class="NSCustomObject" id="127609570">
@@ -5651,7 +5648,7 @@
 				<string key="NSWindowTitle">Cooldown Tracker</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
-				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="551776608">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -6319,7 +6316,7 @@
 					<string key="NSFrameSize">{1214, 239}</string>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSFrameAutosaveName">CooldownTrackerWindow</string>
 			</object>
 			<object class="NSCustomObject" id="133192392">
@@ -6351,7 +6348,7 @@
 				<string key="NSWindowTitle">Combat Tracker</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
-				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="385955084">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -6727,7 +6724,7 @@
 					<string key="NSFrameSize">{662, 245}</string>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
-				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSFrameAutosaveName">CombatTrackerWindow</string>
 			</object>
 			<object class="NSCustomObject" id="963237447">
@@ -8311,22 +8308,6 @@
 						</object>
 					</object>
 					<int key="connectionID">2717</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">playerController</string>
-						<reference key="source" ref="917762779"/>
-						<reference key="destination" ref="1002180867"/>
-					</object>
-					<int key="connectionID">2859</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">controller</string>
-						<reference key="source" ref="917762779"/>
-						<reference key="destination" ref="148782052"/>
-					</object>
-					<int key="connectionID">2860</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -12524,11 +12505,6 @@
 						<reference key="parent" ref="976539249"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">2858</int>
-						<reference key="object" ref="917762779"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">2865</int>
 						<reference key="object" ref="497776524"/>
 						<object class="NSMutableArray" key="children">
@@ -15731,9 +15707,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{-1413, 80}, {749, 477}}</string>
+					<string>{{0, 80}, {749, 477}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{-1413, 80}, {749, 477}}</string>
+					<string>{{0, 80}, {749, 477}}</string>
 					<integer value="0"/>
 					<string>{{99, 739}, {705, 301}}</string>
 					<integer value="1"/>
@@ -16966,12 +16942,10 @@
 							<string>pidSelected:</string>
 							<string>showAbout:</string>
 							<string>showSettings:</string>
-							<string>testFront:</string>
 							<string>toolbarItemSelected:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
