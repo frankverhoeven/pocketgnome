@@ -34,10 +34,10 @@
 
 #define ITEM_REINFORCED_CRATE	44475
 
-#define OFFSET_MOVED			0xB4		// When this is 1 the bobber has moved!  Offset from the base address
-#define OFFSET_STATUS			0xB6		// This is 132 when the bobber is normal, shortly after it moves it's 148, then finally finishes at 133 (is it animation state?)
+#define OFFSET_MOVED			0xCC		// When this is 1 the bobber has moved!  Offset from the base address
+#define OFFSET_STATUS			0xCE		// This is 132 when the bobber is normal, shortly after it moves it's 148, then finally finishes at 133 (is it animation state?)
 #define STATUS_NORMAL		132
-#define OFFSET_VISIBILITY		0xC0		// Set this to 0 to hide the bobber!
+#define OFFSET_VISIBILITY		0xD8		// Set this to 0 to hide the bobber!
 
 // TO DO:
 //	Log out on full inventory
