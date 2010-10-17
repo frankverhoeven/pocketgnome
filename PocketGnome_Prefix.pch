@@ -4,7 +4,6 @@
 
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
-    #import "SecureUserDefaults.h"
 	#import "LogController.h"
 	#import "Globals.h"
     
@@ -15,9 +14,9 @@
 
 
     #ifdef PGLOGGING
-    #   define PGLog(...) if(![[[NSUserDefaults standardUserDefaults] objectForKey: @"SecurityDisableLogging"] boolValue]) { NSLog(@"%s:%i %s: %@", [[[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__]); }
+    #   define PGLog(...) if(true) { NSLog(@"%s:%i %s: %@", [[[NSString stringWithCString:__FILE__ encoding:NSUTF8StringEncoding] lastPathComponent] UTF8String], __LINE__, __PRETTY_FUNCTION__, [NSString stringWithFormat:__VA_ARGS__]); }
     #else
-    #   define PGLog(...) if(![[[NSUserDefaults standardUserDefaults] objectForKey: @"SecurityDisableLogging"] boolValue]) { NSLog(__VA_ARGS__); }
+    #   define PGLog(...) if(true) { NSLog(__VA_ARGS__); }
     #endif
     
     #define TRUE_FALSE(x)   (x ? @"TRUE" : @"FALSE")

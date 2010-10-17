@@ -104,11 +104,11 @@ typedef enum {
                                    [NSNumber numberWithFloat: 6.0],     @"MovementMaxJumpTime",
                                    [NSNumber numberWithBool: YES],      @"GlobalSendGrowlNotifications",
                                    [NSNumber numberWithBool: YES],      @"SUCheckAtStartup",
-                                   [NSNumber numberWithBool: YES],      @"SecurityDisableGUIScripting",
-                                   [NSNumber numberWithBool: NO],       @"SecurityUseBlankWindowTitles",
-                                   [NSNumber numberWithBool: NO],       @"SecurityPreferencesUnreadable",
-                                   [NSNumber numberWithBool: NO],       @"SecurityShowRenameSettings",
-                                   [NSNumber numberWithBool: NO],       @"SecurityDisableLogging",
+                                   //[NSNumber numberWithBool: YES],      @"SecurityDisableGUIScripting",
+                                   //[NSNumber numberWithBool: NO],       @"SecurityUseBlankWindowTitles",
+                                   //[NSNumber numberWithBool: NO],       @"SecurityPreferencesUnreadable",
+                                   //[NSNumber numberWithBool: NO],       @"SecurityShowRenameSettings",
+                                   //[NSNumber numberWithBool: NO],       @"SecurityDisableLogging",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingEnable",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingDev",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingEvaluate",
@@ -167,8 +167,6 @@ static Controller* sharedController = nil;
 		_currentAddress = 0;
 		_totalObjects = 0;
 		_currentObjectManager = 0;
-        
-        [SecureUserDefaults secureUserDefaults];
         
         // load in our faction dictionary
         factionTemplate = [[NSDictionary dictionaryWithContentsOfFile: [[NSBundle mainBundle] pathForResource: @"FactionTemplate" ofType: @"plist"]] retain];
@@ -275,8 +273,6 @@ static Controller* sharedController = nil;
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     [self finalizeUserDefaults];
-    
-    [[SecureUserDefaults secureUserDefaults] updatePermissions];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)aNotification {
@@ -738,12 +734,6 @@ typedef struct NameObjectStruct{
     
     [mainWindow setFrame: newFrame display: YES animate: YES];
     [mainBackgroundBox setContentView: newView];
-    
-    if( [[[NSUserDefaults standardUserDefaults] objectForKey: @"SecurityUseBlankWindowTitles"] boolValue] ) {
-        [mainWindow setTitle: @""];
-    } else {
-        [mainWindow setTitle: title];
-    }
         
     [[NSNotificationCenter defaultCenter] postNotificationName: DidLoadViewInMainWindowNotification object: newView];
 }

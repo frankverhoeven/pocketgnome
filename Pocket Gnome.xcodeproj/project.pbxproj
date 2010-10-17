@@ -240,7 +240,6 @@
 		7D45A6CC0E4461DE008A3601 /* NSData+SockAddr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D45A6CB0E4461DE008A3601 /* NSData+SockAddr.m */; };
 		7D4AFB340D9EDBF100A33CE1 /* bad.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7D4AFB320D9EDBF100A33CE1 /* bad.tif */; };
 		7D4AFB350D9EDBF100A33CE1 /* good.tif in Resources */ = {isa = PBXBuildFile; fileRef = 7D4AFB330D9EDBF100A33CE1 /* good.tif */; };
-		7D53BFDB0E5DFAC6007B3AA6 /* SecureUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D53BFDA0E5DFAC6007B3AA6 /* SecureUserDefaults.m */; };
 		7D53C0E90E5E2199007B3AA6 /* UKMainThreadProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D53C0E20E5E2199007B3AA6 /* UKMainThreadProxy.m */; };
 		7D53C0EA0E5E2199007B3AA6 /* UKFileWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D53C0E40E5E2199007B3AA6 /* UKFileWatcher.m */; };
 		7D53C0EB0E5E2199007B3AA6 /* UKKQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D53C0E50E5E2199007B3AA6 /* UKKQueue.m */; };
@@ -766,8 +765,6 @@
 		7D45A6CB0E4461DE008A3601 /* NSData+SockAddr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SockAddr.m"; sourceTree = "<group>"; };
 		7D4AFB320D9EDBF100A33CE1 /* bad.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = bad.tif; sourceTree = "<group>"; };
 		7D4AFB330D9EDBF100A33CE1 /* good.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = good.tif; sourceTree = "<group>"; };
-		7D53BFD90E5DFAC6007B3AA6 /* SecureUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureUserDefaults.h; sourceTree = "<group>"; };
-		7D53BFDA0E5DFAC6007B3AA6 /* SecureUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecureUserDefaults.m; sourceTree = "<group>"; };
 		7D53C0E10E5E2199007B3AA6 /* UKFileWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKFileWatcher.h; sourceTree = "<group>"; };
 		7D53C0E20E5E2199007B3AA6 /* UKMainThreadProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKMainThreadProxy.m; sourceTree = "<group>"; };
 		7D53C0E30E5E2199007B3AA6 /* UKMainThreadProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKMainThreadProxy.h; sourceTree = "<group>"; };
@@ -1354,8 +1351,6 @@
 				7DD3D68C0D1BBD1F0023D097 /* CGSPrivate.h */,
 				7DBEC7D90E4512D800994A7A /* GrabWindow.h */,
 				7DBEC7DA0E4512D800994A7A /* GrabWindow.m */,
-				7D53BFD90E5DFAC6007B3AA6 /* SecureUserDefaults.h */,
-				7D53BFDA0E5DFAC6007B3AA6 /* SecureUserDefaults.m */,
 				032B8C030FDEE37900807DD0 /* Errors.h */,
 			);
 			name = "Other Sources";
@@ -2270,7 +2265,6 @@
 				7D7C66DD0E58E97D002A6C96 /* CombatCountConditionController.m in Sources */,
 				7D7C67160E58EC79002A6C96 /* ProximityCountConditionController.m in Sources */,
 				7D7C67190E58EC85002A6C96 /* TargetClassConditionController.m in Sources */,
-				7D53BFDB0E5DFAC6007B3AA6 /* SecureUserDefaults.m in Sources */,
 				7D53C0E90E5E2199007B3AA6 /* UKMainThreadProxy.m in Sources */,
 				7D53C0EA0E5E2199007B3AA6 /* UKFileWatcher.m in Sources */,
 				7D53C0EB0E5E2199007B3AA6 /* UKKQueue.m in Sources */,

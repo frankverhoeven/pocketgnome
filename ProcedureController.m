@@ -11,7 +11,6 @@
 #import "InventoryController.h"
 #import "RuleEditor.h"
 #import "Rule.h"
-#import "SecureUserDefaults.h"
 #import "FileController.h"
 
 #import "FileObject.h"
