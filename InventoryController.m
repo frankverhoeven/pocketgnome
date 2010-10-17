@@ -118,9 +118,22 @@ static InventoryController *sharedInventory = nil;
 #pragma mark -
 
 - (Item*)itemForGUID: (GUID)guid {
+	
+	if ( guid == 0x0 ){
+		return nil;
+	}
+	
+	/*if ( GUID_LOW32(guid) != 0x4580000 ){
+		NSLog(@"...0x%X", GUID_LOW32(guid));
+		return nil;
+		
+	}*/
+	
 	NSArray *itemList = [[_objectList copy] autorelease];
 	
     for(Item *item in itemList) {
+		//NSLog(@"%qd == %qd", [item GUID], guid);
+		
         if( [item GUID] == guid )
             return [[item retain] autorelease];
     }

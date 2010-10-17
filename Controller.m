@@ -164,6 +164,7 @@ static Controller* sharedController = nil;
 		
 		// new search
 		_objectAddresses = [[NSMutableArray array] retain];		// stores the start address for all objects
+		_objectGUIDs = [[NSMutableArray array] retain];
 		_currentAddress = 0;
 		_totalObjects = 0;
 		_currentObjectManager = 0;
@@ -188,6 +189,7 @@ static Controller* sharedController = nil;
 	[_dynamicObjects release];
 	[_nameListAddresses release];
 	[_objectAddresses release];
+	[_objectGUIDs release];
 	[factionTemplate release];
 	[currentStatusText release];
 	[_wowMemoryAccess release];
@@ -506,12 +508,20 @@ typedef struct NameObjectStruct{
 
 - (void)sortObjects: (MemoryAccess*)memory{
 	
+	// remove all known
+	[_objectGUIDs removeAllObjects];
+	
 	UInt32 objectAddress = 0;
 	for ( NSNumber *objAddress in _objectAddresses ){
 		objectAddress = [objAddress unsignedIntValue];
 
 		int objectType = TYPEID_UNKNOWN;
 		if ( [memory loadDataForObject: self atAddress: (objectAddress + OBJECT_TYPE_ID) Buffer: (Byte*)&objectType BufLength: sizeof(objectType)] ) {
+
+			// store object GUIDs
+			UInt32 guid = 0x0;
+			[memory loadDataForObject: self atAddress: (objectAddress + OBJECT_GUID_LOW32) Buffer: (Byte*)&guid BufLength: sizeof(guid)];
+			[_objectGUIDs addObject:[NSNumber numberWithInt:guid]];
 
 			// item
 			if ( objectType == TYPEID_ITEM || objectType == TYPEID_CONTAINER ) {
@@ -528,9 +538,7 @@ typedef struct NameObjectStruct{
 			// player
 			if ( objectType == TYPEID_PLAYER ) {
 				
-				// read player GUID
-				UInt32 guid = 0;
-				if ( [memory loadDataForObject: self atAddress: (objectAddress + OBJECT_GUID_LOW32) Buffer: (Byte*)&guid BufLength: sizeof(guid)] && guid == GUID_LOW32(_globalGUID) ){
+				if ( guid == GUID_LOW32(_globalGUID) ){
 					if ( objectAddress != [playerData baselineAddress] ){
 						
 						log(LOG_CONTROLLER, @"[Controller] Player base address 0x%X changed to 0x%X, verifying change...", [playerData baselineAddress], objectAddress);
@@ -875,6 +883,10 @@ typedef struct NameObjectStruct{
 
 - (NSArray*)allObjectAddresses{
 	return [[_objectAddresses copy] autorelease];
+}
+
+- (NSArray*)allObjectGUIDs{
+	return [[_objectGUIDs copy] autorelease];
 }
 
 @synthesize currentState = _currentState;

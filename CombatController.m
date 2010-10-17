@@ -382,7 +382,7 @@ int WeightCompare(id unit1, id unit2, void *context) {
 
 	if ( [playerData isDead] || [playerData percentHealth] == 0 ) return nil;
 
-	log(LOG_FUNCTION, @"combatList");
+	//log(LOG_FUNCTION, @"combatList");
 
 	// Seems this isn't upating so I'll stick it here for now?
 	[self doCombatSearch];
@@ -522,7 +522,7 @@ int WeightCompare(id unit1, id unit2, void *context) {
 
 	[units sortUsingFunction: WeightCompare context: dictOfWeights];
 
-	log(LOG_DEV, @"combatList has %d units.", [units count]);
+	//log(LOG_DEV, @"combatList has %d units.", [units count]);
 	
 	return [[units retain] autorelease];
 }

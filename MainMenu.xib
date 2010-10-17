@@ -11164,6 +11164,30 @@
 					</object>
 					<int key="connectionID">4712</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">itemController</string>
+						<reference key="source" ref="1071325592"/>
+						<reference key="destination" ref="201772977"/>
+					</object>
+					<int key="connectionID">4713</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mobController</string>
+						<reference key="source" ref="1071325592"/>
+						<reference key="destination" ref="1065682814"/>
+					</object>
+					<int key="connectionID">4714</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">playersController</string>
+						<reference key="source" ref="1071325592"/>
+						<reference key="destination" ref="771133398"/>
+					</object>
+					<int key="connectionID">4715</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -15707,9 +15731,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{0, 80}, {749, 477}}</string>
+					<string>{{329, 80}, {749, 477}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{0, 80}, {749, 477}}</string>
+					<string>{{329, 80}, {749, 477}}</string>
 					<integer value="0"/>
 					<string>{{99, 739}, {705, 301}}</string>
 					<integer value="1"/>
@@ -16507,7 +16531,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">4712</int>
+			<int key="maxID">4715</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

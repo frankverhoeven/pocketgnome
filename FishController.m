@@ -248,6 +248,8 @@
 }
 
 - (BOOL)applyLure{
+	
+	NSLog(@"applying lure? %d", _optApplyLure);
 	if ( !_optApplyLure ){
 		return NO;
 	}
@@ -261,6 +263,8 @@
 			break;
 		}
 	}
+	
+	NSLog(@"Do we have any? %d", foundLure);
 	
 	// lure still in bags or we're using the hat!
 	if ( foundLure || _optLureItemID == 33820 ){

@@ -1748,6 +1748,14 @@
 		7D9770BA0D2D84C400E6D8F9 /* Rules & Procedures */ = {
 			isa = PBXGroup;
 			children = (
+				0362CDDC11A99CED00EA65B2 /* CombatProfile.h */,
+				0362CDDD11A99CED00EA65B2 /* CombatProfile.m */,
+				D02F3C5B1182C497000F4037 /* MailActionProfile.h */,
+				D02F3C5C1182C497000F4037 /* MailActionProfile.m */,
+				7D65CC1B0D2F69BB00C50DF7 /* Behavior.h */,
+				7D65CC1C0D2F69BB00C50DF7 /* Behavior.m */,
+				D02F3C851182C975000F4037 /* Profile.h */,
+				D02F3C861182C975000F4037 /* Profile.m */,
 				03168EE110FF70E900EF241B /* WaypointActions */,
 				7D65C8F70D2EE14500C50DF7 /* Rule.h */,
 				7D65C8F80D2EE14500C50DF7 /* Rule.m */,
@@ -1765,8 +1773,6 @@
 		7D97730C0D2DBF2800E6D8F9 /* GUI Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7D65CC1B0D2F69BB00C50DF7 /* Behavior.h */,
-				7D65CC1C0D2F69BB00C50DF7 /* Behavior.m */,
 				034126BF1135706E00BE6819 /* PvPController.h */,
 				034126C01135706E00BE6819 /* PvPController.m */,
 				0341DD64111B0FBE00074CED /* ObjectsController.h */,
@@ -1781,14 +1787,8 @@
 				03168C7010FE6CCD00EF241B /* WaypointActionEditor.m */,
 				7DD03DE00D160075000CC1A6 /* MemoryViewController.h */,
 				7DD03DE10D160075000CC1A6 /* MemoryViewController.m */,
-				0362CDDC11A99CED00EA65B2 /* CombatProfile.h */,
-				0362CDDD11A99CED00EA65B2 /* CombatProfile.m */,
 				D02F3C5E1182C5AC000F4037 /* ProfileController.h */,
 				D02F3C5F1182C5AC000F4037 /* ProfileController.m */,
-				D02F3C851182C975000F4037 /* Profile.h */,
-				D02F3C861182C975000F4037 /* Profile.m */,
-				D02F3C5B1182C497000F4037 /* MailActionProfile.h */,
-				D02F3C5C1182C497000F4037 /* MailActionProfile.m */,
 			);
 			name = "GUI Controllers";
 			sourceTree = "<group>";

@@ -497,8 +497,11 @@ typedef enum ViewTypes {
 				return @"OBJECT POINTER";
 			}
 			
+			
+			
 			// 64-bit
 			if ( [self displayFormat] == 2 ){
+				//NSLog(@"0x%qX %@", [value longLongValue], itemController);
 				Item *item = [itemController itemForGUID:[value longLongValue]];
 				if ( item ){
 					return [NSString stringWithFormat:@"Item: %@", [item name]];				
@@ -515,6 +518,11 @@ typedef enum ViewTypes {
 				 if ( node ){
 				 return [NSString stringWithFormat:@"Mob: %@", [node name]];				
 				 }*/
+			}
+			
+			NSArray *objectGUIDs = [controller allObjectGUIDs];
+			if ( [objectGUIDs containsObject:num] ){
+				return @"OBJECT GUID (LOW32)";
 			}
 			
 			id info = nil;

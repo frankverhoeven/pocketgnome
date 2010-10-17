@@ -90,6 +90,7 @@ BOOL Ascii2Virtual(char pcar, BOOL *pshift, BOOL *palt, char *pkeycode);
 	
 	// new scan
 	NSMutableArray *_objectAddresses;
+	NSMutableArray *_objectGUIDs;
 	UInt32 _currentObjectManager;
 	int _totalObjects;
 	UInt32 _currentAddress;
@@ -132,6 +133,7 @@ BOOL Ascii2Virtual(char pcar, BOOL *pshift, BOOL *palt, char *pkeycode);
 
 // new scan
 - (NSArray*)allObjectAddresses;
+- (NSArray*)allObjectGUIDs;
 - (BOOL)isObjectManagerValid;
 
 // WoW information

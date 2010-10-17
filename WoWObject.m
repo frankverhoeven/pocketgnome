@@ -174,8 +174,9 @@
 // 1 read
 - (UInt64)GUID {
     UInt64 value = 0;
-    if([_memory loadDataForObject: self atAddress: [self infoAddress] Buffer: (Byte *)&value BufLength: sizeof(value)])
+    if([_memory loadDataForObject: self atAddress: [self infoAddress] Buffer: (Byte *)&value BufLength: sizeof(value)]){
         return value;
+	}
     return 0;
 }
 
