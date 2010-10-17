@@ -270,37 +270,16 @@
 			<string></string>
 		</dict>
 	</dict>
-	<key>RUNE_STATE_START</key>
+	<key>Lua_GetRuneCount</key>
 	<dict>
 		<key>Intel</key>
 		<dict>
 			<key>Signature</key>
-			<string>\x31\xC0\xC7\x45\xAC\x00\x00\x00\x00\xC7\x45\xB0\x00\x00\x00\x00\xC7\x45\x94\xC0\x99\xFC\x00\xC7\x45\xA4\x00\x00\x00\x00</string>
+			<string>\x83\xF9\x05\x77\x30\x8B\x15\xF8\xBA\x21\x01\xB8\x01\x00\x00\x00\x66\x0F\x57\xC0</string>
 			<key>Mask</key>
-			<string>xxxxxxxxxxxxxxxxxxx????xxxxxxx</string>
+			<string>xxxxxxx????xxxxxxxxx</string>
 			<key>Comment</key>
-			<string>From 3.3.0: sub_6571E0</string>
-		</dict>
-		<key>ppc</key>
-		<dict>
-			<key>Signature</key>
-			<string></string>
-			<key>Mask</key>
-			<string></string>
-		</dict>
-	</dict>
-	<key>RUNE_STATUS</key>
-	<dict>
-		<key>Intel</key>
-		<dict>
-			<key>Signature</key>
-			<string>\x55\x31\xC0\x89\xE5\x8B\x55\x08\x83\xFA\x07\x77\x11\xA1\x00\x9A\xFC\x00</string>
-			<key>Mask</key>
-			<string>xxxxxxxxxxxxxx????</string>
-			<key>AdditionalOffset</key>
-			<string>0x4</string>
-			<key>Comment</key>
-			<string>From 3.3.0: sub_655FE0</string>
+			<string>From 4.0.1: lua_GetRuneCount</string>
 		</dict>
 		<key>ppc</key>
 		<dict>

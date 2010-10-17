@@ -8318,9 +8318,9 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
-	
-	NSLog(@"Offset? 0x%X", [offsetController offset:@"lua_UnitCastingInfo"]);
-	// this is how much fun I am!!!
+	NSLog(@"Runes? %d %d %d", [playerController runesAvailable:0], [playerController runesAvailable:1], [playerController runesAvailable:2]);
+							   
+	NSLog(@"offset: 0x%X", [offsetController offset:@"Lua_GetRuneCount"]);
 	
 	NSLog(@"Time: %d", [playerController currentTime]);
 	

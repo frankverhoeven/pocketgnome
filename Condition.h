@@ -82,7 +82,6 @@ typedef enum QualityComponents {
     
     QualityNPC          = 18,
     QualityPlayer       = 19,
-    // QualityRunicPower = 20
 	
 	QualityRuneBlood	= 21,
 	QualityRuneUnholy	= 22,

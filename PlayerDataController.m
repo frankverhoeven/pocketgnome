@@ -508,20 +508,32 @@ static PlayerDataController* sharedController = nil;
 	
 	// start CD: [offsetController offset:@"RUNE_STATUS"] + 0x1C
 	// end CD: [offsetController offset:@"RUNE_STATUS"] + 0x1C + 0x20
+	
+	//0x10
+	//0x28
+	
+	// unholy: 0xC and 0x10
+	// blood: 0x4 and 0x8
+	// forst : 0x14 and 0x18
 
 	MemoryAccess *memory = [controller wowMemoryAccess];
-	UInt32 runeState = 0, runeType = 0;
-	[memory loadDataForObject: self atAddress: [offsetController offset:@"RUNE_STATUS"] Buffer: (Byte*)&runeState BufLength: sizeof(runeState)];
-	
+	UInt32 runeStatePtr = 0x0, runeState = 0, runeType = 0;
+	[memory loadDataForObject: self atAddress: [offsetController offset:@"Lua_GetRuneCount"] Buffer: (Byte*)&runeStatePtr BufLength: sizeof(runeStatePtr)];
+	[memory loadDataForObject: self atAddress: runeStatePtr Buffer: (Byte*)&runeState BufLength: sizeof(runeState)];
+
 	if ( runeState ){
-		int i, runesAvailable = 0;
-		for ( i = 0; i < 6; i++ ){
-			[memory loadDataForObject: self atAddress: [offsetController offset:@"RUNE_STATE_START"] + (i*4) Buffer: (Byte*)&runeType BufLength: sizeof(runeType)];
-			BOOL unavailable = ( runeState & (1 << i ) ) == 0;
-			
-			if ( runeType == type && !unavailable ){
-				runesAvailable++;
-			}
+		int runesAvailable = 0;
+		if ( type == RuneType_Blood ){
+			runesAvailable += (runeState & ( 1 << 0 )) ? 1 : 0;
+			runesAvailable += (runeState & ( 1 << 1 )) ? 1 : 0;
+		}
+		else if ( type == RuneType_Unholy ){
+			runesAvailable += (runeState & ( 1 << 2 )) ? 1 : 0;
+			runesAvailable += (runeState & ( 1 << 3 )) ? 1 : 0;			
+		}
+		else if ( type == RuneType_Frost ){
+			runesAvailable += (runeState & ( 1 << 4 )) ? 1 : 0;
+			runesAvailable += (runeState & ( 1 << 5 )) ? 1 : 0;
 		}
 		
 		return runesAvailable;
