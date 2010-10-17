@@ -637,18 +637,28 @@ static PlayerDataController* sharedController = nil;
     return floatValue;
 }
 
+- (UInt32)playerFieldsAddress{
+	UInt32 value = 0;
+	if ( [[controller wowMemoryAccess] loadDataForObject: self atAddress: ([[self player] baseAddress] + PLAYER_FIELDS_PTR) Buffer: (Byte *)&value BufLength: sizeof(value)] ){
+		return value;
+	}
+	return 0;
+}
+
 // 1 read
 - (UInt32)copper {
 	UInt32 value = 0;
-	[[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_Coinage) Buffer: (Byte*)&value BufLength: sizeof(value)];
+	[[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self playerFieldsAddress] + PLAYER_FIELD_COINAGE) Buffer: (Byte*)&value BufLength: sizeof(value)];
 	return value;
 }
 
 // 1 read
 - (UInt32)honor {
-	UInt32 value = 0;
-	[[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_Coinage) Buffer: (Byte*)&value BufLength: sizeof(value)];
-	return value;
+	
+	return 1500000;
+	/*UInt32 value = 0;
+	[[controller wowMemoryAccess] loadDataForObject: self atAddress: ([self playerFieldsAddress] + ) Buffer: (Byte*)&value BufLength: sizeof(value)];
+	return value;*/
 }
 
 // 1 read, 2 writes
@@ -663,7 +673,7 @@ static PlayerDataController* sharedController = nil;
 // 1 write
 - (void)trackResources: (int)resource{
 	MemoryAccess *memory = [controller wowMemoryAccess];
-	[memory saveDataForAddress: ([self infoAddress] + PlayerField_TrackResources) Buffer: (Byte *)&resource BufLength: sizeof(resource)];
+	[memory saveDataForAddress: ([self playerFieldsAddress] + PLAYER_TRACK_RESOURCES) Buffer: (Byte *)&resource BufLength: sizeof(resource)];
 }
 
 #pragma mark Player Targeting
@@ -932,16 +942,6 @@ static PlayerDataController* sharedController = nil;
             return YES;
     }
     return NO;
-}
-
-- (int)haste {
-    MemoryAccess *memory = [controller wowMemoryAccess];
-    if(memory) {
-        UInt32 value = 0;
-        if([memory loadDataForObject: self atAddress: [self baselineAddress] + PlayerField_Haste Buffer: (Byte *)&value BufLength: sizeof(value)] && value)
-            return value;
-    }
-    return 0;
 }
 
 - (UInt32)spellCasting {

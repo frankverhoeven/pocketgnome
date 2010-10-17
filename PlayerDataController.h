@@ -185,8 +185,6 @@ enum ePlayer_RuneTypes {
 
 - (UInt32)factionTemplate;
 
-- (int)haste;
-
 - (IBAction)setPlayerDirectionInMemory: (id)sender;
 - (IBAction)showPlayerStructure: (id)sender;
 - (IBAction)showAuraWindow: (id)sender;

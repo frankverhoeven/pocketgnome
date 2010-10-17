@@ -36,6 +36,7 @@ enum PlayerFlags
 
 @interface Player (Internal)
 - (UInt32)playerFlags;
+- (UInt32)playerFieldsAddress;
 @end
 
 @implementation Player
@@ -53,9 +54,17 @@ enum PlayerFlags
 }
 #pragma mark -
 
+- (UInt32)playerFieldsAddress{
+	UInt32 value = 0;
+	if ( [_memory loadDataForObject: self atAddress: ([self baseAddress] + PLAYER_FIELDS_PTR) Buffer: (Byte *)&value BufLength: sizeof(value)] ){
+		return value;
+	}
+	return 0;
+}
+
 - (UInt32)playerFlags {
     UInt32 value = 0;
-    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_Flags) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
+    if([self isValid] && [_memory loadDataForObject: self atAddress: ([self playerFieldsAddress] + PLAYER_FLAGS) Buffer: (Byte *)&value BufLength: sizeof(value)] && (value != 0xDDDDDDDD)) {
         return value;
     }
     return 0;
@@ -71,7 +80,7 @@ enum PlayerFlags
     if(slot < 0 || slot >= SLOT_MAX) return 0;
     
     GUID value = 0;
-    if([_memory loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_CharacterSlot + sizeof(GUID)*slot) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+    if([_memory loadDataForObject: self atAddress: ([self playerFieldsAddress] + PLAYER_FIELD_INV_SLOT_HEAD + sizeof(GUID)*slot) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
         //if(GUID_HIPART(value) == HIGHGUID_ITEM) - As of 3.1.3 I had to comment out this - i'm not sure why
 		return value;
     }
@@ -86,7 +95,7 @@ enum PlayerFlags
 	uint i;
 	GUID value = 0;
 	for ( i = 0; i < numberOfItems; i++ ){
-		if([_memory loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_BackPackStart + sizeof(GUID)*i) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+		if([_memory loadDataForObject: self atAddress: ([self playerFieldsAddress] + PLAYER_FIELD_PACK_SLOT_1 + sizeof(GUID)*i) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
 			[itemGUIDs addObject:[NSNumber numberWithLongLong:value]];
 		}
 	}
@@ -101,7 +110,7 @@ enum PlayerFlags
 	uint i;
 	GUID value = 0;
 	for ( i = 0; i < numberOfBags; i++ ){
-		if([_memory loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_BagStart + sizeof(GUID)*i) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+		if([_memory loadDataForObject: self atAddress: ([self playerFieldsAddress] + PLAYER_FIELD_BANKBAG_SLOT_1 + sizeof(GUID)*i) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
 			[bagGUIDs addObject:[NSNumber numberWithLongLong:value]];
 		}
 	}
@@ -115,7 +124,7 @@ enum PlayerFlags
 	uint slot;
 	GUID value = 0;
 	for ( slot = 0; slot <= SLOT_TABARD; slot++ ){
-		if([_memory loadDataForObject: self atAddress: ([self infoAddress] + PlayerField_CharacterSlot + sizeof(GUID)*slot) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
+		if([_memory loadDataForObject: self atAddress: ([self playerFieldsAddress] + PLAYER_FIELD_INV_SLOT_HEAD + sizeof(GUID)*slot) Buffer: (Byte *)&value BufLength: sizeof(value)]) {
 			[itemGUIDs addObject:[NSNumber numberWithLongLong:value]];
 		}
 	}

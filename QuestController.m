@@ -77,7 +77,7 @@ typedef struct QuestInfo {
 - (void) reloadPlayerQuests{
 	
 	// Get access to memory
-	MemoryAccess *wowMemory = [controller wowMemoryAccess];
+	/*MemoryAccess *wowMemory = [controller wowMemoryAccess];
 	UInt32 playerAddress = [playerDataController baselineAddress];
 	
 	// Add the player's current quests to the array pls
@@ -92,7 +92,7 @@ typedef struct QuestInfo {
 				break;
 			}
 		}
-	}
+	}*/
 	
 	// Get the data for each quest from WoWHead
     for(Quest *quest in _playerQuests) {
