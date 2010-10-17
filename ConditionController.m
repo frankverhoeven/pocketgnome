@@ -56,7 +56,7 @@
 + (id)conditionControllerWithCondition: (Condition*)condition {
     ConditionController *newController = nil;
 
-    if( [condition variety] == VarietyHealth ) {
+    if( [condition variety] == VarietyPower ) {
         newController = [[HealthConditionController alloc] init];
     }
     else if( [condition variety] == VarietyStatus ) {

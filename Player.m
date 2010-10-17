@@ -11,6 +11,7 @@
 #import "Mob.h"
 #import "Offsets.h"
 
+#import "OffsetController.h"
 #import "PlayersController.h"
 
 enum PlayerFlags
@@ -56,7 +57,7 @@ enum PlayerFlags
 
 - (UInt32)playerFieldsAddress{
 	UInt32 value = 0;
-	if ( [_memory loadDataForObject: self atAddress: ([self baseAddress] + PLAYER_FIELDS_PTR) Buffer: (Byte *)&value BufLength: sizeof(value)] ){
+	if ( [_memory loadDataForObject: self atAddress: ([self baseAddress] + [[OffsetController sharedController] offset:@"PlayerField_Pointer"]) Buffer: (Byte *)&value BufLength: sizeof(value)] ){
 		return value;
 	}
 	return 0;

@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>PlayerField_Pointer</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x8B\x87\x1C\x13\x00\x00\xF6\x40\x08\x02\x75</string>
+			<key>Mask</key>
+			<string>xx??xxxxxxx</string>
+			<key>Comment</key>
+			<string>From 4.0.1: lua_UnitIsAFK</string>
+		</dict>
+	</dict>
 	<key>BaseField_Spell_Channeling</key>
 	<dict>
 		<key>Intel</key>

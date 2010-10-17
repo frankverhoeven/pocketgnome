@@ -34,7 +34,7 @@
 - (Condition*)condition {
     [self validateState: nil];
     
-    Condition *condition = [Condition conditionWithVariety: VarietyHealth 
+    Condition *condition = [Condition conditionWithVariety: VarietyPower 
                                                       unit: [unitSegment selectedTag] 
                                                    quality: [[qualityPopUp selectedItem] tag] // [qualitySegment selectedTag] 
                                                 comparator: [comparatorSegment selectedTag] 
@@ -48,7 +48,7 @@
 
 - (void)setStateFromCondition: (Condition*)condition {
     [super setStateFromCondition: condition];
-    if( [condition variety] != VarietyHealth) return;
+    if( [condition variety] != VarietyPower) return;
     
     [unitSegment selectSegmentWithTag: [condition unit]];
     if(![qualityPopUp selectItemWithTag: [condition quality]]) {

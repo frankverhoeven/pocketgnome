@@ -639,7 +639,7 @@ static PlayerDataController* sharedController = nil;
 
 - (UInt32)playerFieldsAddress{
 	UInt32 value = 0;
-	if ( [[controller wowMemoryAccess] loadDataForObject: self atAddress: ([[self player] baseAddress] + PLAYER_FIELDS_PTR) Buffer: (Byte *)&value BufLength: sizeof(value)] ){
+	if ( [[controller wowMemoryAccess] loadDataForObject: self atAddress: ([[self player] baseAddress] + [offsetController offset:@"PlayerField_Pointer"]) Buffer: (Byte *)&value BufLength: sizeof(value)] ){
 		return value;
 	}
 	return 0;

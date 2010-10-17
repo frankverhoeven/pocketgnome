@@ -528,57 +528,52 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				log(LOG_ERROR, @"%@ in %@ is of an unknown type.", condition, rule);
 				break;
 
-			case VarietyHealth:;
+			case VarietyPower:;
 				log(LOG_CONDITION, @"Doing Health/Power condition...");	
-				int qualityValue = 0;
-				if( [condition unit] == UnitPlayer ) {
-					log(LOG_CONDITION, @"Checking player... type %d", [condition type]);
-					if( ![playerController playerIsValid:self] || ![thePlayer isValid]) goto loopEnd;
-					if( [condition quality] == QualityHealth ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentHealth] : [thePlayer percentHealth];
-					else if ([condition quality] == QualityPower ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPower] : [thePlayer percentPower];
-					else if ([condition quality] == QualityMana ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPowerOfType: UnitPower_Mana] : [thePlayer percentPowerOfType: UnitPower_Mana];
-					else if ([condition quality] == QualityRage ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPowerOfType: UnitPower_Rage] : [thePlayer percentPowerOfType: UnitPower_Rage];
-					else if ([condition quality] == QualityEnergy ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPowerOfType: UnitPower_Energy] : [thePlayer percentPowerOfType: UnitPower_Energy];
-					else if ([condition quality] == QualityHappiness ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPowerOfType: UnitPower_Happiness] : [thePlayer percentPowerOfType: UnitPower_Happiness];
-					else if ([condition quality] == QualityFocus ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPowerOfType: UnitPower_Focus] : [thePlayer percentPowerOfType: UnitPower_Focus];
-					else if ([condition quality] == QualityRunicPower ) qualityValue = ([condition type] == TypeValue) ? [thePlayer currentPowerOfType: UnitPower_RunicPower] : [thePlayer percentPowerOfType: UnitPower_RunicPower];
-					else goto loopEnd;
-				} else 
-				if( [condition unit] == UnitFriendlies ) {
-					conditionEval = [self  evaluateConditionFriendlies:condition];
-					break;
-				} else
-				if( [condition unit] == UnitEnemies ) {
-					conditionEval = [self  evaluateConditionEnemies:condition];
-					break;
-				}else {
-					// get unit as either target or player's pet or friend
-					Unit *aUnit = ( [condition unit] == UnitTarget ) ? target : [playerController pet];
-					if( ![aUnit isValid]) goto loopEnd;
-					if( [condition quality] == QualityHealth ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentHealth] : [aUnit percentHealth];
-					else if ([condition quality] == QualityPower ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPower] : [aUnit percentPower];
-					else if ([condition quality] == QualityMana ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPowerOfType: UnitPower_Mana] : [aUnit percentPowerOfType: UnitPower_Mana];
-					else if ([condition quality] == QualityRage ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPowerOfType: UnitPower_Rage] : [aUnit percentPowerOfType: UnitPower_Rage];
-					else if ([condition quality] == QualityEnergy ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPowerOfType: UnitPower_Energy] : [aUnit percentPowerOfType: UnitPower_Energy];
-					else if ([condition quality] == QualityHappiness ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPowerOfType: UnitPower_Happiness] : [aUnit percentPowerOfType: UnitPower_Happiness];
-					else if ([condition quality] == QualityFocus ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPowerOfType: UnitPower_Focus] : [aUnit percentPowerOfType: UnitPower_Focus];
-					else if ([condition quality] == QualityRunicPower ) qualityValue = ([condition type] == TypeValue) ? [aUnit currentPowerOfType: UnitPower_RunicPower] : [aUnit percentPowerOfType: UnitPower_RunicPower];
-					else goto loopEnd;
-				}
-
-				// now we have the value of the quality
-				if( [condition comparator] == CompareMore) { 
-					conditionEval = ( qualityValue > [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
-				} else if ([condition comparator] == CompareEqual) {
-					conditionEval = ( qualityValue == [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d = %@ is %d", qualityValue, [condition value], conditionEval);
-				} else if ([condition comparator] == CompareLess) {
-					conditionEval = ( qualityValue < [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
-				} else goto loopEnd;
-				break;
 				
+				NSArray *units = [NSArray array];
+				// testing against multiple units
+				if ( [condition unit] == UnitFriendlies || [condition unit] == UnitEnemies ){
+					if ( [condition unit] == UnitFriendlies )	units = [combatController friendlyUnits];
+					if ( [condition unit] == UnitEnemies )		units = [combatController allAdds];
+				}
+				// looking at one unit!
+				else{
+					if ( [condition unit] == UnitPlayer ){
+						if( ![playerController playerIsValid:self] || ![thePlayer isValid]) goto loopEnd;
+						units = [NSArray arrayWithObject:thePlayer];
+					}
+					else if ( [condition unit] == UnitTarget ){
+						units = [NSArray arrayWithObject:target];
+					}
+					else if ( [condition unit] == UnitPlayerPet ){
+						units = [NSArray arrayWithObject:[playerController pet]];
+					}
+					else{
+						PGLog(@"[Condition] Unable to identify a target for VarietyPower");
+						goto loopEnd;
+					}
+				}
+				
+				// loop through targets
+				for ( target in units ) {
+					if ( ![target isValid] ) continue;
+					int qualityValue = [target unitPowerWithQuality:[condition quality] andType:[condition type]];
+					
+					// now we have the value of the quality
+					if( [condition comparator] == CompareMore) {
+						conditionEval = ( qualityValue > [[condition value] unsignedIntValue] ) ? YES : NO;
+						log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
+					} else if ([condition comparator] == CompareEqual) {
+						conditionEval = ( qualityValue == [[condition value] unsignedIntValue] ) ? YES : NO;
+						log(LOG_CONDITION, @"	%d = %@ is %d", qualityValue, [condition value], conditionEval);
+					} else if ([condition comparator] == CompareLess) {
+						conditionEval = ( qualityValue < [[condition value] unsignedIntValue] ) ? YES : NO;
+						log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
+					} else goto loopEnd;
+					break;
+				}
+				break;
 				
 			case VarietyStatus:;
 				log(LOG_CONDITION, @"Doing Status condition...");	
@@ -1190,46 +1185,6 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	switch ( [condition variety] ) {
 
-		case VarietyHealth:;
-			
-			log(LOG_CONDITION, @"Doing Health/Power condition for Friendlies...");	
-			int qualityValue = 0;
-
-			// get unit as either target or player's pet or friend
-
-			if (!friends) friends = [combatController friendlyUnits];
-
-			// Let's loop through friends to find a target
-			for ( target in friends ) {
-				
-				if( ![target isValid]) continue;
-				
-				if( [condition quality] == QualityHealth ) qualityValue = ([condition type] == TypeValue) ? [target currentHealth] : [target percentHealth];
-				else if ([condition quality] == QualityPower ) qualityValue = ([condition type] == TypeValue) ? [target currentPower] : [target percentPower];
-				else if ([condition quality] == QualityMana ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Mana] : [target percentPowerOfType: UnitPower_Mana];
-				else if ([condition quality] == QualityRage ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Rage] : [target percentPowerOfType: UnitPower_Rage];
-				else if ([condition quality] == QualityEnergy ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Energy] : [target percentPowerOfType: UnitPower_Energy];
-				else if ([condition quality] == QualityHappiness ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Happiness] : [target percentPowerOfType: UnitPower_Happiness];
-				else if ([condition quality] == QualityFocus ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Focus] : [target percentPowerOfType: UnitPower_Focus];
-				else if ([condition quality] == QualityRunicPower ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_RunicPower] : [target percentPowerOfType: UnitPower_RunicPower];
-				else goto loopEnd;
-
-				// now we have the value of the quality
-				if( [condition comparator] == CompareMore) {
-					conditionEval = ( qualityValue > [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
-				} else if ([condition comparator] == CompareEqual) {
-					conditionEval = ( qualityValue == [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d = %@ is %d", qualityValue, [condition value], conditionEval);
-				} else if ([condition comparator] == CompareLess) {
-					conditionEval = ( qualityValue < [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
-				} else goto loopEnd;
-				break;
-			}
-			
-			break;
-				
 		case VarietyStatus:;
 			log(LOG_CONDITION, @"Doing Status condition for friendlies...");	
 
@@ -1417,46 +1372,6 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	NSArray *enemies = nil;
 	
 	switch ( [condition variety] ) {
-			
-		case VarietyHealth:;
-			
-			log(LOG_CONDITION, @"Doing Health/Power condition for Friendlies...");	
-			int qualityValue = 0;
-			
-			// get unit as either target or player's pet or friend
-			
-			if (!enemies) enemies = [combatController allAdds];
-			
-			// Let's loop through friends to find a target
-			for ( target in enemies ) {
-				
-				if( ![target isValid]) continue;
-				
-				if( [condition quality] == QualityHealth ) qualityValue = ([condition type] == TypeValue) ? [target currentHealth] : [target percentHealth];
-				else if ([condition quality] == QualityPower ) qualityValue = ([condition type] == TypeValue) ? [target currentPower] : [target percentPower];
-				else if ([condition quality] == QualityMana ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Mana] : [target percentPowerOfType: UnitPower_Mana];
-				else if ([condition quality] == QualityRage ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Rage] : [target percentPowerOfType: UnitPower_Rage];
-				else if ([condition quality] == QualityEnergy ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Energy] : [target percentPowerOfType: UnitPower_Energy];
-				else if ([condition quality] == QualityHappiness ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Happiness] : [target percentPowerOfType: UnitPower_Happiness];
-				else if ([condition quality] == QualityFocus ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_Focus] : [target percentPowerOfType: UnitPower_Focus];
-				else if ([condition quality] == QualityRunicPower ) qualityValue = ([condition type] == TypeValue) ? [target currentPowerOfType: UnitPower_RunicPower] : [target percentPowerOfType: UnitPower_RunicPower];
-				else goto loopEnd;
-				
-				// now we have the value of the quality
-				if( [condition comparator] == CompareMore) {
-					conditionEval = ( qualityValue > [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
-				} else if ([condition comparator] == CompareEqual) {
-					conditionEval = ( qualityValue == [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d = %@ is %d", qualityValue, [condition value], conditionEval);
-				} else if ([condition comparator] == CompareLess) {
-					conditionEval = ( qualityValue < [[condition value] unsignedIntValue] ) ? YES : NO;
-					log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
-				} else goto loopEnd;
-				break;
-			}
-			
-			break;
 			
 		case VarietyStatus:;
 			log(LOG_CONDITION, @"Doing Status condition for friendlies...");	
@@ -8334,6 +8249,73 @@ NSMutableDictionary *_diffDict = nil;
 
 #pragma mark Testing Shit
 
+// what is the purpose of this function?  Well let me tell you!
+// Grab some values from the offset controller, and verify they seem correct
+// Nothing is exact, just based on my past experiences
+// should move to OffsetController once this is built up enough
+- (IBAction)confirmOffsets: (id)sender{
+	
+	
+	UInt32 offset = 0x0, offset2 = 0x0, offset3 = 0x0, offset4 = 0x0, offset5 = 0x0, offset6 = 0x0;
+	
+	// baseAddress + PlayerField_Pointer = player fields!
+	// 0x131C in 4.0.1
+	offset = [offsetController offset:@"PlayerField_Pointer"];
+	if ( offset < 0x1000 || offset > 0x2000 ){
+		PGLog(@"[OffsetTest] PlayerField_Pointer invalid? 0x%X", offset);
+	}
+	
+	// we just want to make sure they are close to each other (all should be w/in 0x28)
+	// As of 4.0.1
+	// BaseField_Spell_ToCast: 0xB00
+	// BaseField_Spell_Casting: 0xB0C
+	// BaseField_Spell_TimeEnd: 0xB1C
+	// BaseField_Spell_Channeling: 0xB20
+	// BaseField_Spell_ChannelTimeEnd: 0xB24
+	// BaseField_Spell_ChannelTimeStart: 0xB28
+	offset = [offsetController offset:@"BaseField_Spell_ToCast"];
+	offset2 = [offsetController offset:@"BaseField_Spell_Casting"];
+	offset3 = [offsetController offset:@"BaseField_Spell_TimeEnd"];
+	offset4 = [offsetController offset:@"BaseField_Spell_Channeling"];
+	offset5 = [offsetController offset:@"BaseField_Spell_ChannelTimeEnd"];
+	offset6 = [offsetController offset:@"BaseField_Spell_ChannelTimeStart"];
+	
+	// this obviously doesn't indicate a problem
+	PGLog(@"BaseField_Spell_ToCast: 0x%X", offset);
+	
+	// BaseField_Spell_ChannelTimeStart
+	UInt32 result = offset6 - offset;
+	if ( result > 0x40 || result < 0x0 ){
+		PGLog(@"BaseField_Spell_ChannelTimeStart: 0x%X", offset6);
+	}
+	
+	// BaseField_Spell_ChannelTimeEnd
+	result = offset5 - offset;
+	if ( result > 0x40 || result < 0x0 ){
+		PGLog(@"BaseField_Spell_ChannelTimeEnd: 0x%X", offset5);
+	}
+	
+	// BaseField_Spell_Channeling
+	result = offset4 - offset;
+	if ( result > 0x40 || result < 0x0 ){
+		PGLog(@"BaseField_Spell_Channeling: 0x%X", offset4);
+	}
+	
+	// BaseField_Spell_TimeEnd
+	result = offset3 - offset;
+	if ( result > 0x40 || result < 0x0 ){
+		PGLog(@"BaseField_Spell_TimeEnd: 0x%X", offset3);
+	}
+	
+	// BaseField_Spell_Casting
+	result = offset2 - offset;
+	if ( result > 0x40 || result < 0x0 ){
+		PGLog(@"BaseField_Spell_Casting: 0x%X", offset2);
+	}
+	
+	
+}
+
 - (IBAction)test: (id)sender{
 	
 	
@@ -8341,6 +8323,8 @@ NSMutableDictionary *_diffDict = nil;
 	// this is how much fun I am!!!
 	
 	NSLog(@"Time: %d", [playerController currentTime]);
+	
+	NSLog(@"Eclipse power: %d", [[playerController player] currentPowerOfType: UnitPower_Eclipse]);
 	
 	return;
 	

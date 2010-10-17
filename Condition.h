@@ -10,7 +10,7 @@
 
 typedef enum Variety {
     VarietyNone             = 0,
-    VarietyHealth           = 1,
+    VarietyPower           = 1,
     VarietyStatus           = 2,
     VarietyAura             = 3,
     VarietyDistance         = 4,
@@ -68,6 +68,9 @@ typedef enum QualityComponents {
     QualityHappiness = 11,
     QualityFocus = 12,
     QualityRunicPower = 20,
+	QualityEclipse	= 33,
+	QualityHolyPower = 34,
+	QualitySoulShards = 35,
 
     QualityBuffType = 13,
     QualityDebuffType = 14,

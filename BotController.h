@@ -443,6 +443,7 @@
 - (void)joinBGCheck;
 
 // test stuff
+- (IBAction)confirmOffsets: (id)sender;
 - (IBAction)test: (id)sender;
 - (IBAction)test2: (id)sender;
 - (IBAction)maltby: (id)sender;

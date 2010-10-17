@@ -206,8 +206,12 @@ typedef enum {
     UnitPower_Focus         = 2,
     UnitPower_Energy        = 3,
     UnitPower_Happiness     = 4,
+	UnitPower_Runes			= 5,
     UnitPower_RunicPower    = 6,
-    UnitPower_Max           = 7,
+	UnitPower_SoulShard		= 7,
+	UnitPower_Eclipse		= 8,
+	UnitPower_HolyPower		= 9,
+    UnitPower_Max			= 10,
 } UnitPower;
 
 typedef enum {
@@ -423,6 +427,7 @@ typedef enum MovementFlag {
 - (UInt32)movementFlags;
 - (UInt32)mountID;
 
+- (UInt32)unitPowerWithQuality: (int)quality andType:(int)type;
 - (UInt32)maxPowerOfType: (UnitPower)powerType;
 - (UInt32)currentPowerOfType: (UnitPower)powerType;
 - (UInt32)percentPowerOfType: (UnitPower)powerType;

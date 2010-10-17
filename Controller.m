@@ -104,11 +104,6 @@ typedef enum {
                                    [NSNumber numberWithFloat: 6.0],     @"MovementMaxJumpTime",
                                    [NSNumber numberWithBool: YES],      @"GlobalSendGrowlNotifications",
                                    [NSNumber numberWithBool: YES],      @"SUCheckAtStartup",
-                                   //[NSNumber numberWithBool: YES],      @"SecurityDisableGUIScripting",
-                                   //[NSNumber numberWithBool: NO],       @"SecurityUseBlankWindowTitles",
-                                   //[NSNumber numberWithBool: NO],       @"SecurityPreferencesUnreadable",
-                                   //[NSNumber numberWithBool: NO],       @"SecurityShowRenameSettings",
-                                   //[NSNumber numberWithBool: NO],       @"SecurityDisableLogging",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingEnable",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingDev",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingEvaluate",
@@ -123,12 +118,14 @@ typedef enum {
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingFunction",
 								   [NSNumber numberWithBool: NO],       @"ExtendedLoggingMemory",
 								   [NSNumber numberWithInt: 1],			@"MountType",
-                                   
                                    nil];
 	[[NSUserDefaults standardUserDefaults] setObject: @"http://pg.savorydeviate.com/appcast.xml" forKey: @"SUFeedURL"];
     //[[NSUserDefaults standardUserDefaults] removeObjectForKey: @"SUFeedURL"];
     [[NSUserDefaults standardUserDefaults] registerDefaults: defaultValues];
     [[NSUserDefaultsController sharedUserDefaultsController] setInitialValues: defaultValues];
+	
+	// allow GUI scripting
+	[NSApp setAllowAccessibility: YES];
 }
 
 static Controller* sharedController = nil;

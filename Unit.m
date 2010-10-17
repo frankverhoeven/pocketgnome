@@ -8,6 +8,7 @@
 
 #import "Unit.h"
 #import "Offsets.h"
+#import "Condition.h"
 
 #import "SpellController.h"
 #import "PlayerDataController.h"
@@ -294,6 +295,60 @@ enum NPCFlags
     UInt32 value = 0;
     [_memory loadDataForObject: self atAddress: ([self baseAddress] + BaseField_MovementFlags) Buffer: (Byte*)&value BufLength: sizeof(value)];
     return value;
+}
+
+#pragma mark Power Helper
+
+// type : 0 = current, 1 = percentage
+- (UInt32)unitPowerWithQuality:(int)quality andType:(int)type{
+	
+	// check if it's power or health
+	if ( quality == QualityHealth ){
+		return ( (type == TypeValue) ? [self currentHealth] : [self percentHealth] );
+	}
+	else if ( quality == QualityPower ){
+		return ( (type == TypeValue) ? [self currentPower] : [self percentPower] );
+	}
+	
+	// otherwise check the other types!
+	UInt32 powerType = 0;
+	switch ( quality ){
+		case QualityRage:
+			powerType = UnitPower_Rage;
+			break;
+		case QualityEnergy:
+			powerType = UnitPower_Energy;
+			break;
+		case QualityHappiness:
+			powerType = UnitPower_Happiness;
+			break;
+		case QualityFocus:
+			powerType = UnitPower_Focus;
+			break;			
+		case QualityRunicPower:
+			powerType = UnitPower_RunicPower;
+			break;		
+		case QualityEclipse:
+			powerType = UnitPower_Eclipse;
+			break;	
+		case QualityHolyPower:
+			powerType = UnitPower_HolyPower;
+			break;	
+		case QualitySoulShards:
+			powerType = UnitPower_SoulShard;
+			break;	
+	}
+	
+	// actual value
+	if ( type == TypeValue ){
+		return [self currentPowerOfType:powerType];
+	}
+	// percentage
+	else{
+		return [self maxPowerOfType:powerType];
+	}
+	
+	return 0;
 }
 
 #pragma mark -
@@ -920,7 +975,7 @@ enum SheathState
                 desc = @"Power 8";
                 break;
 			case UNIT_FIELD_POWER9:
-                desc = @"Power 9";
+                desc = @"Eclipse Power, Current";
                 break;
 			case UNIT_FIELD_POWER10:
                 desc = @"Power 10";
@@ -957,7 +1012,7 @@ enum SheathState
                 desc = @"Power 8, Max";
                 break;
 			case UNIT_FIELD_MAXPOWER9:
-                desc = @"Power 9, Max";
+                desc = @"Eclipse Power, Max";
                 break;
 			case UNIT_FIELD_MAXPOWER10:
                 desc = @"Power 10, Max";
