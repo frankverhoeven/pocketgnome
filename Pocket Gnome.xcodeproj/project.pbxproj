@@ -45,6 +45,7 @@
 		0322D6E211065D8900EF3EEF /* CombatProfileAction.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0322D6E111065D8900EF3EEF /* CombatProfileAction.xib */; };
 		0322D72F110744D500EF3EEF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0322D72E110744D500EF3EEF /* CoreData.framework */; };
 		0331619611AAF1B900467490 /* appcast.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0331619511AAF1B900467490 /* appcast.xml */; };
+		033C3F3E126CA54C0050DBDC /* buildnumber.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 033C3F3D126CA54C0050DBDC /* buildnumber.xcconfig */; };
 		034126C11135706E00BE6819 /* PvPController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034126C01135706E00BE6819 /* PvPController.m */; };
 		034126C4113570E100BE6819 /* PvP.xib in Resources */ = {isa = PBXBuildFile; fileRef = 034126C3113570E100BE6819 /* PvP.xib */; };
 		034126E61135774100BE6819 /* Battleground.m in Sources */ = {isa = PBXBuildFile; fileRef = 034126E51135774100BE6819 /* Battleground.m */; };
@@ -55,7 +56,6 @@
 		034429B80FAA3E1800E9DE03 /* Quest.m in Sources */ = {isa = PBXBuildFile; fileRef = 034429B70FAA3E1800E9DE03 /* Quest.m */; };
 		034429BD0FAA3E3800E9DE03 /* QuestItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 034429BC0FAA3E3800E9DE03 /* QuestItem.m */; };
 		034429C00FAA3E5600E9DE03 /* QuestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 034429BF0FAA3E5600E9DE03 /* QuestController.m */; };
-		0344CAE41267B1CD00B4A9C7 /* buildnumber.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0344CAE31267B1CD00B4A9C7 /* buildnumber.xcconfig */; };
 		0344CB231267D0E700B4A9C7 /* LuaController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0344CB221267D0E700B4A9C7 /* LuaController.m */; };
 		0350738410CDBA460004636E /* SpellCooldown.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0350738310CDBA460004636E /* SpellCooldown.xib */; };
 		0350738910CDBA640004636E /* SpellCooldownConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0350738810CDBA640004636E /* SpellCooldownConditionController.m */; };
@@ -482,6 +482,7 @@
 		0322D72E110744D500EF3EEF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		032B8C030FDEE37900807DD0 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
 		0331619511AAF1B900467490 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
+		033C3F3D126CA54C0050DBDC /* buildnumber.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = buildnumber.xcconfig; sourceTree = "<group>"; };
 		034126BF1135706E00BE6819 /* PvPController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PvPController.h; sourceTree = "<group>"; };
 		034126C01135706E00BE6819 /* PvPController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PvPController.m; sourceTree = "<group>"; };
 		034126C3113570E100BE6819 /* PvP.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PvP.xib; sourceTree = "<group>"; };
@@ -500,7 +501,6 @@
 		034429BC0FAA3E3800E9DE03 /* QuestItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestItem.m; sourceTree = "<group>"; };
 		034429BE0FAA3E5600E9DE03 /* QuestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestController.h; sourceTree = "<group>"; };
 		034429BF0FAA3E5600E9DE03 /* QuestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestController.m; sourceTree = "<group>"; };
-		0344CAE31267B1CD00B4A9C7 /* buildnumber.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = buildnumber.xcconfig; sourceTree = "<group>"; };
 		0344CB211267D0E700B4A9C7 /* LuaController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LuaController.h; sourceTree = "<group>"; };
 		0344CB221267D0E700B4A9C7 /* LuaController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LuaController.m; sourceTree = "<group>"; };
 		03503FF0125A9A0300E511C8 /* Objects_Enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Objects_Enum.h; sourceTree = "<group>"; };
@@ -1302,7 +1302,7 @@
 		29B97314FDCFA39411CA2CEA /* WoWWaypoint */ = {
 			isa = PBXGroup;
 			children = (
-				0344CAE31267B1CD00B4A9C7 /* buildnumber.xcconfig */,
+				033C3F3D126CA54C0050DBDC /* buildnumber.xcconfig */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				7D97730C0D2DBF2800E6D8F9 /* GUI Controllers */,
 				7D65C8F60D2EE0B100C50DF7 /* GUI Subclasses */,
@@ -2167,7 +2167,7 @@
 				03A3211B114E9AC2000D23EE /* JumpToWaypointAction.xib in Resources */,
 				03CD6AC41183D5AC00CCABFE /* Profiles.xib in Resources */,
 				0331619611AAF1B900467490 /* appcast.xml in Resources */,
-				0344CAE41267B1CD00B4A9C7 /* buildnumber.xcconfig in Resources */,
+				033C3F3E126CA54C0050DBDC /* buildnumber.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

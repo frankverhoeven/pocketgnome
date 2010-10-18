@@ -505,15 +505,11 @@ static PlayerDataController* sharedController = nil;
 }
 
 - (int)runesAvailable:(int)type{
-	
-	// start CD: [offsetController offset:@"RUNE_STATUS"] + 0x1C
-	// end CD: [offsetController offset:@"RUNE_STATUS"] + 0x1C + 0x20
-	
-	//0x10
-	//0x28
-	
-	// unholy: 0xC and 0x10
+
+	//   offsets are from the Lua_GetRuneCount offset
+	//	the below indicates the start time that the rune was used, the end time is 0x18 from the below (so 0x4 + 0x18 = end time of the first blood rune)
 	// blood: 0x4 and 0x8
+	// unholy: 0xC and 0x10
 	// forst : 0x14 and 0x18
 
 	MemoryAccess *memory = [controller wowMemoryAccess];

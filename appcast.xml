@@ -7,9 +7,26 @@
         <language>en</language>
 
         <item>
+            <title>Pocket Gnome 1.5.1.1 (Build 566) </title>
+            <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.1 (Build 566) Release Notes </span></p>
+                <ul>
+					<li>Fishing + Applying lure now works correctly</li>
+					<li>Untested: Added options for Holy Power, Eclipse, and Soul Shards for behaviors</li>
+					<li>Untested: Fixed combo points rule</li>
+					<li>Re-wrote how some conditions were calculated (/annoyed)</li>
+					<li>Untested: Rune checks should now function correctly, except death runes (are those still around?)</li>	
+					<li>Security tab removed from Settings (it was pointless)</li>		
+					<li>Updated base fields to use offset signatures (more likely for things to NOT break between patches)</li>		
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.1.zip" length="4593700" type="application/zip" sparkle:version="566" sparkle:shortVersionString="1.5.1.1" sparkle:dsaSignature="MCwCFA0Yj7hRqdpyi5UB0l+1SPb42nn8AhRGGFbD8mozs+jDZgNgL/L+6AIh2A=="/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1 (Build 551) </title>
             <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
-            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1 (Build 55118) Release Notes </span></p>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1 (Build 551) Release Notes </span></p>
                 <ul>
 					<li>Updated for 4.0.1!</li>		
 					<li>Offset controller completely re-written, gnome should no longer crash withe goblin!</li>		
