@@ -124,10 +124,10 @@ static InventoryController *sharedInventory = nil;
 	}
 	
 	/*if ( GUID_LOW32(guid) != 0x4580000 ){
-		NSLog(@"...0x%X", GUID_LOW32(guid));
-		return nil;
-		
-	}*/
+	 NSLog(@"...0x%X", GUID_LOW32(guid));
+	 return nil;
+	 
+	 }*/
 	
 	NSArray *itemList = [[_objectList copy] autorelease];
 	

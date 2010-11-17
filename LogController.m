@@ -13,6 +13,10 @@
 
 + (BOOL) canLog:(char*)type_s, ...
 {
+	
+	
+	return YES;
+	
 	// Check to see whether or not extended logging is even on
 	if ( [[[NSUserDefaults standardUserDefaults] objectForKey: @"ExtendedLoggingEnable"] boolValue] ) {
 

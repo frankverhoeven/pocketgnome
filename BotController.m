@@ -5002,10 +5002,16 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	log(LOG_FUNCTION, @"evaluateForCombatContinuation");
 
-	if (self.theCombatProfile.ignoreFlying && [[playerController player] isFlyingMounted]) return NO;
+	if (self.theCombatProfile.ignoreFlying && [[playerController player] isFlyingMounted]) {
+		PGLog(@"wut?");
+		return NO;
+	}
 
 	// Skip this if we're doing something already
-	if ( self.evaluationInProgress == @"Follow" && [[playerController player] isMounted] ) return NO;
+	if ( self.evaluationInProgress == @"Follow" && [[playerController player] isMounted] ) {
+		PGLog(@"I DONT BELIEVE IT");
+		return NO;
+	}
 
 	if ( !self.pvpIsInBG && !theCombatProfile.partyEnabled && ![playerController isInCombat] ) return NO;
 

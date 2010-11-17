@@ -10,7 +10,7 @@
 #import "Offsets.h"
 
 
-#define MOB_NAMESTRUCT_POINTER_OFFSET     0x9F8
+#define MOB_NAMESTRUCT_POINTER_OFFSET     0xA10
 
 enum eMobNameStructFields {
     NAMESTRUCT_TITLE_PTR            = 0x4,

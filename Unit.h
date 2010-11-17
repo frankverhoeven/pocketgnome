@@ -18,19 +18,19 @@ enum MovementFlags{
 };
 
 enum eUnitBaseFields {
-    BaseField_XLocation                 = 0x870,  // 3.0.9: 0x7C4
-    BaseField_YLocation                 = 0x874,  // 3.0.9: 0x7C8
-    BaseField_ZLocation                 = 0x878,  // 3.0.9: 0x7CC
-    BaseField_Facing_Horizontal         = 0x87C,  // 3.0.9: 0x7D0  // [0, 2pi]
-    BaseField_Facing_Vertical           = 0x880,  // 3.0.9: 0x7D0  // [-pi/2, pi/2]
+    BaseField_XLocation                 = 0x888,  // 3.0.9: 0x7C4
+    BaseField_YLocation                 = 0x88C,  // 3.0.9: 0x7C8
+    BaseField_ZLocation                 = 0x890,  // 3.0.9: 0x7CC
+    BaseField_Facing_Horizontal         = 0x894,  // 3.0.9: 0x7D0  // [0, 2pi]
+    BaseField_Facing_Vertical           = 0x898,  // 3.0.9: 0x7D0  // [-pi/2, pi/2]
     
-    BaseField_MovementFlags             = 0x8A0,  // 3.0.9: 0x7F0
+    BaseField_MovementFlags             = 0x8B8,  // 3.0.9: 0x7F0
     
-    BaseField_RunSpeed_Current          = 0x8E8,	// 3.0.9: 0x838
-    BaseField_RunSpeed_Walk             = 0x8EC,	// (you sure this is runspeed walk? - i noticed it was 2.5, yet current speed when walking was 7.0) 3.0.9: 0x83C
-    BaseField_RunSpeed_Max              = 0x8F0,	// 3.0.9: 0x840
-    BaseField_RunSpeed_Back             = 0x8F4,	// 3.0.9: 0x844
-    BaseField_AirSpeed_Max              = 0x900,	// 3.0.9: 0x850
+    BaseField_RunSpeed_Current          = 0x900,	// 3.0.9: 0x838
+    BaseField_RunSpeed_Walk             = 0x904,	// (you sure this is runspeed walk? - i noticed it was 2.5, yet current speed when walking was 7.0) 3.0.9: 0x83C
+    BaseField_RunSpeed_Max              = 0x908,	// 3.0.9: 0x840
+    BaseField_RunSpeed_Back             = 0x90C,	// 3.0.9: 0x844
+    BaseField_AirSpeed_Max              = 0x918,	// 3.0.9: 0x850
     
 	// lua_SpellStopCasting
     //BaseField_Spell_ToCast              = 0xB00,	// This is the spell we WANT to cast, and are waiting for the server to realize it should cast (the below will be set when it's been verified by the server) 
@@ -53,14 +53,14 @@ enum eUnitBaseFields {
     
     // BaseField_CurrentStance          = 0xB40, // this seems to have dissapeared in 3.0.8
     
-    BaseField_Auras_ValidCount          = 0xF24,
-    BaseField_Auras_Start               = 0xCE4,
+    BaseField_Auras_ValidCount          = 0xF3C,
+    BaseField_Auras_Start               = 0xCFC,
     
     // I'm not entirely sure what the story is behind these pointers
     // but it seems that once the player hits > 16 buffs/debuffs (17 or more)
     // the Aura fields in the player struct is abandoned and moves elsewhere
-    BaseField_Auras_OverflowValidCount  = 0xCE8,
-    BaseField_Auras_OverflowPtr1        = 0xCEC,
+    BaseField_Auras_OverflowValidCount  = 0xD00,
+    BaseField_Auras_OverflowPtr1        = 0xD04,
 };
 
 // Added from: http://www.mmowned.com/forums/wow-memory-editing/257771-wow-constant-data-enums-structs-etc.html
