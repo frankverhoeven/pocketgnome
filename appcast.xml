@@ -5,7 +5,17 @@
         <link>http://pg.savorydeviate.com/appcast.xml</link>
         <description>Appcast for PocketGnome</description>
         <language>en</language>
-
+        <item>
+            <title>Pocket Gnome 1.5.1.2 (Build 568) </title>
+            <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.2 (Build 568) Release Notes </span></p>
+                <ul>
+					<li>Updated for 4.0.3</li>		
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.2.zip" length="4436803" type="application/zip" sparkle:version="568" sparkle:shortVersionString="1.5.1.2" sparkle:dsaSignature="MCwCFHApcHyctfpxz92BWY8ls39GwFz6AhRi9bsgwU9ln1lF6TGVRvXm5flFxw=="/>
+        </item>
         <item>
             <title>Pocket Gnome 1.5.1.1 (Build 566) </title>
             <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
