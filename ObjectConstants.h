@@ -56,6 +56,7 @@ enum eObjectBase {
 	
    OBJECT_UNIT_FIELDS_PTR	= 0xEC,
    ITEM_FIELDS_PTR			= 0xF0,
+   MOVEMENT_FIELDS_PTR		= 0xF4,
    //PLAYER_FIELDS_PTR		= 0x131C,		// this correct?  hmmmm
    
 };

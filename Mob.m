@@ -30,6 +30,15 @@ enum eMobNameStructFields {
 
 @implementation Mob
 
+- (id)initWithAddress: (NSNumber*)address inMemory: (MemoryAccess*)memory {
+    
+    self = [super initWithAddress:address inMemory:memory];
+    if (self != nil) {
+        _creatureType = -1;
+    }
+    return self;
+}
+
 + (id)mobWithAddress: (NSNumber*)address inMemory: (MemoryAccess*)memory {
     return [[[Mob alloc] initWithAddress: address inMemory: memory] autorelease];
 }
@@ -119,6 +128,27 @@ enum eMobNameStructFields {
 // broken at the moment
 - (UInt32)experience {
     return 0;
+}
+
+- (BOOL)isGasCloud{
+	
+	// we don't know yet :/
+	if ( _creatureType == -1 ){
+	
+		// pointer to the struct
+		UInt32 nameStructPtr = 0;
+		if ( [_memory loadDataForObject: self atAddress: ([self baseAddress] + MOB_NAMESTRUCT_POINTER_OFFSET) Buffer: (Byte *)&nameStructPtr BufLength: sizeof(nameStructPtr)] && nameStructPtr > 0 ){
+	
+			// pointer to the creature type
+			UInt32 creatureType = 0x0;
+			if ( [_memory loadDataForObject: self atAddress: (nameStructPtr + NAMESTRUCT_CreatureType) Buffer: (Byte *)&creatureType BufLength: sizeof(creatureType)] && creatureType > 0 )	{
+				_creatureType = creatureType;
+			}
+		}
+	}
+	
+	// gas cloud
+	return ( _creatureType == 13 );
 }
 
 #pragma mark -

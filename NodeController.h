@@ -12,15 +12,18 @@
 
 @class PlayerDataController;
 @class ObjectsController;
+@class MobController;
 
 typedef enum {
     AnyNode = 0,
     MiningNode = 1,
     HerbalismNode = 2,
 	FishingSchool = 3,
+	GasCloud = 4,
 } NodeType;
 
 @interface NodeController : ObjectController {
+	IBOutlet MobController *mobController;
     IBOutlet id botController;
     IBOutlet id movementController;
     IBOutlet id memoryViewController;
@@ -43,6 +46,7 @@ typedef enum {
 - (NSArray*)nodesOfType:(UInt32)nodeType shouldLock:(BOOL)lock;
 - (NSArray*)allMiningNodes;
 - (NSArray*)allHerbalismNodes;
+- (NSArray*)allGasClouds;
 - (NSArray*)nodesWithinDistance: (float)distance ofAbsoluteType: (GameObjectType)type;
 - (NSArray*)nodesWithinDistance: (float)distance ofType: (NodeType)type maxLevel: (int)level;
 - (NSArray*)nodesWithinDistance: (float)nodeDistance NodeIDs: (NSArray*)nodeIDs position:(Position*)position;

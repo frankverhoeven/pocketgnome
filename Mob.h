@@ -14,6 +14,7 @@
 @interface Mob : Unit {
     UInt32  _stateFlags;
     
+	int _creatureType;
     NSString *_name;
     UInt32 _nameEntryID;
 }
@@ -48,6 +49,8 @@
 - (BOOL)isTappedByMe;
 - (BOOL)isTappedByOther;
 - (BOOL)isBeingTracked;
+
+- (BOOL)isGasCloud;
 
 
 @end

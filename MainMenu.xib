@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10H574</string>
 		<string key="IBDocument.InterfaceBuilderVersion">762</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -11188,6 +11188,14 @@
 					</object>
 					<int key="connectionID">4715</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">mobController</string>
+						<reference key="source" ref="275065446"/>
+						<reference key="destination" ref="1065682814"/>
+					</object>
+					<int key="connectionID">4716</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -16531,7 +16539,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">4715</int>
+			<int key="maxID">4716</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -16673,6 +16681,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>closeHotkeyHelp:</string>
 							<string>closeLootHotkeyHelp:</string>
+							<string>confirmOffsets:</string>
 							<string>editBehavior:</string>
 							<string>editBehaviorPvP:</string>
 							<string>editProfile:</string>
@@ -16693,6 +16702,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -17534,6 +17544,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>botController</string>
 							<string>memoryViewController</string>
+							<string>mobController</string>
 							<string>moveToList</string>
 							<string>movementController</string>
 							<string>objectsController</string>
@@ -17542,6 +17553,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
+							<string>MobController</string>
 							<string>NSPopUpButton</string>
 							<string>id</string>
 							<string>ObjectsController</string>

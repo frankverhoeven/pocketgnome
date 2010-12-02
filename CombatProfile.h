@@ -68,6 +68,7 @@
 	float partyLeaderWaitRange;
 
 	// Looting and Gathering
+	BOOL DoGasClouds;
 	BOOL DoMining;
 	int MiningLevel;
 	BOOL DoHerbalism;
@@ -173,6 +174,7 @@
 @property (readwrite, assign) BOOL pvpStayInWintergrasp;
 
 // Gathering and Looting
+@property (readwrite, assign) BOOL DoGasClouds;
 @property (readwrite, assign) BOOL DoMining;
 @property (readwrite, assign) int MiningLevel;
 @property (readwrite, assign) BOOL DoHerbalism;

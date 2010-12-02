@@ -14,6 +14,8 @@
 #import "ObjectsController.h"
 #import "Waypoint.h"
 #import "Offsets.h"
+#import "MobController.h"
+#import "Mob.h"
 
 #import "ImageAndTextCell.h"
 
@@ -179,10 +181,29 @@ typedef enum {
     
     return nodes;
 }
+
+- (NSArray*)allGasClouds {
+    NSMutableArray *nodes = [NSMutableArray array];
+    
+    for ( Mob *mob in [mobController allMobs]) {
+        
+		// gas cloud
+		if ( [mob isGasCloud] ){
+			[nodes addObject:mob];
+		}
+    }
+    
+    return nodes;
+}
+
 - (NSArray*)nodesWithinDistance: (float)nodeDistance NodeIDs: (NSArray*)nodeIDs position:(Position*)position{
 	
 	NSMutableArray *nearbyNodes = [NSMutableArray array];
-    for(Node *node in _objectList) {
+	
+	// add gas clouds
+	NSMutableArray *nodes = [NSMutableArray arrayWithArray:_objectList];
+	[nodes addObjectsFromArray:[self allGasClouds]];
+    for(Node *node in nodes) {
 		
 		// Just return nearby nodes
 		if ( nodeIDs == nil ){
@@ -211,7 +232,11 @@ typedef enum {
 	
 	log(LOG_GENERAL, @"Searching for %d", entryID);
 	NSMutableArray *nearbyNodes = [NSMutableArray array];
-    for(Node *node in _objectList) {
+	
+	// add gas clouds
+	NSMutableArray *nodes = [NSMutableArray arrayWithArray:_objectList];
+	[nodes addObjectsFromArray:[self allGasClouds]];
+    for(Node *node in nodes) {
 		if ( [node entryID] == entryID ){
 			float distance = [position distanceToPosition: [node position]];
 			log(LOG_GENERAL, @"Found %d == %d with distance of %0.2f", [node entryID], entryID, distance);
@@ -227,7 +252,11 @@ typedef enum {
 - (NSArray*)nodesWithinDistance: (float)distance ofAbsoluteType: (GameObjectType)type {
     NSMutableArray *finalList = [NSMutableArray array];
     Position *playerPosition = [(PlayerDataController*)playerData position];
-    for(Node* node in _objectList) {
+	
+	// add gas clouds
+	NSMutableArray *nodes = [NSMutableArray arrayWithArray:_objectList];
+	[nodes addObjectsFromArray:[self allGasClouds]];
+    for(Node* node in nodes) {
         if(   [node isValid]
            && [node validToLoot]
            && ([playerPosition distanceToPosition: [node position]] <= distance)
@@ -245,9 +274,11 @@ typedef enum {
     if(type == MiningNode)      nodeList = [self allMiningNodes];
     if(type == HerbalismNode)   nodeList = [self allHerbalismNodes];
 	if(type == FishingSchool)	nodeList = [self nodesOfType:GAMEOBJECT_TYPE_FISHINGHOLE shouldLock:NO];
+	if(type == GasCloud)		nodeList = [self allGasClouds];
 	
     Position *playerPosition = [(PlayerDataController*)playerData position];
     for(Node* node in nodeList) {
+		
         if(   [node isValid]
            && [node validToLoot]
            && ([playerPosition distanceToPosition: [node position]] <= distance)
@@ -260,9 +291,12 @@ typedef enum {
 }
 
 - (Node*)closestNodeForInteraction:(UInt32)entryID {
-    NSArray *nodeList = _objectList;
     Position *playerPosition = [(PlayerDataController*)playerData position];
-    for(Node* node in nodeList) {
+	
+	// add gas clouds
+	NSMutableArray *nodes = [NSMutableArray arrayWithArray:_objectList];
+	[nodes addObjectsFromArray:[self allGasClouds]];
+    for(Node* node in nodes) {
 		
 		if ( [node entryID]==entryID ){
 			log(LOG_GENERAL, @"Node id found! %d", [node entryID]);
@@ -279,12 +313,14 @@ typedef enum {
 }
 
 - (Node*)closestNode:(UInt32)entryID {
-    NSArray *nodeList = _objectList;
     Position *playerPosition = [(PlayerDataController*)playerData position];
 	Node *closestNode = nil;
 	float closestDistance = INFINITY;
 	float distance = 0.0f;
-    for(Node* node in nodeList) {
+	// add gas clouds
+	NSMutableArray *nodes = [NSMutableArray arrayWithArray:_objectList];
+	[nodes addObjectsFromArray:[self allGasClouds]];
+    for(Node* node in nodes) {
 		distance = [playerPosition distanceToPosition: [node position]];
 		if( [node isValid] && [node entryID]==entryID && (distance <= closestDistance) ) {
             closestDistance = distance;
@@ -295,7 +331,11 @@ typedef enum {
 }
 
 - (Node*)nodeWithEntryID:(UInt32)entryID{
-	for(Node* node in _objectList) {
+	
+	// add gas clouds
+	NSMutableArray *nodes = [NSMutableArray arrayWithArray:_objectList];
+	[nodes addObjectsFromArray:[self allGasClouds]];
+	for(Node* node in nodes) {
 		if ( [node entryID] == entryID ){
 			return node;
 		}

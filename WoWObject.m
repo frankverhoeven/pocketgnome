@@ -348,4 +348,8 @@
     return desc;
 }
 
+- (BOOL)validToLoot{
+	return YES;
+}
+
 @end

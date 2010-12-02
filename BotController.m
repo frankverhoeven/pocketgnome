@@ -3454,9 +3454,17 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			return;
 		}
 	}
-
-	// Lets do this instead of the loot hotkey!
-	[self interactWithMouseoverGUID: [unit cachedGUID]];
+	
+	BOOL isGasCloud = NO;
+	if ( [unit isNPC] && [(Mob*)unit isGasCloud] ){
+		isGasCloud = YES;
+		static int MoteExtractorItemID = 23821;
+		[self performAction:(USE_ITEM_MASK + MoteExtractorItemID)];
+	}
+	else{
+		// Lets do this instead of the loot hotkey!
+		[self interactWithMouseoverGUID: [unit cachedGUID]];
+	}
 
 	// If we do skinning and it may become skinnable
 	if (!theCombatProfile.DoSkinning || ![self.mobToSkin isKindOfClass: [Mob class]] || ![self.mobToSkin isNPC])  self.mobToSkin = nil;
@@ -3465,6 +3473,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	// verify delays
 	float delayTime = 2.5f;
 	if (isNode) delayTime = 4.5f;
+	if (isGasCloud) delayTime = 5.0f;
 	
 	log(LOG_LOOT, @"Looting : %@m", unit);
 	
@@ -5406,7 +5415,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 - (BOOL)evaluateForMiningAndHerbalism {
 
-	if (!theCombatProfile.DoMining && !theCombatProfile.DoHerbalism && !theCombatProfile.DoNetherwingEggs ) return NO;
+	if (!theCombatProfile.DoMining && !theCombatProfile.DoHerbalism && !theCombatProfile.DoNetherwingEggs && !theCombatProfile.DoGasClouds ) return NO;
 
 	if ( [playerController isDead] ) return NO;
 
@@ -5428,8 +5437,11 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	if( theCombatProfile.DoMining)			[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: MiningNode maxLevel: theCombatProfile.MiningLevel]];
 	if( theCombatProfile.DoHerbalism)		[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: HerbalismNode maxLevel: theCombatProfile.HerbalismLevel]];
 	if( theCombatProfile.DoNetherwingEggs)	[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance EntryID: 185915 position:[playerController position]]];
+	if( theCombatProfile.DoGasClouds)		[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: GasCloud maxLevel:5000]];
 
 	[nodes sortUsingFunction: DistanceFromPositionCompare context: playerPosition];
+	
+	NSLog(@"Nodes: %@", nodes);
 
 	// If we've no node then skip this
 	if ( ![nodes count] ) {
@@ -5505,6 +5517,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	// No valid nodes found
 	if ( !nodeToLoot ) {
+		NSLog(@"no node?");
 		if ( self.evaluationInProgress ) {
 			self.evaluationInProgress = nil;
 			if ( [movementController moveToObject] ) [movementController resetMovementState];

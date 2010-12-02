@@ -90,6 +90,7 @@
 		self.pvpWaitToLeaveTime = 10.0;
 		self.pvpStayInWintergrasp = YES;
 		
+		self.DoGasClouds = NO;
 		self.DoMining = NO;
 		self.MiningLevel = 0;
 		self.DoHerbalism = NO;
@@ -169,6 +170,7 @@
 					   @"pvpWaitToLeave",
 					   @"pvpWaitToLeaveTime",
 					   @"pvpStayInWintergrasp",
+					   @"DoGasClouds",
 					   @"DoMining",
 					   @"MiningLevel",
 					   @"DoHerbalism",
@@ -285,6 +287,7 @@
 	copy.pvpWaitToLeaveTime = self.pvpWaitToLeaveTime;
 	copy.pvpStayInWintergrasp = self.pvpStayInWintergrasp;
 
+	copy.DoGasClouds = self.DoGasClouds;
 	copy.DoMining = self.DoMining;
 	copy.MiningLevel = self.MiningLevel;
 	copy.DoHerbalism = self.DoHerbalism;
@@ -386,6 +389,7 @@
 		self.pvpWaitToLeaveTime = [[decoder decodeObjectForKey: @"PvpWaitToLeaveTime"] floatValue];
 		self.pvpStayInWintergrasp = [[decoder decodeObjectForKey: @"pvpStayInWintergrasp"] boolValue];
 		
+		self.DoGasClouds = [[decoder decodeObjectForKey: @"DoGasClouds"] boolValue];
 		self.DoMining = [[decoder decodeObjectForKey: @"DoMining"] boolValue];
 		self.MiningLevel = [[decoder decodeObjectForKey: @"MiningLevel"] intValue];
 		self.DoHerbalism = [[decoder decodeObjectForKey: @"DoHerbalism"] boolValue];
@@ -484,6 +488,7 @@
 	[coder encodeObject: [NSNumber numberWithFloat: self.pvpWaitToLeaveTime] forKey: @"PvpWaitToLeaveTime"];
 	[coder encodeObject: [NSNumber numberWithBool: self.pvpStayInWintergrasp] forKey: @"PvpStayInWintergrasp"];
 	
+	[coder encodeObject: [NSNumber numberWithBool: self.DoGasClouds] forKey: @"DoGasClouds"];
 	[coder encodeObject: [NSNumber numberWithBool: self.DoMining] forKey: @"DoMining"];
 	[coder encodeObject: [NSNumber numberWithInt: self.MiningLevel] forKey: @"MiningLevel"];
 	[coder encodeObject: [NSNumber numberWithBool: self.DoHerbalism] forKey: @"DoHerbalism"];
@@ -586,6 +591,7 @@
 @synthesize pvpWaitToLeaveTime;
 @synthesize pvpStayInWintergrasp;
 
+@synthesize DoGasClouds;
 @synthesize DoMining;
 @synthesize MiningLevel;
 @synthesize DoHerbalism;

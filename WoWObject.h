@@ -91,4 +91,6 @@ enum HighGuid {
 - (UInt32)objectFieldAddress;
 - (UInt32)unitFieldAddress;
 
+- (BOOL)validToLoot;
+
 @end
