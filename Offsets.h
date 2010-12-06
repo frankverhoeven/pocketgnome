@@ -14,7 +14,7 @@
 #define VALID_WOW_VERSION   @"4.0.3"
 #define PLAYER_LEVEL_CAP    80
 
-#define	BG_STATUS		0x18
+#define	BG_STATUS		0xC
 #define BG_MINLEVEL		0x1C
 #define BG_MAXLEVEL		0x20
 #define BG_INFO_NEXT	0x3C
