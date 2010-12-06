@@ -59,6 +59,8 @@ enum mountType {
 
 - (BOOL)isInstant;
 - (BOOL)isMount;
+- (BOOL)isAirMount;
+- (BOOL)isGroundMount;
 
 - (NSString*)fullName;
 

@@ -50,8 +50,8 @@ typedef struct WoWCooldown {
 @interface SpellController (Internal)
 - (void)buildSpellMenu;
 - (void)synchronizeSpells;
-- (NSArray*)mountsBySpeed: (int)speed;
-
+- (NSArray*)groundMounts;
+- (NSArray*)airMounts;
 @end
 
 @implementation SpellController
@@ -379,31 +379,10 @@ static SpellController *sharedSpells = nil;
 	
 	NSMutableArray *mounts = [NSMutableArray array];
 	if ( type == MOUNT_GROUND ){
-		
-		// Add fast mounts!
-		if ( isFast ){
-			[mounts addObjectsFromArray:[self mountsBySpeed:100]];
-		}
-		
-		// We either have no fast mounts, or we didn't even want them!
-		if ( [mounts count] == 0 ){
-			[mounts addObjectsFromArray:[self mountsBySpeed:60]];	
-		}
+		[mounts addObjectsFromArray:[self groundMounts]];
 	}
 	else if ( type == MOUNT_AIR ){
-		if ( isFast ){
-			[mounts addObjectsFromArray:[self mountsBySpeed:310]];
-			
-			// For most we will be here
-			if ( [mounts count] == 0 ){
-				[mounts addObjectsFromArray:[self mountsBySpeed:280]];
-			}
-		}
-		
-		// We either have no fast mounts, or we didn't even want them!
-		if ( [mounts count] == 0 ){
-			[mounts addObjectsFromArray:[self mountsBySpeed:150]];	
-		}
+		[mounts addObjectsFromArray:[self airMounts]];
 	}
 	
 	// Randomly select one from the array!
@@ -430,11 +409,21 @@ static SpellController *sharedSpells = nil;
 	return nil;
 }
 
-- (NSArray*)mountsBySpeed: (int)speed{
+- (NSArray*)airMounts{
 	NSMutableArray *mounts = [NSMutableArray array];
 	for(Spell *spell in _playerSpells) {
-		int s = [[spell speed] intValue];
-		if ( s == speed ){
+		if ( [spell isAirMount] ){
+			[mounts addObject:spell];
+		}
+	}
+	
+	return mounts;	
+}
+
+- (NSArray*)groundMounts{
+	NSMutableArray *mounts = [NSMutableArray array];
+	for(Spell *spell in _playerSpells) {
+		if ( [spell isGroundMount] ){
 			[mounts addObject:spell];
 		}
 	}

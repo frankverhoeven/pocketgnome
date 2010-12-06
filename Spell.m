@@ -310,6 +310,22 @@
 	return NO;
 }
 
+- (BOOL)isAirMount {
+	if ( [self.mechanic isEqualToString:@"Mounted"] && [self.mount intValue] == MOUNT_AIR ){
+		return YES;
+	}
+	
+	return NO;
+}
+
+- (BOOL)isGroundMount {
+	if ( [self.mechanic isEqualToString:@"Mounted"] && [self.mount intValue] == MOUNT_GROUND ){
+		return YES;
+	}
+	
+	return NO;
+}
+
 #pragma mark -
 
 //#define NAME_SEPARATOR      @"<table class=ttb width=300><tr><td colspan=2>"
