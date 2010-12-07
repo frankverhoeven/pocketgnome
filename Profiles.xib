@@ -1702,7 +1702,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																								<string>.</string>
 																								<integer value="1000"/>
 																								<string>,</string>
-																								<real value="500"/>
+																								<real value="525"/>
 																								<integer value="0"/>
 																								<string/>
 																								<string>##0</string>
@@ -1722,7 +1722,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																							<reference key="NSAttributes" ref="497523512"/>
 																						</object>
 																						<integer value="0" key="NS.min"/>
-																						<real value="500" key="NS.max"/>
+																						<real value="525" key="NS.max"/>
 																						<nil key="NS.rounding"/>
 																						<string key="NS.decimal">.</string>
 																						<string key="NS.thousand">,</string>
@@ -1774,7 +1774,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																								<string>.</string>
 																								<integer value="1000"/>
 																								<string>,</string>
-																								<real value="500"/>
+																								<real value="525"/>
 																								<integer value="0"/>
 																								<string/>
 																								<string>##0</string>
@@ -1794,7 +1794,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																							<reference key="NSAttributes" ref="497523512"/>
 																						</object>
 																						<integer value="0" key="NS.min"/>
-																						<real value="500" key="NS.max"/>
+																						<real value="525" key="NS.max"/>
 																						<nil key="NS.rounding"/>
 																						<string key="NS.decimal">.</string>
 																						<string key="NS.thousand">,</string>
@@ -1912,7 +1912,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																								<string>.</string>
 																								<integer value="1000"/>
 																								<string>,</string>
-																								<real value="500"/>
+																								<real value="525"/>
 																								<integer value="0"/>
 																								<string/>
 																								<string>##0</string>
@@ -1932,7 +1932,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																							<reference key="NSAttributes" ref="497523512"/>
 																						</object>
 																						<integer value="0" key="NS.min"/>
-																						<real value="500" key="NS.max"/>
+																						<real value="525" key="NS.max"/>
 																						<nil key="NS.rounding"/>
 																						<string key="NS.decimal">.</string>
 																						<string key="NS.thousand">,</string>

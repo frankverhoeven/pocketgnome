@@ -4,6 +4,27 @@
 <dict>
 	<key>Herbalism</key>
 	<dict>
+		<key>Twilight Jasmine</key>
+		<dict>
+			<key>Type</key>
+			<string>Herbalism</string>
+			<key>Skill</key>
+			<integer>525</integer>
+		</dict>
+		<key>Whiptail</key>
+		<dict>
+			<key>Type</key>
+			<string>Herbalism</string>
+			<key>Skill</key>
+			<integer>500</integer>
+		</dict>
+		<key>Heartblossom</key>
+		<dict>
+			<key>Type</key>
+			<string>Herbalism</string>
+			<key>Skill</key>
+			<integer>475</integer>
+		</dict>
 		<key>Firethorn</key>
 		<dict>
 			<key>Type</key>
@@ -343,6 +364,34 @@
 	</dict>
 	<key>Mining</key>
 	<dict>
+		<key>Rich Pyrite Deposit</key>
+		<dict>
+			<key>Type</key>
+			<string>Mining</string>
+			<key>Skill</key>
+			<string>525</string>
+		</dict>
+		<key>Pyrite Deposit</key>
+		<dict>
+			<key>Type</key>
+			<string>Mining</string>
+			<key>Skill</key>
+			<string>525</string>
+		</dict>
+		<key>Rich Elementium Vein</key>
+		<dict>
+			<key>Type</key>
+			<string>Mining</string>
+			<key>Skill</key>
+			<string>500</string>
+		</dict>
+		<key>Elementium Vein</key>
+		<dict>
+			<key>Type</key>
+			<string>Mining</string>
+			<key>Skill</key>
+			<string>475</string>
+		</dict>
 		<key>Titanium Vein</key>
 		<dict>
 			<key>Type</key>
