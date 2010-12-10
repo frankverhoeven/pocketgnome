@@ -529,7 +529,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				break;
 
 			case VarietyPower:;
-				log(LOG_CONDITION, @"Doing Health/Power condition...");	
+				//log(LOG_CONDITION, @"Doing Health/Power condition...");	
 				
 				NSArray *units = [NSArray array];
 				// testing against multiple units
@@ -563,13 +563,13 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 					// now we have the value of the quality
 					if( [condition comparator] == CompareMore) {
 						conditionEval = ( qualityValue > [[condition value] unsignedIntValue] ) ? YES : NO;
-						log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
+						//log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
 					} else if ([condition comparator] == CompareEqual) {
 						conditionEval = ( qualityValue == [[condition value] unsignedIntValue] ) ? YES : NO;
-						log(LOG_CONDITION, @"	%d = %@ is %d", qualityValue, [condition value], conditionEval);
+						//log(LOG_CONDITION, @"	%d = %@ is %d", qualityValue, [condition value], conditionEval);
 					} else if ([condition comparator] == CompareLess) {
 						conditionEval = ( qualityValue < [[condition value] unsignedIntValue] ) ? YES : NO;
-						log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
+						//log(LOG_CONDITION, @"	%d > %@ is %d", qualityValue, [condition value], conditionEval);
 					} else goto loopEnd;
 					break;
 				}
@@ -5414,6 +5414,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 }
 
 - (BOOL)evaluateForMiningAndHerbalism {
+	log(LOG_FUNCTION, @"evaluateForMiningAndHerbalism");
 
 	if (!theCombatProfile.DoMining && !theCombatProfile.DoHerbalism && !theCombatProfile.DoNetherwingEggs && !theCombatProfile.DoGasClouds ) return NO;
 
@@ -5441,8 +5442,6 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	[nodes sortUsingFunction: DistanceFromPositionCompare context: playerPosition];
 	
-	NSLog(@"Nodes: %@", nodes);
-
 	// If we've no node then skip this
 	if ( ![nodes count] ) {
 		[blacklistController clearAttempts];
@@ -5457,59 +5456,61 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			return NO;
 		}
 	}
-
+	
 	// find a valid node to loot
-	Node *thisNode = nil;
 	Node *nodeToLoot = nil;
 	float nodeDist = INFINITY;
 
 	int blacklistTriggerNodeMadeMeFall = [[[NSUserDefaults standardUserDefaults] objectForKey: @"BlacklistTriggerNodeMadeMeFall"] intValue];
 
-	for(thisNode in nodes) {
+	for( Node *node in nodes) {
+		
+		log(LOG_NODE, @"checking %@", node);
 
-		if ( ![thisNode validToLoot] ) {
-			log(LOG_NODE, @"%@ is not valid to loot, ignoring...", thisNode);
+		if ( ![node validToLoot] ) {
+			log(LOG_NODE, @"%@ is not valid to loot, ignoring...", node);
 			continue;
 		}
 
-		NSNumber *guid = [NSNumber numberWithUnsignedLongLong:[thisNode cachedGUID]];
+		NSNumber *guid = [NSNumber numberWithUnsignedLongLong:[node cachedGUID]];
 		NSNumber *count = [_lootDismountCount objectForKey:guid];
 
 		if ( count ) {
 			
 			// took .5 seconds or longer to fall!
 			if ( [count intValue] > 4 && [count intValue] >= blacklistTriggerNodeMadeMeFall ) {
-				log(LOG_NODE, @"%@ made me fall after %d attempts, ignoring...", thisNode, blacklistTriggerNodeMadeMeFall);
-				[blacklistController blacklistObject:thisNode withReason:Reason_NodeMadeMeFall];
+				log(LOG_NODE, @"%@ made me fall after %d attempts, ignoring...", node, blacklistTriggerNodeMadeMeFall);
+				[blacklistController blacklistObject:node withReason:Reason_NodeMadeMeFall];
 				continue;
 			}
 		}
 
-		if ( [theCombatProfile unitShouldBeIgnored: (Unit*)thisNode] ) {
-			log(LOG_DEV, @"%@ is on the ignore list, ignoring.", thisNode);
+		if ( [theCombatProfile unitShouldBeIgnored: (Unit*)node] ) {
+			log(LOG_DEV, @"%@ is on the ignore list, ignoring.", node);
 			continue;
 		}
 
-		if ( [blacklistController isBlacklisted:thisNode] ) {
-			log(LOG_DEV, @"%@ is blacklisted, ignoring.", thisNode);
+		if ( [blacklistController isBlacklisted:node] ) {
+			log(LOG_DEV, @"%@ is blacklisted, ignoring.", node);
 			continue;
 		}
 
-		if ( thisNode && [thisNode isValid] ) {
+		if ( node && [node isValid] ) {
 
-			nodeDist = [playerPosition distanceToPosition: [thisNode position]];
+			float dist = [playerPosition distanceToPosition: [node position]];
 
 			// If we're not supposed to loot this node due to proximity rules
-			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:thisNode doMob: theCombatProfile.GatherNodesMobNear doFriendy: theCombatProfile.GatherNodesFriendlyPlayerNear doHostile: theCombatProfile.GatherNodesHostilePlayerNear];
+			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:node doMob: theCombatProfile.GatherNodesMobNear doFriendy: theCombatProfile.GatherNodesFriendlyPlayerNear doHostile: theCombatProfile.GatherNodesHostilePlayerNear];
 
 			if ( nearbyScaryUnits ) {
 				log(LOG_NODE, @"Skipping node due to proximity count");
 				continue;
 			}
 
-			if ( nodeDist != INFINITY ) {
-				nodeToLoot = thisNode;
-				break;
+			if ( dist != INFINITY && dist < nodeDist ) {
+				log(LOG_NODE, @"Found node %0.2f < %0.2f %@", dist, nodeDist, node);
+				nodeDist = dist;
+				nodeToLoot = node;
 			}
 		}
 		
@@ -5517,7 +5518,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	// No valid nodes found
 	if ( !nodeToLoot ) {
-		NSLog(@"no node?");
+		log(LOG_NODE,@"no node?");
 		if ( self.evaluationInProgress ) {
 			self.evaluationInProgress = nil;
 			if ( [movementController moveToObject] ) [movementController resetMovementState];
@@ -6096,6 +6097,9 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		_evaluationIsActive = NO;
 		return YES;
 	}
+	
+	// should we be mounted?
+	
 
 	// Increment the party emote timer
 	if ( theCombatProfile.partyEnabled && theCombatProfile.partyEmotes && ![playerController isInCombat] ) if (_partyEmoteIdleTimer <= (theCombatProfile.partyEmotesIdleTime*10)) _partyEmoteIdleTimer++;
@@ -6741,7 +6745,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	_movingTowardMobCount = 0;
 
 	_castingUnit = nil;
-
+	
 	// Follow resets
 	_followUnit	= nil;
 	
@@ -6853,6 +6857,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	// Kill it and set isBotting right away!
 	[self cancelCurrentEvaluation];
 	[self stopBotActions];
+	[movementController resetMovementState];
 
 	// Then a user clicked!
 	if ( sender != nil ) self.startDate = nil;
@@ -8120,8 +8125,31 @@ NSMutableDictionary *_diffDict = nil;
 		log(LOG_DEV, @"Scanning nearby mobs within %0.2f of %@", theCombatProfile.GatherNodesMobNearRange, [node position]);
 		NSArray *mobs = [mobController mobsWithinDistance: theCombatProfile.GatherNodesMobNearRange MobIDs:nil position:[node position] aliveOnly:YES];
 		if ( [mobs count] ){
-			log(LOG_NODE, @"There %@ %d scary mob(s) near the node, ignoring %@", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node);
-			return YES;
+			
+			// make sure they're over level 1!
+			BOOL scary = NO;
+			for ( Mob *mob in mobs ){
+				if ( [mob level] > 1 ){
+					scary = YES;
+				}
+				if ( [mob isDead] ){
+					scary = NO;
+				}
+				BOOL isHostile = [playerController isHostileWithFaction: [mob factionTemplate]];
+				if ( !isHostile ){
+					scary = NO;
+				}
+			}
+			
+			if ( scary ){
+				log(LOG_NODE, @"There %@ %d scary mob(s) near the node, ignoring %@", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node);
+				log(LOG_NODE, @"%@", mobs);
+			}
+			else{
+				log(LOG_NODE, @"scary mob is level 1, ignoring");
+			}
+			
+			return scary;
 		}
 	}
 	if ( doFriendlyCheck ){
@@ -8136,6 +8164,8 @@ NSMutableDictionary *_diffDict = nil;
 			return YES;
 		}
 	}
+	
+	log(LOG_FUNCTION, @"scaryUnitsNearNode NO");
 	
 	return NO;
 }

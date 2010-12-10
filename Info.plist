@@ -131,7 +131,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>${PRODUCT_NAME} 1.5.1</string>
+	<string>${PRODUCT_NAME} 1.5.1.3</string>
 	<key>CFBundleIconFile</key>
 	<string>gnome2</string>
 	<key>CFBundleIdentifier</key>
@@ -143,11 +143,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.1 (r568)</string>
+	<string>1.5.1.3 (r573)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>566</string>
+	<string>573</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.5</string>
 	<key>NSAppleScriptEnabled</key>

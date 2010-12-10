@@ -6,6 +6,21 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
+            <title>Pocket Gnome 1.5.1.3 (Build 573) </title>
+            <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.3 (Build 573) Release Notes </span></p>
+                <ul>
+					<li>Gathering nodes added for Catalclysm</li>	
+					<li>BG Queueing may work now (untested)</li>
+					<li>Fixed checking for items in your bags</li>
+					<li>Mounts should be pulled correctly now for following (untested)</li>
+					<li>You can now gather gas clouds</li>	
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.3.zip" length="4438828" type="application/zip" sparkle:version="573" sparkle:shortVersionString="1.5.1.3" sparkle:dsaSignature="MCwCFEj03qZrdXE13UmKghH+5q1X+lmsAhQc+VIzbalDidhcP4YabkmH29Z91w=="/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1.2 (Build 568) </title>
             <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.2 (Build 568) Release Notes </span></p>
