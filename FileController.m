@@ -216,7 +216,7 @@ static FileController *_sharedFileController = nil;
 		object = [object valueForKey:@"Route"];
 	}
 	
-	return [object retain];
+	return object;
 }
 
 // delete all objects with a given extension

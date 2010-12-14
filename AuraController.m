@@ -120,11 +120,11 @@ typedef struct WoWAura {
     // we're overflowing. try the backup.
     if ( validAuras == 0xFFFFFFFF) {
         [wowMemory readAddress: ([unit baseAddress] + BaseField_Auras_OverflowValidCount) Buffer: (Byte*)&validAuras BufLength: sizeof(validAuras)];
-		log(LOG_GENERAL, @"[Auras] Lot of auras! Switching to backup!");
+		log(LOG_DEV, @"[Auras] Lot of auras! Switching to backup!");
 	}
     
     if ( validAuras <= 0 || validAuras > 500 ) {
-		log(LOG_GENERAL, @"[Auras] Not a valid aura count %d", validAuras);
+		log(LOG_DEV, @"[Auras] Not a valid aura count %d", validAuras);
 		return nil;
 	}
 	
@@ -136,7 +136,7 @@ typedef struct WoWAura {
         if([wowMemory loadDataForObject: self atAddress: ([unit baseAddress] + BaseField_Auras_OverflowPtr1) Buffer: (Byte*)&newAddr BufLength: sizeof(newAddr)] && newAddr) {
             aurasAddress = newAddr;
         } else {
-            log(LOG_GENERAL, @"[Auras] Error finding aura overflow pointer.");
+            log(LOG_DEV, @"[Auras] Error finding aura overflow pointer.");
             return nil;
         }
     }

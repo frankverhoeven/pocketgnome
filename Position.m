@@ -105,7 +105,7 @@
 	}
 	
 	Position *newPos = [[Position alloc] initWithX:([self xPosition] + x) Y:([self yPosition] + y) Z:[self zPosition]];
-	return [[newPos retain] autorelease];
+	return [newPos autorelease];
 }
 
 

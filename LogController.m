@@ -13,10 +13,6 @@
 
 + (BOOL) canLog:(char*)type_s, ...
 {
-	
-	
-	return YES;
-	
 	// Check to see whether or not extended logging is even on
 	if ( [[[NSUserDefaults standardUserDefaults] objectForKey: @"ExtendedLoggingEnable"] boolValue] ) {
 
@@ -55,14 +51,14 @@
 
 + (NSString*) log:(char*)type_s, ...
 {
-	NSString* type = [NSString stringWithFormat:@"%s", type_s];
 	va_list args;
 	va_start(args, type_s);
 	NSString* format = va_arg(args, NSString*);
-	NSMutableString* output = [[NSMutableString alloc] initWithFormat:format arguments:args];
+	NSString* logString = [[NSString alloc] initWithFormat:format arguments:args];
 	va_end(args);
 	
-	output = [NSString stringWithFormat:@"[%@] %@", type, output];
+	NSString *output = [NSString stringWithFormat:@"[%s] %@", type_s, logString];
+	[logString release];
 	return output;
 }
 

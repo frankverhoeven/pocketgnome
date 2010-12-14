@@ -7893,7 +7893,6 @@ NSMutableDictionary *_diffDict = nil;
 
 // called every 30 seconds
 - (void)afkTimer: (NSTimer*)timer {
-	log(LOG_FUNCTION, @"afkTimer");
 
 	if ( ![playerController playerIsValid] ) return;
 

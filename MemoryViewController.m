@@ -1092,6 +1092,7 @@ typedef enum SearchType{
 			}
 			
 			[resultsTextView setString: offsets];
+			[offsets release];
 			
 		}
 		// none :(
