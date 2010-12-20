@@ -133,7 +133,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>${PRODUCT_NAME} 1.5.1.3</string>
 	<key>CFBundleIconFile</key>
-	<string>gnome2</string>
+	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>com.savorydeviate.PocketGnome</string>
 	<key>CFBundleInfoDictionaryVersion</key>

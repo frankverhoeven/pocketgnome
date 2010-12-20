@@ -195,15 +195,18 @@ static Controller* sharedController = nil;
 }
 
 - (void)checkWoWVersion {
+	
+	NSLog(@"here it is: %@", [self wowVersionShort]);
     
     NSString *appVers = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
-    if([self isWoWVersionValid]) {
+    if ( [self isWoWVersionValid] ){
         [aboutValidImage setImage: [NSImage imageNamed: @"good"]];
-	[versionInfoText setStringValue: [NSString stringWithFormat: @"%@ v%@ is up to date with WoW %@.", [self appName], appVers, [self wowVersionShort]]];
-    } else {
+		[versionInfoText setStringValue: [NSString stringWithFormat: @"%@ v%@ is up to date with version %@.", [self appName], appVers, [self wowVersionShort]]];
+    }
+	else{
         [aboutValidImage setImage: [NSImage imageNamed: @"bad"]];
-	[versionInfoText setStringValue: [NSString stringWithFormat: @"%@ v%@ may require WoW %@. Check the site below for more details.", [self appName], appVers, VALID_WOW_VERSION]];
+		[versionInfoText setStringValue: [NSString stringWithFormat: @"%@ v%@ may require game version %@. Check the site below for more details.", [self appName], appVers, VALID_WOW_VERSION]];
     }
 }
 
@@ -911,7 +914,7 @@ typedef struct NameObjectStruct{
 
 - (NSString*)stateString {
     if(self.currentState == wowNotOpenState)
-        return @"WoW is not open";
+        return @"Game is not open";
     if(self.currentState == memoryInvalidState)
         return @"Memory access denied";
     if(self.currentState == memoryValidState)
@@ -1114,8 +1117,19 @@ typedef struct NameObjectStruct{
         }
     } else {
         wowBundle = [NSBundle bundleWithPath: [[NSWorkspace sharedWorkspace] fullPathForApplication: @"World of Warcraft"]];
+		NSLog(@"bundle: %@", wowBundle);
     }
-    return [[wowBundle infoDictionary] objectForKey: @"CFBundleVersion"];
+	
+	// as of 4.x in the format of "4.0.3 (13329)"
+	NSString *versionShort = [[wowBundle infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+	NSArray *splitVersion = [versionShort componentsSeparatedByString:@" "];
+	
+	// then we have just the version
+	if ( [splitVersion count] > 0 ){
+		return [splitVersion objectAtIndex:0];
+	}
+	
+    return nil;
 }
 
 - (NSString*)wowVersionLong {
@@ -1194,7 +1208,7 @@ typedef struct NameObjectStruct{
     
 	// WoW isn't open then :(
 	if ( [PIDs count] == 0 ){
-		wowInstanceItem = [[NSMenuItem alloc] initWithTitle: @"WoW is not open" action: nil keyEquivalent: @""];
+		wowInstanceItem = [[NSMenuItem alloc] initWithTitle: @"Game is not open" action: nil keyEquivalent: @""];
 		[wowInstanceItem setTag: 0];
 		[wowInstanceItem setRepresentedObject: 0];
 		[wowInstanceItem setIndentationLevel: 0];

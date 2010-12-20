@@ -8122,33 +8122,37 @@ NSMutableDictionary *_diffDict = nil;
 - (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck{
 	if ( doMobCheck ){
 		log(LOG_DEV, @"Scanning nearby mobs within %0.2f of %@", theCombatProfile.GatherNodesMobNearRange, [node position]);
-		NSArray *mobs = [mobController mobsWithinDistance: theCombatProfile.GatherNodesMobNearRange MobIDs:nil position:[node position] aliveOnly:YES];
+		NSArray *zeMobs = [mobController mobsWithinDistance: theCombatProfile.GatherNodesMobNearRange MobIDs:nil position:[node position] aliveOnly:YES];
+		NSMutableArray *mobs = [NSMutableArray arrayWithArray:zeMobs];
 		if ( [mobs count] ){
 			
-			// make sure they're over level 1!
-			BOOL scary = NO;
+			int count = [mobs count];
+			// remove mobs that don't matter
+			NSMutableArray *mobsToRemove = [NSMutableArray array];
 			for ( Mob *mob in mobs ){
-				if ( [mob level] > 1 ){
-					scary = YES;
+					
+				if ( [mob level] == 1 ){
+					[mobsToRemove addObject:mob];
 				}
-				if ( [mob isDead] ){
-					scary = NO;
+				else if ( [mob isDead] ){
+					[mobsToRemove addObject:mob];
 				}
-				BOOL isHostile = [playerController isHostileWithFaction: [mob factionTemplate]];
-				if ( !isHostile ){
-					scary = NO;
+				else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
+					[mobsToRemove addObject:mob];
 				}
+			}
+			[mobs removeObjectsInArray:mobsToRemove];
+			
+			log(LOG_NODE, @"Went from %d mobs to %d", count, [mobs count]);
+			
+			if ( [mobs count] > 1 ){
+				log(LOG_NODE, @"There %@ %d scary mob(s) near the node, ignoring %@ (Mobs: %@)", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node, mobs);
+				return YES;
 			}
 			
-			if ( scary ){
-				log(LOG_NODE, @"There %@ %d scary mob(s) near the node, ignoring %@", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node);
-				log(LOG_NODE, @"%@", mobs);
-			}
-			else{
-				log(LOG_NODE, @"scary mob is level 1, ignoring");
-			}
+			log(LOG_NODE, @"Only 1 mob near node, so ignoring!");
 			
-			return scary;
+			return NO;
 		}
 	}
 	if ( doFriendlyCheck ){

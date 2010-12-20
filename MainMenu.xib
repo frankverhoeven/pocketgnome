@@ -13,6 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="1725"/>
+			<integer value="1957"/>
 			<integer value="3349"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -624,7 +625,6 @@
 							<string>C8D3D151-66DC-4B26-9227-FD886A23058B</string>
 							<string>F6035D3E-470C-423D-A669-9427AFE6E2BB</string>
 							<string>FFFAE74F-76CD-461B-8798-3C00CA631D4A</string>
-							<string>NSToolbarCustomizeToolbarItem</string>
 							<string>NSToolbarFlexibleSpaceItem</string>
 							<string>NSToolbarSeparatorItem</string>
 							<string>NSToolbarSpaceItem</string>
@@ -641,7 +641,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Ability_DualWieldSpecialization</string>
+									<string key="NSResourceName">bStats_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -663,7 +663,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">INV_Misc_Orb_05</string>
+									<string key="NSResourceName">bMemory_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -685,7 +685,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Spell_FireResistanceTotem_01</string>
+									<string key="NSResourceName">bSpells_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -707,7 +707,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Spell_Holy_MindVision</string>
+									<string key="NSResourceName">bBot_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -729,7 +729,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">PVP</string>
+									<string key="NSResourceName">bPvP_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -751,7 +751,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">INV_Misc_Gear_01</string>
+									<string key="NSResourceName">bSettings_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -773,7 +773,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Trade_Engraving</string>
+									<string key="NSResourceName">bChat_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -795,7 +795,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Ability_Warrior_Revenge</string>
+									<string key="NSResourceName">bPlayer_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -817,7 +817,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">INV_Misc_Head_Dragon_Blue</string>
+									<string key="NSResourceName">bObjects_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -839,7 +839,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Ability_Rogue_Sprint</string>
+									<string key="NSResourceName">bRoutes_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -861,7 +861,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Spell_Nature_PoisonCleansingTotem</string>
+									<string key="NSResourceName">bBehaviors_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -883,7 +883,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">Spell_Holy_PrayerofSpirit</string>
+									<string key="NSResourceName">bProfiles_c</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -892,26 +892,6 @@
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">YES</bool>
 								<int key="NSToolbarItemTag">17</int>
-								<bool key="NSToolbarIsUserRemovable">YES</bool>
-								<int key="NSToolbarItemVisibilityPriority">0</int>
-							</object>
-							<object class="NSToolbarItem" id="109537716">
-								<string key="NSToolbarItemIdentifier">NSToolbarCustomizeToolbarItem</string>
-								<string key="NSToolbarItemLabel">Customize</string>
-								<string key="NSToolbarItemPaletteLabel">Customize</string>
-								<string key="NSToolbarItemToolTip">Customize Toolbar</string>
-								<nil key="NSToolbarItemView"/>
-								<object class="NSCustomResource" key="NSToolbarItemImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">NSToolbarCustomizeToolbarItemImage</string>
-								</object>
-								<nil key="NSToolbarItemTarget"/>
-								<string key="NSToolbarItemAction">runToolbarCustomizationPalette:</string>
-								<string key="NSToolbarItemMinSize">{0, 0}</string>
-								<string key="NSToolbarItemMaxSize">{0, 0}</string>
-								<bool key="NSToolbarItemEnabled">YES</bool>
-								<bool key="NSToolbarItemAutovalidates">YES</bool>
-								<int key="NSToolbarItemTag">-1</int>
 								<bool key="NSToolbarIsUserRemovable">YES</bool>
 								<int key="NSToolbarItemVisibilityPriority">0</int>
 							</object>
@@ -1014,7 +994,6 @@
 						<reference ref="805655019"/>
 						<reference ref="840386585"/>
 						<reference ref="499189514"/>
-						<reference ref="109537716"/>
 						<reference ref="684506935"/>
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
@@ -1043,7 +1022,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{700, 200}</string>
 				<object class="NSView" key="NSWindowView" id="307790377">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1181,6 +1160,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{749, 200}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{700, 277}</string>
@@ -11943,7 +11923,6 @@
 							<reference ref="577586604"/>
 							<reference ref="805655019"/>
 							<reference ref="840386585"/>
-							<reference ref="109537716"/>
 							<reference ref="778403213"/>
 							<reference ref="944730264"/>
 							<reference ref="515029510"/>
@@ -11972,11 +11951,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">1964</int>
 						<reference key="object" ref="840386585"/>
-						<reference key="parent" ref="591372859"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1965</int>
-						<reference key="object" ref="109537716"/>
 						<reference key="parent" ref="591372859"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -15163,7 +15137,6 @@
 					<string>1958.editorWindowContentRectSynchronizationRect</string>
 					<string>196.IBPluginDependency</string>
 					<string>196.ImportedFromIB2</string>
-					<string>1965.IBPluginDependency</string>
 					<string>1966.IBPluginDependency</string>
 					<string>1967.IBPluginDependency</string>
 					<string>1969.IBPluginDependency</string>
@@ -15788,20 +15761,19 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{414, 725}, {749, 200}}</string>
+					<string>{{54, 745}, {749, 200}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{414, 725}, {749, 200}}</string>
+					<string>{{54, 745}, {749, 200}}</string>
 					<integer value="1"/>
 					<string>{{49, 661}, {640, 200}}</string>
 					<integer value="1"/>
 					<string>{700, 200}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{480, 925}, {617, 0}}</string>
+					<string>{{403, 715}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{57, 707}, {616, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -19220,14 +19192,8 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>Ability_DualWieldSpecialization</string>
-				<string>Ability_Rogue_Sprint</string>
-				<string>Ability_Warrior_Revenge</string>
 				<string>ActiveQuestIcon</string>
 				<string>BinderGossipIcon</string>
-				<string>INV_Misc_Gear_01</string>
-				<string>INV_Misc_Head_Dragon_Blue</string>
-				<string>INV_Misc_Orb_05</string>
 				<string>NSActionTemplate</string>
 				<string>NSAddTemplate</string>
 				<string>NSApplicationIcon</string>
@@ -19235,26 +19201,25 @@
 				<string>NSMenuMixedState</string>
 				<string>NSStopProgressTemplate</string>
 				<string>NSSwitch</string>
-				<string>NSToolbarCustomizeToolbarItemImage</string>
-				<string>PVP</string>
-				<string>Spell_FireResistanceTotem_01</string>
-				<string>Spell_Holy_MindVision</string>
-				<string>Spell_Holy_PrayerofSpirit</string>
-				<string>Spell_Nature_PoisonCleansingTotem</string>
-				<string>Trade_Engraving</string>
+				<string>bBehaviors_c</string>
+				<string>bBot_c</string>
+				<string>bChat_c</string>
+				<string>bMemory_c</string>
+				<string>bObjects_c</string>
+				<string>bPlayer_c</string>
+				<string>bProfiles_c</string>
+				<string>bPvP_c</string>
+				<string>bRoutes_c</string>
+				<string>bSettings_c</string>
+				<string>bSpells_c</string>
+				<string>bStats_c</string>
 				<string>good</string>
 				<string>off</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{64, 64}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{67.7747, 67.7747}</string>
 				<string>{16, 16}</string>
 				<string>{16, 16}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{67.7747, 67.7747}</string>
 				<string>{15, 15}</string>
 				<string>{8, 8}</string>
 				<string>{512, 512}</string>
@@ -19262,13 +19227,18 @@
 				<string>{7, 2}</string>
 				<string>{11, 11}</string>
 				<string>{15, 15}</string>
-				<string>{32, 32}</string>
-				<string>{64, 64}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{67.7747, 67.7747}</string>
-				<string>{64, 64}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
+				<string>{36, 37}</string>
 				<string>{13, 13}</string>
 				<string>{16, 16}</string>
 			</object>

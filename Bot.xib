@@ -2,9 +2,9 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10F569</string>
+		<string key="IBDocument.SystemVersion">10H574</string>
 		<string key="IBDocument.InterfaceBuilderVersion">762</string>
-		<string key="IBDocument.AppKitVersion">1038.29</string>
+		<string key="IBDocument.AppKitVersion">1038.35</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -21,7 +21,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1433"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -147,7 +147,7 @@
 										<object class="NSTextFieldCell" key="NSCell" id="243793992">
 											<int key="NSCellFlags">-1808662975</int>
 											<int key="NSCellFlags2">272761856</int>
-											<string key="NSContents">Testing for Tanaris, ignore</string>
+											<string key="NSContents">Testing, ignore</string>
 											<reference key="NSSupport" ref="26"/>
 											<reference key="NSControlView" ref="158253753"/>
 											<object class="NSColor" key="NSBackgroundColor" id="233446644">
@@ -3992,7 +3992,7 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{496, 197}, {751, 342}}</string>
+					<string>{{532, 542}, {751, 342}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{628, 654}</string>
 					<string>{{84, 448}, {600, 442}}</string>
@@ -5187,6 +5187,7 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>botController</string>
 							<string>memoryViewController</string>
+							<string>mobController</string>
 							<string>moveToList</string>
 							<string>movementController</string>
 							<string>objectsController</string>
@@ -5195,6 +5196,7 @@ IGZvciB0aGUgSG90a2V5IHNlY3Rpb24gYXQgdGhlIGJvdHRvbS4KCg</string>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
+							<string>MobController</string>
 							<string>NSPopUpButton</string>
 							<string>id</string>
 							<string>ObjectsController</string>
