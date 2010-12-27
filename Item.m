@@ -336,6 +336,17 @@ enum ItemFlags
 	return _itemFieldsAddress; 
 }
 
+- (UInt32)containerFieldsAddress{
+	if ( _containerFieldsAddress ){
+		return _containerFieldsAddress;
+	}
+	
+	// read it
+	[_memory loadDataForObject: self atAddress: ([self baseAddress] + CONTAINER_FIELDS_PTR) Buffer: (Byte *)&_containerFieldsAddress BufLength: sizeof(_containerFieldsAddress)];
+	
+	return _containerFieldsAddress; 
+}
+
 #pragma mark -
 
 - (NSString*)name {

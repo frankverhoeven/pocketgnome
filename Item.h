@@ -37,7 +37,8 @@ typedef enum {
     NSString *_name;
 	
 	UInt32 _itemFieldsAddress;
-    
+	UInt32 _containerFieldsAddress;
+	
     NSURLConnection *_connection;
     NSMutableData *_downloadData;
 }
