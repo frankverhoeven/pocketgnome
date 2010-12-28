@@ -5259,6 +5259,12 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 - (BOOL)evaluateForLoot {
 
 	if ( !theCombatProfile.ShouldLoot ) return NO;
+	
+	// Stop looting on full inventory.
+	if ( theCombatProfile.StopLoot && [itemController arePlayerBagsFull] ) {
+		log(LOG_LOOT, @"Skipping loot, inventory is full.");
+		return NO;
+	}
 
 	if ( [playerController isDead] ) {
 		log(LOG_EVALUATE, @"Skipping Loot Evaluation since playerController.isDead");		

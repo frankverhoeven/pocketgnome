@@ -98,6 +98,7 @@
 		self.GatheringDistance = 50.0;
 		self.DoNetherwingEggs = NO;
 		self.ShouldLoot = NO;
+		self.StopLoot = NO;
 		self.DoSkinning = NO;
 		self.SkinningLevel = 0;
 		self.DoNinjaSkin = NO;
@@ -178,6 +179,7 @@
 					   @"GatheringDistance",
 					   @"DoNetherwingEggs",
 					   @"ShouldLoot",
+					   @"StopLoot",
 					   @"DoSkinning",
 					   @"SkinningLevel",
 					   @"DoNinjaSkin",
@@ -295,6 +297,7 @@
 	copy.GatheringDistance = self.GatheringDistance;
 	copy.DoNetherwingEggs = self.DoNetherwingEggs;
 	copy.ShouldLoot = self.ShouldLoot;
+	copy.StopLoot = self.StopLoot;
 	copy.DoSkinning = self.DoSkinning;
 	copy.SkinningLevel = self.SkinningLevel;
 	copy.DoNinjaSkin = self.DoNinjaSkin;
@@ -397,6 +400,7 @@
 		self.GatheringDistance = [[decoder decodeObjectForKey: @"GatheringDistance"] floatValue];
 		self.DoNetherwingEggs = [[decoder decodeObjectForKey: @"DoNetherwingEggs"] boolValue];
 		self.ShouldLoot = [[decoder decodeObjectForKey: @"ShouldLoot"] boolValue];
+		self.StopLoot = [[decoder decodeObjectForKey: @"StopLoot"] boolValue];
 		self.DoSkinning = [[decoder decodeObjectForKey: @"DoSkinning"] boolValue];
 		self.SkinningLevel = [[decoder decodeObjectForKey: @"SkinningLevel"] intValue];
 		self.DoNinjaSkin = [[decoder decodeObjectForKey: @"DoNinjaSkin"] boolValue];
@@ -496,6 +500,7 @@
 	[coder encodeObject: [NSNumber numberWithFloat: self.GatheringDistance] forKey: @"GatheringDistance"];
 	[coder encodeObject: [NSNumber numberWithBool: self.DoNetherwingEggs] forKey: @"DoNetherwingEggs"];
 	[coder encodeObject: [NSNumber numberWithBool: self.ShouldLoot] forKey: @"ShouldLoot"];
+	[coder encodeObject: [NSNumber numberWithBool: self.StopLoot] forKey: @"StopLoot"];
 	[coder encodeObject: [NSNumber numberWithBool: self.DoSkinning] forKey: @"DoSkinning"];
 	[coder encodeObject: [NSNumber numberWithInt: self.SkinningLevel] forKey: @"SkinningLevel"];
 	[coder encodeObject: [NSNumber numberWithBool: self.DoNinjaSkin] forKey: @"DoNinjaSkin"];
@@ -599,6 +604,7 @@
 @synthesize GatheringDistance;
 @synthesize DoNetherwingEggs;
 @synthesize ShouldLoot;
+@synthesize StopLoot;
 @synthesize DoSkinning;
 @synthesize SkinningLevel;
 @synthesize DoNinjaSkin;

@@ -76,6 +76,7 @@
 	float GatheringDistance;
 	BOOL DoNetherwingEggs;
 	BOOL ShouldLoot;
+	BOOL StopLoot;
 	BOOL DoSkinning;
 	int SkinningLevel;
 	BOOL DoNinjaSkin;
@@ -182,6 +183,7 @@
 @property (readwrite, assign) float GatheringDistance;
 @property (readwrite, assign) BOOL DoNetherwingEggs;
 @property (readwrite, assign) BOOL ShouldLoot;
+@property (readwrite, assign) BOOL StopLoot;
 @property (readwrite, assign) BOOL DoSkinning;
 @property (readwrite, assign) int SkinningLevel;
 @property (readwrite, assign) BOOL DoNinjaSkin;
