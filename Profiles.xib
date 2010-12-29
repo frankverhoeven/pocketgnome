@@ -2503,7 +2503,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																			<object class="NSTextField" id="657259571">
 																				<reference key="NSNextResponder" ref="791648392"/>
 																				<int key="NSvFlags">268</int>
-																				<string key="NSFrame">{{285, 5}, {54, 19}}</string>
+																				<string key="NSFrame">{{285, 7}, {54, 19}}</string>
 																				<reference key="NSSuperview" ref="791648392"/>
 																				<bool key="NSEnabled">YES</bool>
 																				<object class="NSTextFieldCell" key="NSCell" id="1064863925">
@@ -3035,7 +3035,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 																			<object class="NSButton" id="163323732">
 																				<reference key="NSNextResponder" ref="536241693"/>
 																				<int key="NSvFlags">268</int>
-																				<string key="NSFrame">{{15, 12}, {221, 18}}</string>
+																				<string key="NSFrame">{{15, 14}, {221, 18}}</string>
 																				<reference key="NSSuperview" ref="536241693"/>
 																				<bool key="NSEnabled">YES</bool>
 																				<object class="NSButtonCell" key="NSCell" id="1000108357">
@@ -5823,10 +5823,6 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSUserDefaultsController" id="658682572">
-				<object class="NSMutableArray" key="NSDeclaredKeys">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>currentCombatProfile.StopLoot</string>
-				</object>
 				<bool key="NSSharedInstance">YES</bool>
 			</object>
 			<object class="NSMenu" id="942811582">
@@ -13612,7 +13608,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>ProfileController</string>
 							<string>PvPController</string>
 							<string>QuestController</string>
-							<string>id</string>
+							<string>NSPopUpButton</string>
 							<string>id</string>
 							<string>NSTextField</string>
 							<string>ScanGridView</string>
@@ -13882,7 +13878,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">routePopup</string>
-								<string key="candidateClassName">id</string>
+								<string key="candidateClassName">NSPopUpButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">routePvPPopup</string>
@@ -15754,6 +15750,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blacklistNode:</string>
 							<string>faceObject:</string>
 							<string>filter:</string>
 							<string>moveToStart:</string>
@@ -15766,6 +15763,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -15781,6 +15779,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blacklistNode:</string>
 							<string>faceObject:</string>
 							<string>filter:</string>
 							<string>moveToStart:</string>
@@ -15793,6 +15792,10 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">blacklistNode:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">faceObject:</string>
 								<string key="candidateClassName">id</string>
@@ -15835,6 +15838,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>botController</string>
 							<string>controller</string>
 							<string>itemController</string>
 							<string>itemTable</string>
@@ -15854,6 +15858,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>BotController</string>
 							<string>Controller</string>
 							<string>InventoryController</string>
 							<string>NSTableView</string>
@@ -15876,6 +15881,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>botController</string>
 							<string>controller</string>
 							<string>itemController</string>
 							<string>itemTable</string>
@@ -15895,6 +15901,10 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">botController</string>
+								<string key="candidateClassName">BotController</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">controller</string>
 								<string key="candidateClassName">Controller</string>
@@ -17104,10 +17114,12 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>addWaypoint:</string>
 							<string>changeCoords:</string>
 							<string>closeAutomatorPanel:</string>
+							<string>closeBlacklistPanel:</string>
 							<string>closeDescription:</string>
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
 							<string>closestWaypoint:</string>
+							<string>deleteBlacklistedItem:</string>
 							<string>deleteRouteButton:</string>
 							<string>deleteRouteMenu:</string>
 							<string>duplicateRoute:</string>
@@ -17117,6 +17129,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>loadRoute:</string>
 							<string>moveToWaypoint:</string>
 							<string>openAutomatorPanel:</string>
+							<string>openBlacklistPanel:</string>
 							<string>removeWaypoint:</string>
 							<string>renameRoute:</string>
 							<string>resetAllWaypoints:</string>
@@ -17131,6 +17144,9 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -17171,10 +17187,12 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>addWaypoint:</string>
 							<string>changeCoords:</string>
 							<string>closeAutomatorPanel:</string>
+							<string>closeBlacklistPanel:</string>
 							<string>closeDescription:</string>
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
 							<string>closestWaypoint:</string>
+							<string>deleteBlacklistedItem:</string>
 							<string>deleteRouteButton:</string>
 							<string>deleteRouteMenu:</string>
 							<string>duplicateRoute:</string>
@@ -17184,6 +17202,7 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>loadRoute:</string>
 							<string>moveToWaypoint:</string>
 							<string>openAutomatorPanel:</string>
+							<string>openBlacklistPanel:</string>
 							<string>removeWaypoint:</string>
 							<string>renameRoute:</string>
 							<string>resetAllWaypoints:</string>
@@ -17219,6 +17238,10 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">closeBlacklistPanel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">closeDescription:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -17232,6 +17255,10 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">closestWaypoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">deleteBlacklistedItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -17268,6 +17295,10 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openAutomatorPanel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openBlacklistPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -17327,6 +17358,8 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>automatorSpinner</string>
 							<string>automatorStartStopButton</string>
 							<string>automatorVizualizer</string>
+							<string>blacklistPanel</string>
+							<string>blacklistTable</string>
 							<string>botController</string>
 							<string>combatController</string>
 							<string>controller</string>
@@ -17365,6 +17398,8 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>RouteVisualizationView</string>
+							<string>NSPanel</string>
+							<string>NSTableView</string>
 							<string>BotController</string>
 							<string>CombatController</string>
 							<string>Controller</string>
@@ -17406,6 +17441,8 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<string>automatorSpinner</string>
 							<string>automatorStartStopButton</string>
 							<string>automatorVizualizer</string>
+							<string>blacklistPanel</string>
+							<string>blacklistTable</string>
 							<string>botController</string>
 							<string>combatController</string>
 							<string>controller</string>
@@ -17464,6 +17501,14 @@ IGEgdHlwZSwgZW50ZXJpbmcgYSBuYW1lLCBhbmQgcHJlc3NpbmcgZW50ZXIhCgpFbmpveSE</string>
 							<object class="IBToOneOutletInfo">
 								<string key="name">automatorVizualizer</string>
 								<string key="candidateClassName">RouteVisualizationView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">blacklistPanel</string>
+								<string key="candidateClassName">NSPanel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">blacklistTable</string>
+								<string key="candidateClassName">NSTableView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">botController</string>
