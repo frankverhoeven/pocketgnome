@@ -28,6 +28,8 @@
 
 #import "ImageAndTextCell.h"
 
+#import "PvPBehavior.h"
+
 #import <Growl/GrowlApplicationBridge.h>
 
 @interface PlayerDataController ()
@@ -1312,12 +1314,14 @@ static PlayerDataController* sharedController = nil;
 
 - (BOOL)isInBG:(int)zone{
 	switch(zone){
-		case 4384:	// Strand of the Ancients
-		case 3358:	// Arathi Basin
-		case 3277:	// Warsong Gulch
-		case 2597:	// Alterac Valley
-		case 3820:	// Eye of the Storm
-		case 4710:	// Isle of Conquest
+		case ZoneStrandOfTheAncients:
+		case ZoneArathiBasin:
+		case ZoneWarsongGulch:
+		case ZoneAlteracValley:
+		case ZoneEyeOfTheStorm:
+		case ZoneIsleOfConquest:
+		case ZoneTwinPeaks;
+		case ZoneBattleForGilneas;
 			return YES;
 		default:
 			return NO;
