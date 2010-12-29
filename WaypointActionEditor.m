@@ -362,8 +362,5 @@ static WaypointActionEditor *sharedEditor = nil;
 - (BOOL)tableView:(NSTableView *)tableView shouldTypeSelectForEvent:(NSEvent *)event withCurrentSearchString:(NSString *)searchString {
     return NO;
 }
-- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row {
-	return [(ActionController *)[_actionList objectAtIndex: row] cellHeight];
-}
 
 @end

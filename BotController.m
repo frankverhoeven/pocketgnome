@@ -8457,6 +8457,9 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
+	return;
+	
+	// for j005u only!!!
 	NSArray *coords = [NSArray arrayWithContentsOfFile:@"/testroute.xml"];
 	
 	Route *route = [[Route alloc] init];

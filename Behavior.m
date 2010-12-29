@@ -138,6 +138,7 @@
 @synthesize meleeCombat = _meleeCombat;
 @synthesize usePet = _usePet;
 @synthesize useStartAttack = _useStartAttack;
+
 - (Procedure*)procedureForKey: (NSString*)key {
     return [_procedures objectForKey: key];
 }
