@@ -45,6 +45,7 @@
 //
 
 - (NSArray*)allObjects;
+- (NSArray*)objectDataList;
 
 - (void)refreshData;
 

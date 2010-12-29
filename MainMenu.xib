@@ -11196,6 +11196,14 @@
 					</object>
 					<int key="connectionID">4720</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">botController</string>
+						<reference key="source" ref="1037448800"/>
+						<reference key="destination" ref="94147614"/>
+					</object>
+					<int key="connectionID">4721</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -16547,7 +16555,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">4720</int>
+			<int key="maxID">4721</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -17080,7 +17088,7 @@
 							<string>ProfileController</string>
 							<string>PvPController</string>
 							<string>QuestController</string>
-							<string>id</string>
+							<string>NSPopUpButton</string>
 							<string>id</string>
 							<string>NSTextField</string>
 							<string>ScanGridView</string>
@@ -17350,7 +17358,7 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">routePopup</string>
-								<string key="candidateClassName">id</string>
+								<string key="candidateClassName">NSPopUpButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">routePvPPopup</string>
@@ -19291,6 +19299,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blacklistNode:</string>
 							<string>faceObject:</string>
 							<string>filter:</string>
 							<string>moveToStart:</string>
@@ -19303,6 +19312,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -19318,6 +19328,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blacklistNode:</string>
 							<string>faceObject:</string>
 							<string>filter:</string>
 							<string>moveToStart:</string>
@@ -19330,6 +19341,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">blacklistNode:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">faceObject:</string>
 								<string key="candidateClassName">id</string>
@@ -19372,6 +19387,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>botController</string>
 							<string>controller</string>
 							<string>itemController</string>
 							<string>itemTable</string>
@@ -19391,6 +19407,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>BotController</string>
 							<string>Controller</string>
 							<string>InventoryController</string>
 							<string>NSTableView</string>
@@ -19413,6 +19430,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>botController</string>
 							<string>controller</string>
 							<string>itemController</string>
 							<string>itemTable</string>
@@ -19432,6 +19450,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">botController</string>
+								<string key="candidateClassName">BotController</string>
+							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">controller</string>
 								<string key="candidateClassName">Controller</string>
@@ -21024,7 +21046,9 @@
 							<string>addRouteCollection:</string>
 							<string>addRouteSet:</string>
 							<string>addWaypoint:</string>
+							<string>changeCoords:</string>
 							<string>closeAutomatorPanel:</string>
+							<string>closeBlacklistPanel:</string>
 							<string>closeDescription:</string>
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
@@ -21038,6 +21062,7 @@
 							<string>loadRoute:</string>
 							<string>moveToWaypoint:</string>
 							<string>openAutomatorPanel:</string>
+							<string>openBlacklistPanel:</string>
 							<string>removeWaypoint:</string>
 							<string>renameRoute:</string>
 							<string>resetAllWaypoints:</string>
@@ -21052,6 +21077,9 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -21089,7 +21117,9 @@
 							<string>addRouteCollection:</string>
 							<string>addRouteSet:</string>
 							<string>addWaypoint:</string>
+							<string>changeCoords:</string>
 							<string>closeAutomatorPanel:</string>
+							<string>closeBlacklistPanel:</string>
 							<string>closeDescription:</string>
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
@@ -21103,6 +21133,7 @@
 							<string>loadRoute:</string>
 							<string>moveToWaypoint:</string>
 							<string>openAutomatorPanel:</string>
+							<string>openBlacklistPanel:</string>
 							<string>removeWaypoint:</string>
 							<string>renameRoute:</string>
 							<string>resetAllWaypoints:</string>
@@ -21130,7 +21161,15 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">changeCoords:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">closeAutomatorPanel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">closeBlacklistPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -21183,6 +21222,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openAutomatorPanel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openBlacklistPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -21242,14 +21285,18 @@
 							<string>automatorSpinner</string>
 							<string>automatorStartStopButton</string>
 							<string>automatorVizualizer</string>
+							<string>blacklistPanel</string>
+							<string>blacklistTable</string>
 							<string>botController</string>
 							<string>combatController</string>
 							<string>controller</string>
+							<string>coordMatrix</string>
 							<string>descriptionPanel</string>
 							<string>fileController</string>
 							<string>helpPanel</string>
 							<string>mobController</string>
 							<string>movementController</string>
+							<string>offsetValueTextField</string>
 							<string>playerData</string>
 							<string>routeTypeSegment</string>
 							<string>routesTable</string>
@@ -21278,14 +21325,18 @@
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>RouteVisualizationView</string>
+							<string>NSPanel</string>
+							<string>NSTableView</string>
 							<string>BotController</string>
 							<string>CombatController</string>
 							<string>Controller</string>
+							<string>NSMatrix</string>
 							<string>NSPanel</string>
 							<string>FileController</string>
 							<string>NSPanel</string>
 							<string>MobController</string>
 							<string>MovementController</string>
+							<string>NSTextField</string>
 							<string>PlayerDataController</string>
 							<string>id</string>
 							<string>NSOutlineView</string>
@@ -21317,14 +21368,18 @@
 							<string>automatorSpinner</string>
 							<string>automatorStartStopButton</string>
 							<string>automatorVizualizer</string>
+							<string>blacklistPanel</string>
+							<string>blacklistTable</string>
 							<string>botController</string>
 							<string>combatController</string>
 							<string>controller</string>
+							<string>coordMatrix</string>
 							<string>descriptionPanel</string>
 							<string>fileController</string>
 							<string>helpPanel</string>
 							<string>mobController</string>
 							<string>movementController</string>
+							<string>offsetValueTextField</string>
 							<string>playerData</string>
 							<string>routeTypeSegment</string>
 							<string>routesTable</string>
@@ -21375,6 +21430,14 @@
 								<string key="candidateClassName">RouteVisualizationView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">blacklistPanel</string>
+								<string key="candidateClassName">NSPanel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">blacklistTable</string>
+								<string key="candidateClassName">NSTableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">botController</string>
 								<string key="candidateClassName">BotController</string>
 							</object>
@@ -21385,6 +21448,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">controller</string>
 								<string key="candidateClassName">Controller</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">coordMatrix</string>
+								<string key="candidateClassName">NSMatrix</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">descriptionPanel</string>
@@ -21405,6 +21472,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">movementController</string>
 								<string key="candidateClassName">MovementController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">offsetValueTextField</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">playerData</string>

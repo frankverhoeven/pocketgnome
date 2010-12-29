@@ -10,11 +10,14 @@
 #import "PlayersController.h"
 #import "MovementController.h"
 #import "PlayerDataController.h"
+#import "BotController.h"
 
 #import "Controller.h"
 #import "MobController.h"
 #import "NodeController.h"
 #import "ImageAndTextCell.h"
+
+#import "RouteCollection.h"
 
 @interface ObjectsController (Internal)
 - (id)currentController;
@@ -553,6 +556,23 @@
 	if ( [sender clickedRow] == -1 ) return;
 	
 	[(ObjectController*)[self currentController] tableDoubleClick:sender];
+}
+
+#pragma BlacklistController
+
+- (IBAction)blacklistNode: (id)sender{
+	
+	int clickedRow = [nodeTable clickedRow];
+	
+	NSDictionary *dict = [[nodeController objectDataList] objectAtIndex:clickedRow];
+	
+	if ( dict ){
+		Node *node = [dict objectForKey:@"Node"];
+		
+		// just blacklisting the position!
+		RouteCollection *rc = [[botController.routePopup selectedItem] representedObject];
+		[rc addItemToBlacklistWithName:[node name] andPosition:[node position]];
+	}
 }
 
 @end

@@ -12,7 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="24"/>
+			<integer value="163"/>
+			<integer value="298"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -53,7 +54,7 @@
 							<object class="NSTabViewItem" id="301216134">
 								<string key="NSIdentifier">0</string>
 								<object class="NSView" key="NSView" id="793772688">
-									<reference key="NSNextResponder" ref="918156316"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">256</int>
 									<object class="NSMutableArray" key="NSSubviews">
 										<bool key="EncodedWithXMLCoder">YES</bool>
@@ -748,7 +749,6 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 										</object>
 									</object>
 									<string key="NSFrame">{{10, 33}, {696, 377}}</string>
-									<reference key="NSSuperview" ref="918156316"/>
 								</object>
 								<string key="NSLabel">Players</string>
 								<reference key="NSColor" ref="314258196"/>
@@ -1191,7 +1191,6 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 											<reference key="NSHScroller" ref="453470300"/>
 											<reference key="NSContentView" ref="148405543"/>
 											<reference key="NSHeaderClipView" ref="785142677"/>
-											<reference key="NSCornerView" ref="755163641"/>
 											<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 										</object>
 										<object class="NSSearchField" id="700075787">
@@ -2018,7 +2017,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<object class="NSTabViewItem" id="870240834">
 								<string key="NSIdentifier">3</string>
 								<object class="NSView" key="NSView" id="10967164">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder" ref="918156316"/>
 									<int key="NSvFlags">256</int>
 									<object class="NSMutableArray" key="NSSubviews">
 										<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2919,20 +2918,21 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 										</object>
 									</object>
 									<string key="NSFrame">{{10, 33}, {696, 377}}</string>
+									<reference key="NSSuperview" ref="918156316"/>
 								</object>
 								<string key="NSLabel">Nodes</string>
 								<reference key="NSColor" ref="314258196"/>
 								<reference key="NSTabView" ref="918156316"/>
 							</object>
 						</object>
-						<reference key="NSSelectedTabViewItem" ref="301216134"/>
+						<reference key="NSSelectedTabViewItem" ref="870240834"/>
 						<reference key="NSFont" ref="1070692605"/>
 						<int key="NSTvFlags">0</int>
 						<bool key="NSAllowTruncatedLabels">YES</bool>
 						<bool key="NSDrawsBackground">YES</bool>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="793772688"/>
+							<reference ref="10967164"/>
 						</object>
 					</object>
 					<object class="NSBox" id="510797413">
@@ -3063,6 +3063,20 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 			</object>
 			<object class="NSUserDefaultsController" id="293314651">
 				<bool key="NSSharedInstance">YES</bool>
+			</object>
+			<object class="NSMenu" id="200967610">
+				<string key="NSTitle"/>
+				<object class="NSMutableArray" key="NSMenuItems">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSMenuItem" id="125639784">
+						<reference key="NSMenu" ref="200967610"/>
+						<string key="NSTitle">Blacklist</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="842387470"/>
+						<reference key="NSMixedImage" ref="307998977"/>
+					</object>
+				</object>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -3595,6 +3609,22 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						<reference key="destination" ref="748171056"/>
 					</object>
 					<int key="connectionID">283</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">blacklistNode:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="125639784"/>
+					</object>
+					<int key="connectionID">302</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">menu</string>
+						<reference key="source" ref="746174306"/>
+						<reference key="destination" ref="200967610"/>
+					</object>
+					<int key="connectionID">303</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5068,6 +5098,21 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						<reference key="object" ref="560734281"/>
 						<reference key="parent" ref="938204393"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">298</int>
+						<reference key="object" ref="200967610"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="125639784"/>
+						</object>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Blacklist</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">299</int>
+						<reference key="object" ref="125639784"/>
+						<reference key="parent" ref="200967610"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -5191,6 +5236,9 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 					<string>25.IBPluginDependency</string>
 					<string>26.IBPluginDependency</string>
 					<string>27.IBPluginDependency</string>
+					<string>298.IBEditorWindowLastContentRect</string>
+					<string>298.IBPluginDependency</string>
+					<string>299.IBPluginDependency</string>
 					<string>3.IBPluginDependency</string>
 					<string>32.IBPluginDependency</string>
 					<string>33.IBPluginDependency</string>
@@ -5357,6 +5405,9 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{926, 476}, {108, 23}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5428,7 +5479,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">293</int>
+			<int key="maxID">303</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -8027,6 +8078,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blacklistNode:</string>
 							<string>faceObject:</string>
 							<string>filter:</string>
 							<string>moveToStart:</string>
@@ -8039,6 +8091,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -8054,6 +8107,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blacklistNode:</string>
 							<string>faceObject:</string>
 							<string>filter:</string>
 							<string>moveToStart:</string>
@@ -8066,6 +8120,10 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">blacklistNode:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">faceObject:</string>
 								<string key="candidateClassName">id</string>
@@ -9375,7 +9433,9 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>addRouteCollection:</string>
 							<string>addRouteSet:</string>
 							<string>addWaypoint:</string>
+							<string>changeCoords:</string>
 							<string>closeAutomatorPanel:</string>
+							<string>closeBlacklistPanel:</string>
 							<string>closeDescription:</string>
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
@@ -9389,6 +9449,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>loadRoute:</string>
 							<string>moveToWaypoint:</string>
 							<string>openAutomatorPanel:</string>
+							<string>openBlacklistPanel:</string>
 							<string>removeWaypoint:</string>
 							<string>renameRoute:</string>
 							<string>resetAllWaypoints:</string>
@@ -9403,6 +9464,9 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -9440,7 +9504,9 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>addRouteCollection:</string>
 							<string>addRouteSet:</string>
 							<string>addWaypoint:</string>
+							<string>changeCoords:</string>
 							<string>closeAutomatorPanel:</string>
+							<string>closeBlacklistPanel:</string>
 							<string>closeDescription:</string>
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
@@ -9454,6 +9520,7 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>loadRoute:</string>
 							<string>moveToWaypoint:</string>
 							<string>openAutomatorPanel:</string>
+							<string>openBlacklistPanel:</string>
 							<string>removeWaypoint:</string>
 							<string>renameRoute:</string>
 							<string>resetAllWaypoints:</string>
@@ -9481,7 +9548,15 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">changeCoords:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">closeAutomatorPanel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">closeBlacklistPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -9534,6 +9609,10 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">openAutomatorPanel:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openBlacklistPanel:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -9593,14 +9672,18 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>automatorSpinner</string>
 							<string>automatorStartStopButton</string>
 							<string>automatorVizualizer</string>
+							<string>blacklistPanel</string>
+							<string>blacklistTable</string>
 							<string>botController</string>
 							<string>combatController</string>
 							<string>controller</string>
+							<string>coordMatrix</string>
 							<string>descriptionPanel</string>
 							<string>fileController</string>
 							<string>helpPanel</string>
 							<string>mobController</string>
 							<string>movementController</string>
+							<string>offsetValueTextField</string>
 							<string>playerData</string>
 							<string>routeTypeSegment</string>
 							<string>routesTable</string>
@@ -9629,14 +9712,18 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>NSProgressIndicator</string>
 							<string>NSButton</string>
 							<string>RouteVisualizationView</string>
+							<string>NSPanel</string>
+							<string>NSTableView</string>
 							<string>BotController</string>
 							<string>CombatController</string>
 							<string>Controller</string>
+							<string>NSMatrix</string>
 							<string>NSPanel</string>
 							<string>FileController</string>
 							<string>NSPanel</string>
 							<string>MobController</string>
 							<string>MovementController</string>
+							<string>NSTextField</string>
 							<string>PlayerDataController</string>
 							<string>id</string>
 							<string>NSOutlineView</string>
@@ -9668,14 +9755,18 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<string>automatorSpinner</string>
 							<string>automatorStartStopButton</string>
 							<string>automatorVizualizer</string>
+							<string>blacklistPanel</string>
+							<string>blacklistTable</string>
 							<string>botController</string>
 							<string>combatController</string>
 							<string>controller</string>
+							<string>coordMatrix</string>
 							<string>descriptionPanel</string>
 							<string>fileController</string>
 							<string>helpPanel</string>
 							<string>mobController</string>
 							<string>movementController</string>
+							<string>offsetValueTextField</string>
 							<string>playerData</string>
 							<string>routeTypeSegment</string>
 							<string>routesTable</string>
@@ -9726,6 +9817,14 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 								<string key="candidateClassName">RouteVisualizationView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">blacklistPanel</string>
+								<string key="candidateClassName">NSPanel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">blacklistTable</string>
+								<string key="candidateClassName">NSTableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">botController</string>
 								<string key="candidateClassName">BotController</string>
 							</object>
@@ -9736,6 +9835,10 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<object class="IBToOneOutletInfo">
 								<string key="name">controller</string>
 								<string key="candidateClassName">Controller</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">coordMatrix</string>
+								<string key="candidateClassName">NSMatrix</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">descriptionPanel</string>
@@ -9756,6 +9859,10 @@ JoAAAA9AAABQAAAAVEAAApmaAAKZmgACmZoAAAAAAAAAAHNmMzIAAAAAAAEMcgAABfj///MdAAAHugAA
 							<object class="IBToOneOutletInfo">
 								<string key="name">movementController</string>
 								<string key="candidateClassName">MovementController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">offsetValueTextField</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">playerData</string>

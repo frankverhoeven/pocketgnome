@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class Controller;
+@class BotController;
 @class MemoryViewController;
 @class NodeController;
 @class PlayersController;
@@ -27,6 +28,7 @@ enum Tabs{
 // really just a helper class for our new Objects tab
 @interface ObjectsController : NSObject {
 	IBOutlet Controller				*controller;
+	IBOutlet BotController			*botController;
 	IBOutlet MemoryViewController	*memoryViewController;
 	IBOutlet NodeController			*nodeController;
 	IBOutlet PlayersController		*playersController;
@@ -87,5 +89,7 @@ enum Tabs{
 - (IBAction)targetObject: (id)sender;
 - (IBAction)faceObject: (id)sender;
 - (IBAction)reloadNames: (id)sender;
+
+- (IBAction)blacklistNode: (id)sender;
 
 @end

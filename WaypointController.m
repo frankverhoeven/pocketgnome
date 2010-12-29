@@ -699,14 +699,31 @@ enum AutomatorIntervalType {
 #pragma mark NSTableView Delesource
 
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView {
-	
+
 	if ( aTableView == waypointTable )
 		return [[self currentRoute] waypointCount];
+	else if ( aTableView == blacklistTable ){
+		
+		RouteCollection *rc = nil;
+		if ( self.currentRouteCollection ){
+			rc = self.currentRouteCollection;
+		}
+		else if ( self.currentRouteSet ){
+			rc = [self.currentRouteSet parent];
+		}
+		
+		if ( !rc )
+			return 0;
+
+		return [[rc blacklist] count];			
+	}
 	
 	return 0;
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex {
+	//NSLog(@"called with 0x%X WAY:0x%X BLACK:0x%X", aTableView, waypointTable, blacklistTable);
+
     if ( rowIndex == -1 ) return nil;
 	
 	if ( aTableView == waypointTable ){
@@ -748,6 +765,34 @@ enum AutomatorIntervalType {
 			return wp.title;
 		}
 	}
+	
+	else if ( aTableView == blacklistTable ){
+
+		RouteCollection *rc = nil;
+		if ( self.currentRouteCollection ){
+			rc = self.currentRouteCollection;
+		}
+		else if ( self.currentRouteSet ){
+			rc = [self.currentRouteSet parent];
+		}
+		
+		NSDictionary *dict = [[rc blacklist] objectAtIndex:rowIndex];
+		NSArray *allKeys = [dict allKeys];
+		Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
+		
+		if ( [[aTableColumn identifier] isEqualToString: @"Node"] ){
+			return [allKeys objectAtIndex:0];
+		}
+		else if ( [[aTableColumn identifier] isEqualToString: @"X"] ){
+			return [NSNumber numberWithFloat:pos.xPosition];
+		}
+		else if ( [[aTableColumn identifier] isEqualToString: @"Y"] ){
+			return [NSNumber numberWithFloat:pos.yPosition];
+		}
+		else if ( [[aTableColumn identifier] isEqualToString: @"Z"] ){
+			return [NSNumber numberWithFloat:pos.zPosition];
+		}
+	}
     
     return nil;
 }
@@ -785,6 +830,9 @@ enum AutomatorIntervalType {
 	
 	if ( aTableView == waypointTable ){
 		[self removeWaypoint: nil];
+	}
+	else if ( aTableView == blacklistTable ){
+		
 	}
 }
 
@@ -1679,6 +1727,47 @@ enum AutomatorIntervalType {
 
 	// update our UI!
 	[waypointTable reloadData];
+}
+
+#pragma mark Blacklist Panel
+
+- (IBAction)openBlacklistPanel: (id)sender {
+	
+	// reload data when we open a new panel!
+	[blacklistTable reloadData];
+	
+	[NSApp beginSheet: blacklistPanel
+	   modalForWindow: [self.view window]
+		modalDelegate: self
+	   didEndSelector: @selector(blacklistSheetDidEnd: returnCode: contextInfo:)
+		  contextInfo: nil];
+}
+
+- (IBAction)closeBlacklistPanel: (id)sender{
+	[NSApp endSheet: blacklistPanel returnCode: 0];
+}
+
+- (void)blacklistSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+    [blacklistPanel orderOut: nil];
+}
+
+- (IBAction)deleteBlacklistedItem: (id)sender{
+
+	RouteCollection *rc = nil;
+	if ( self.currentRouteCollection ){
+		rc = self.currentRouteCollection;
+	}
+	else if ( self.currentRouteSet ){
+		rc = [self.currentRouteSet parent];
+	}
+	
+	// then we can delete!
+	if ( rc ){
+		[rc removedBlacklistedItemAtIndex:[blacklistTable clickedRow]];
+	}
+	
+	// now reload our table!
+	[blacklistTable reloadData];
 }
 
 @end

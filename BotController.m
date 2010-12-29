@@ -397,6 +397,7 @@
 @synthesize evaluationIsActive = _evaluationIsActive;
 @synthesize lootStartTime;
 @synthesize skinStartTime;
+@synthesize routePopup;
 
 @synthesize logOutAfterStuckCheckbox;
 @synthesize view;
@@ -5474,9 +5475,27 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		
 		log(LOG_NODE, @"checking %@", node);
 
+		// not valid to loot!
 		if ( ![node validToLoot] ) {
 			log(LOG_NODE, @"%@ is not valid to loot, ignoring...", node);
 			continue;
+		}
+		
+		// make sure it's not blacklisted!
+		if ( self.theRouteCollection && [[self.theRouteCollection blacklist] count] ){
+			
+			NSArray *blacklistedItems = [self.theRouteCollection blacklist];
+			
+			for ( NSDictionary *dict in blacklistedItems ){
+				
+				NSArray *allKeys = [dict allKeys];	// only 1 item, the name
+				Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
+				
+				if ( [pos distanceToPosition:[node position]] <= 5.0f ){
+					log(LOG_NODE, "Blacklisted node %@ being ignored", node);
+					continue;
+				}
+			}
 		}
 
 		NSNumber *guid = [NSNumber numberWithUnsignedLongLong:[node cachedGUID]];
@@ -8425,10 +8444,6 @@ NSMutableDictionary *_diffDict = nil;
 }
 
 - (IBAction)test: (id)sender{
-	
-
-	
-	return;
 	
 	self.theRouteCollection = [[routePopup selectedItem] representedObject];
 	self.theRouteSet = [_theRouteCollection startingRoute];

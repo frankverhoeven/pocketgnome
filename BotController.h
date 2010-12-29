@@ -247,7 +247,7 @@
     IBOutlet NSButton *startStopButton;
     
     IBOutlet id attackWithinText;
-    IBOutlet id routePopup;
+    IBOutlet NSPopUpButton *routePopup;
     IBOutlet id routePvPPopup;
     IBOutlet id behaviorPopup;
     IBOutlet id behaviorPvPPopup;
@@ -360,6 +360,8 @@
 // @property (readonly, assign) BOOL nodeIgnoreHostile;
 
 @property (readonly, retain) NSMutableArray *mobsToLoot;
+
+@property (readonly) NSPopUpButton *routePopup;
 
 - (void)testRule: (Rule*)rule;
 

@@ -180,7 +180,11 @@
 #pragma mark Should be implemented by the sub class
 
 - (NSArray*)allObjects{
-	return nil;
+	return [[_objectList retain] autorelease];
+}
+
+- (NSArray*)objectDataList{
+	return [[_objectDataList retain] autorelease];
 }
 
 - (void)refreshData {
