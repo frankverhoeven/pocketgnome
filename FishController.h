@@ -40,6 +40,7 @@
 	BOOL _optUseContainers;
 	BOOL _optRecast;
 	int _optLureItemID;
+	int _searchForSpellAttempt;
 	
 	BOOL _isFishing;
 	BOOL _ignoreIsFishing;

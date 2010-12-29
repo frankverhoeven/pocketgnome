@@ -27,4 +27,6 @@
 - (void)removeWaypointAtIndex: (unsigned)index;
 - (void)removeAllWaypoints;
 
+- (NSArray*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP;
+
 @end

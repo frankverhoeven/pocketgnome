@@ -68,10 +68,10 @@
 
 @synthesize waypoints = _waypoints;
 
-- (void)setWaypoints: (NSArray*)waypoints {
+- (void)setWaypoints: (NSArray*)wps {
     [_waypoints autorelease];
-    if(waypoints) {
-        _waypoints = [[NSMutableArray alloc] initWithArray: waypoints copyItems: YES];
+    if(wps) {
+        _waypoints = [[NSMutableArray alloc] initWithArray: wps copyItems: YES];
     } else {
         _waypoints = nil;
     }
@@ -132,6 +132,109 @@
 
 - (void)removeAllWaypoints {
     [_waypoints removeAllObjects];
+}
+
+- (int)indexOfWaypoint:(Waypoint*)wp{
+	int index = 0;
+	for ( ; index < [_waypoints count]; index++ ){
+		
+		if ( [[_waypoints objectAtIndex:index] isEqual:wp] ){
+			return index;
+		}
+	}
+	
+	return -1;
+}
+
+// returns a new route w/the shortest distance in b/t the two waypoints
+- (NSArray*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP{
+	
+	NSLog(@"finding shortest route from %@ to %@", fromWP, toWP);
+	
+	// find our waypoints
+	int fromIndex = [self indexOfWaypoint:fromWP];
+	int toIndex = [self indexOfWaypoint:toWP];
+	
+	// the 2 different ways we can go!
+	NSMutableArray *goLeftRoute = [NSMutableArray array];
+	NSMutableArray *goRightRoute = [NSMutableArray array];
+	
+	float leftDist = 0.0f, rightDist = 0.0f;
+	BOOL routeComplete = NO;
+	
+
+	// run left
+	int i = fromIndex;
+	while ( !routeComplete ){
+		
+		Waypoint *r = [_waypoints objectAtIndex:i];
+		[goLeftRoute addObject:r];
+		
+		// then the waypoint to the left or r is going to be at the end of our array!
+		if ( i == 0 ){
+			i = [_waypoints count];
+			NSLog(@" jumping to last WP");
+		}
+		
+		Waypoint *l = [_waypoints objectAtIndex:i-1];
+		
+		float dist = [[r position] distanceToPosition:[l position]];
+		
+		NSLog(@" %0.2f %@ %@", dist, l, r);
+		
+		leftDist += dist;
+		
+		if ( i-1 == toIndex ){
+			NSLog(@" ** full route going left complete! %0.2f", leftDist);
+			break;
+		}
+		
+		i--;
+	}
+	
+	routeComplete = NO;
+	// run right
+	i = fromIndex;
+	while ( !routeComplete ){
+		
+		Waypoint *l = [_waypoints objectAtIndex:i];
+		[goRightRoute addObject:l];
+		
+		// we're at the end, reset to the beginning!
+		if ( i == [_waypoints count]-1 ){
+			i = -1;
+			NSLog(@" jumping to first WP");
+		}
+		
+		Waypoint *r = [_waypoints objectAtIndex:i+1];
+		
+		float dist = [[l position] distanceToPosition:[r position]];
+		
+		NSLog(@" %0.2f %@ %@", dist, r, l);
+		
+		rightDist += dist;
+		
+		if ( i+1 == toIndex ){
+			NSLog(@" ** full route going right complete! %0.2f", rightDist);
+			break;
+		}
+		
+		i++;
+	}
+	
+	Route *route = [Route route];
+	
+	// right wins!
+	if ( rightDist < leftDist ){
+		[route setWaypoints:goRightRoute];
+	}
+	
+	// left wins
+	else{
+		[route setWaypoints:goLeftRoute];
+	}
+	
+	return [[route retain] autorelease];
 }
 
 @end

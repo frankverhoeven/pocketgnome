@@ -278,6 +278,8 @@ typedef enum ClientDbType{
 	BOOL _dataLoaded;
 }
 
++ (DatabaseManager*)sharedController;
+
 - (BOOL)getObjectForRow:(int)index withTable:(ClientDbType)table withStruct:(void*)obj withStructSize:(size_t)structSize;
 
 @end

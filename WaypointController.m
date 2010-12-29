@@ -1637,4 +1637,48 @@ enum AutomatorIntervalType {
 	}
 }
 
+- (IBAction)changeCoords: (id)sender{
+	
+	// lets find our route!
+	Route *route = nil;
+	if ( [[self currentRouteKey] isEqualToString: PrimaryRoute] ){
+		route = [self.currentRouteSet routeForKey:PrimaryRoute];
+	}
+	else if ( [[self currentRouteKey] isEqualToString: CorpseRunRoute] ){
+		route = [self.currentRouteSet routeForKey:CorpseRunRoute];
+	}
+	
+	if ( !route || [[route waypoints] count] == 0 ){
+		log(LOG_WAYPOINT, @"No valid route found to modify!");
+		return;
+	}
+	
+	// time to loop through and make a change!
+	float offset = [offsetValueTextField floatValue];
+	int tag = [[coordMatrix selectedCell] tag];
+	NSArray *wps = [route waypoints];
+	for ( Waypoint *wp in wps ){
+		Position *pos = [wp position];
+		
+		// X
+		if ( tag == 0 ){
+			pos.xPosition = pos.xPosition + offset;
+		}
+		// Y
+		else if ( tag == 1 ){
+			pos.yPosition = pos.yPosition + offset;
+		}
+		// Z
+		else if ( tag == 2 ){
+			pos.zPosition = pos.zPosition + offset;
+		}
+	}
+	
+	// save our changes
+	[[FileController sharedFileController] saveObject:[self.currentRouteSet parent]];
+
+	// update our UI!
+	[waypointTable reloadData];
+}
+
 @end

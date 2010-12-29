@@ -96,6 +96,10 @@
 	// for teh n00bs
 	BOOL _firstTimeEverOnTheNewRouteCollections;
 	IBOutlet NSPanel *helpPanel;
+	
+	// now we can auto change the coords! (I rly should stop adding new features!!)
+	IBOutlet NSMatrix *coordMatrix;
+	IBOutlet NSTextField *offsetValueTextField;
 }
 
 - (void)saveRoutes;
@@ -167,6 +171,8 @@
 - (IBAction)renameRoute: (id)sender;
 - (IBAction)duplicateRoute: (id)sender;
 - (IBAction)showInFinder: (id)sender;
+
+- (IBAction)changeCoords: (id)sender;
 
 // TO DO: add import/export/show/duplicate
 

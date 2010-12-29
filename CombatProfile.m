@@ -109,6 +109,8 @@
 		self.GatherNodesFriendlyPlayerNearRange = 50.0;
 		self.GatherNodesMobNear = NO;
 		self.GatherNodesMobNearRange = 50.0;
+		self.GatherNodesEliteNear = NO;
+		self.GatherNodesEliteNearRange = 50.0;
 		self.DoFishing = NO;
 		self.FishingApplyLure = 0;
 		self.FishingLureID = NO;
@@ -190,6 +192,8 @@
 					   @"GatherNodesFriendlyPlayerNearRange",
 					   @"GatherNodesMobNear",
 					   @"GatherNodesMobNearRange",
+					   @"GatherNodesEliteNear",
+					   @"GatherNodesEliteNearRange",
 					   @"DoFishing",
 					   @"FishingApplyLure",
 					   @"FishingLureID",
@@ -308,6 +312,8 @@
 	copy.GatherNodesFriendlyPlayerNearRange = self.GatherNodesFriendlyPlayerNearRange;
 	copy.GatherNodesMobNear = self.GatherNodesMobNear;
 	copy.GatherNodesMobNearRange = self.GatherNodesMobNearRange;
+	copy.GatherNodesEliteNear = self.GatherNodesEliteNear;
+	copy.GatherNodesEliteNearRange = self.GatherNodesEliteNearRange;
 	copy.DoFishing = self.DoFishing;
 	copy.FishingApplyLure = self.FishingApplyLure;
 	copy.FishingLureID = self.FishingLureID;
@@ -411,6 +417,8 @@
 		self.GatherNodesFriendlyPlayerNearRange = [[decoder decodeObjectForKey: @"GatherNodesFriendlyPlayerNearRange"] floatValue];
 		self.GatherNodesMobNear = [[decoder decodeObjectForKey: @"GatherNodesMobNear"] boolValue];
 		self.GatherNodesMobNearRange = [[decoder decodeObjectForKey: @"GatherNodesMobNearRange"] floatValue];
+		self.GatherNodesEliteNear = [[decoder decodeObjectForKey: @"GatherNodesEliteNear"] boolValue];
+		self.GatherNodesEliteNearRange = [[decoder decodeObjectForKey: @"GatherNodesEliteNearRange"] floatValue];
 		self.DoFishing = [[decoder decodeObjectForKey: @"DoFishing"] boolValue];
 		self.FishingApplyLure = [[decoder decodeObjectForKey: @"FishingApplyLure"] boolValue];
 		self.FishingLureID = [[decoder decodeObjectForKey: @"FishingLureID"] intValue];
@@ -511,6 +519,8 @@
 	[coder encodeObject: [NSNumber numberWithFloat: self.GatherNodesFriendlyPlayerNearRange] forKey: @"GatherNodesFriendlyPlayerNearRange"];
 	[coder encodeObject: [NSNumber numberWithBool: self.GatherNodesMobNear] forKey: @"GatherNodesMobNear"];
 	[coder encodeObject: [NSNumber numberWithFloat: self.GatherNodesMobNearRange] forKey: @"GatherNodesMobNearRange"];
+	[coder encodeObject: [NSNumber numberWithBool: self.GatherNodesEliteNear] forKey: @"GatherNodesEliteNear"];
+	[coder encodeObject: [NSNumber numberWithFloat: self.GatherNodesEliteNearRange] forKey: @"GatherNodesEliteNearRange"];
 	[coder encodeObject: [NSNumber numberWithBool: self.DoFishing] forKey: @"DoFishing"];
 	[coder encodeObject: [NSNumber numberWithBool: self.FishingApplyLure] forKey: @"FishingApplyLure"];
 	[coder encodeObject: [NSNumber numberWithInt: self.FishingLureID] forKey: @"FishingLureID"];
@@ -615,6 +625,8 @@
 @synthesize GatherNodesFriendlyPlayerNearRange;
 @synthesize GatherNodesMobNear;
 @synthesize GatherNodesMobNearRange;
+@synthesize GatherNodesEliteNear;
+@synthesize GatherNodesEliteNearRange;
 @synthesize DoFishing;
 @synthesize FishingApplyLure;
 @synthesize FishingLureID;

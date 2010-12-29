@@ -158,6 +158,8 @@ static SpellController *sharedSpells = nil;
     if( !memory ) return;
     
     int i;
+	
+	NSLog(@"reloading spells...");
     	
 	// find known spells
 	UInt32 offset = [offsetController offset:@"lua_GetSpellBookItemInfo"];

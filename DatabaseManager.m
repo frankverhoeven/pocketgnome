@@ -30,14 +30,27 @@
 
 @implementation DatabaseManager
 
-- (id) init{
-    self = [super init];
-    if ( self != nil ){
+static DatabaseManager *_sharedController = nil;
+
++ (DatabaseManager*)sharedController{
+	if (_sharedController == nil)
+		_sharedController = [[[self class] alloc] init];
+	return _sharedController;
+}
+
+- (id)init {
+	
+	if ( _sharedController ) {
+		[self release];
+		self = _sharedController;
+	}
+	else if ( self != nil ) {
+		_sharedController = self;
 		
 		_tables = [[NSMutableDictionary dictionary] retain];
 		_dataLoaded = NO;
 		
-//		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(offsetsLoaded:) name: OffsetsLoaded object: nil];
+		//[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(offsetsLoaded:) name: OffsetsLoaded object: nil];
 	}
 	return self;
 }
@@ -163,6 +176,8 @@ typedef struct ClientDb {
 #pragma mark Notifications
 
 - (void)offsetsLoaded: (NSNotification*)notification {
+	
+	NSLog(@"loaded...");
 	
 	if ( _dataLoaded )
 		return;

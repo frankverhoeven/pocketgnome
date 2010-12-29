@@ -87,6 +87,8 @@
 	float GatherNodesFriendlyPlayerNearRange;
 	BOOL GatherNodesMobNear;
 	float GatherNodesMobNearRange;
+	BOOL GatherNodesEliteNear;
+	float GatherNodesEliteNearRange;
 	BOOL DoFishing;
 	BOOL FishingApplyLure;
 	int FishingLureID;
@@ -194,6 +196,8 @@
 @property (readwrite, assign) float GatherNodesFriendlyPlayerNearRange;
 @property (readwrite, assign) BOOL GatherNodesMobNear;
 @property (readwrite, assign) float GatherNodesMobNearRange;
+@property (readwrite, assign) BOOL GatherNodesEliteNear;
+@property (readwrite, assign) float GatherNodesEliteNearRange;
 @property (readwrite, assign) BOOL DoFishing;
 @property (readwrite, assign) BOOL FishingApplyLure;
 @property (readwrite, assign) int FishingLureID;

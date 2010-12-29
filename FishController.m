@@ -61,6 +61,7 @@
 - (BOOL)isPlayerFishing;
 - (void)facePool:(Node*)school;
 - (void)verifyLoot;
+- (void)findFishingSpellThenCast;
 @end
 
 
@@ -74,6 +75,7 @@
 		_ignoreIsFishing = NO;
 		//_blockActions = NO;
 		_lootAttempt = 0;
+		_searchForSpellAttempt = 0;
 		
 		_nearbySchool = nil;	
 		_facedSchool = [[NSMutableArray array] retain];
@@ -127,20 +129,6 @@
 		[self facePool:nearbySchool];
 	}
 	
-	// Reload spells, since they may have just trained fishing!
-	[spellController reloadPlayerSpells];
-	
-	// Get our fishing spell ID!
-	Spell *fishingSpell = [spellController playerSpellForName: @"Fishing"];
-	if ( fishingSpell ){
-		_fishingSpellID = [[fishingSpell ID] intValue];
-		
-	}
-	else{
-		[controller setCurrentStatus:@"Bot: You need to learn fishing!"];
-		return;
-	}
-	
 	// set options
 	_optApplyLure			= optApplyLure;
 	_optUseContainers		= optUseContainers;
@@ -157,6 +145,37 @@
 	_totalFishLooted	= 0;
 	_playerGUID			= [[playerController player] GUID];
 	
+	// we need to get our fishing spell ID now!
+	[self findFishingSpellThenCast];	
+}
+
+- (void)findFishingSpellThenCast{
+	
+	// Get our fishing spell ID!
+	Spell *fishingSpell = [spellController playerSpellForName: @"Fishing"];
+	if ( fishingSpell ){
+		_fishingSpellID = [[fishingSpell ID] intValue];
+		
+	}
+	// lets search in a bit since we just reloaded...
+	else{
+		
+		// Reload spells, since they may have just trained fishing!
+		[spellController reloadPlayerSpells];
+		
+		_searchForSpellAttempt++;
+		if ( _searchForSpellAttempt < 5 ){
+			[self performSelector:@selector(findFishingSpellThenCast) withObject:nil afterDelay:1.0f];
+			[controller setCurrentStatus:@"Bot: Searching for fishing spell..."];
+			return;
+		}
+		_searchForSpellAttempt = 0;
+		
+		[controller setCurrentStatus:@"Bot: You need to learn fishing!"];
+		return;
+	}	
+	
+	
 	// are we on the ground? if not lets delay our cast a bit
 	if ( ![[playerController player] isOnGround] ){
 		log(LOG_FISHING, @"Falling, fishing soon...");
@@ -171,7 +190,7 @@
 
 - (void)stopFishing{
 	_isFishing = NO;
-	
+
 	[_nearbySchool release]; _nearbySchool = nil;
 }
 
@@ -249,7 +268,6 @@
 
 - (BOOL)applyLure{
 	
-	NSLog(@"applying lure? %d", _optApplyLure);
 	if ( !_optApplyLure ){
 		return NO;
 	}

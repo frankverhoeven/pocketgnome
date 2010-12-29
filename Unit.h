@@ -251,6 +251,7 @@ typedef enum {
     UnitRace_Naga,
     UnitRace_Broken,
     UnitRace_Skeleton       = 15,
+	UnitRace_Worgen			= 22,
 } UnitRace;
 
 // CreatureType must be replicated in TargetClassCondition

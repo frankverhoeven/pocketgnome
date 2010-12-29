@@ -129,6 +129,8 @@
 		03CEF7890FCCD93100B47336 /* CorpseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CEF7870FCCD93100B47336 /* CorpseController.m */; };
 		03D65A591090EC0D00537E9C /* OffsetSignatures.plist in Resources */ = {isa = PBXBuildFile; fileRef = 03D65A581090EC0D00537E9C /* OffsetSignatures.plist */; };
 		03E1D7B8110F62CD003180E4 /* FileObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D7B7110F62CD003180E4 /* FileObject.m */; };
+		03FCD25F12CA73FF000A199D /* PG.png in Resources */ = {isa = PBXBuildFile; fileRef = 03FCD25E12CA73FF000A199D /* PG.png */; };
+		03FCD2AC12CAC104000A199D /* WoWFaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FCD2AB12CAC104000A199D /* WoWFaction.m */; };
 		03FFD45B110B922D0046AEDF /* MobsKilledCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03FFD45A110B922D0046AEDF /* MobsKilledCondition.xib */; };
 		03FFD46E110B930F0046AEDF /* MobsKilledConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FFD46D110B930F0046AEDF /* MobsKilledConditionController.m */; };
 		03FFD596110CB5440046AEDF /* InteractNPCActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FFD593110CB5440046AEDF /* InteractNPCActionController.m */; };
@@ -593,6 +595,9 @@
 		03D65A581090EC0D00537E9C /* OffsetSignatures.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OffsetSignatures.plist; sourceTree = "<group>"; };
 		03E1D7B6110F62CD003180E4 /* FileObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileObject.h; sourceTree = "<group>"; };
 		03E1D7B7110F62CD003180E4 /* FileObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileObject.m; sourceTree = "<group>"; };
+		03FCD25E12CA73FF000A199D /* PG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PG.png; path = Images/PG.png; sourceTree = "<group>"; };
+		03FCD2AA12CAC104000A199D /* WoWFaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WoWFaction.h; sourceTree = "<group>"; };
+		03FCD2AB12CAC104000A199D /* WoWFaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoWFaction.m; sourceTree = "<group>"; };
 		03FFD45A110B922D0046AEDF /* MobsKilledCondition.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MobsKilledCondition.xib; sourceTree = "<group>"; };
 		03FFD46C110B930F0046AEDF /* MobsKilledConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobsKilledConditionController.h; sourceTree = "<group>"; };
 		03FFD46D110B930F0046AEDF /* MobsKilledConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobsKilledConditionController.m; sourceTree = "<group>"; };
@@ -941,7 +946,7 @@
 		7DF445520E241ABA0075B96B /* TotemConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotemConditionController.m; sourceTree = "<group>"; };
 		7DF445540E241AE30075B96B /* TotemCondition.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotemCondition.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* ggteabag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ggteabag.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* Pocket Gnome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pocket Gnome.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D02F3C541182C37E000F4037 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		D02F3C551182C37E000F4037 /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		D02F3C5B1182C497000F4037 /* MailActionProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailActionProfile.h; sourceTree = "<group>"; };
@@ -1144,6 +1149,8 @@
 			children = (
 				D02F3C541182C37E000F4037 /* DatabaseManager.h */,
 				D02F3C551182C37E000F4037 /* DatabaseManager.m */,
+				03FCD2AA12CAC104000A199D /* WoWFaction.h */,
+				03FCD2AB12CAC104000A199D /* WoWFaction.m */,
 			);
 			name = WoWDb;
 			sourceTree = "<group>";
@@ -1231,7 +1238,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* ggteabag.app */,
+				8D1107320486CEB800E47090 /* Pocket Gnome.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1839,6 +1846,7 @@
 		7DD64B090D5D191B00773CAB /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				03FCD25E12CA73FF000A199D /* PG.png */,
 				7DD64B1F0D5D192500773CAB /* off.png */,
 				7D60430B0D5FC2DF001501AF /* mixed.png */,
 				7DD64B200D5D192500773CAB /* on.png */,
@@ -1871,7 +1879,7 @@
 			name = "Pocket Gnome";
 			productInstallPath = "$(HOME)/Applications";
 			productName = WoWWaypoint;
-			productReference = 8D1107320486CEB800E47090 /* ggteabag.app */;
+			productReference = 8D1107320486CEB800E47090 /* Pocket Gnome.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1884,6 +1892,7 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Pocket Gnome" */;
 			compatibilityVersion = "Xcode 3.0";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -2131,6 +2140,7 @@
 				03A56B4212BAF79900BDCB24 /* bSpells.jpg in Resources */,
 				03A56B4512BAF96700BDCB24 /* bStats_c.jpg in Resources */,
 				03A56B4612BAF96700BDCB24 /* bStats.jpg in Resources */,
+				03FCD25F12CA73FF000A199D /* PG.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2298,6 +2308,7 @@
 				D02F3C601182C5AC000F4037 /* ProfileController.m in Sources */,
 				D02F3C871182C975000F4037 /* Profile.m in Sources */,
 				0362CDDE11A99CED00EA65B2 /* CombatProfile.m in Sources */,
+				03FCD2AC12CAC104000A199D /* WoWFaction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2428,6 +2439,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				VALID_ARCHS = "i386 x86_64";
 				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;

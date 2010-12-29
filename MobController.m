@@ -567,6 +567,7 @@ static MobController* sharedController = nil;
 								  [NSString stringWithFormat: @"0x%X", [mob baseAddress]],  @"Address",
 								  [NSNumber numberWithFloat: distance],                     @"Distance", 
 								  [mob isPet] ? @"Yes" : @"No",                             @"Pet",
+								  [mob isElite] ? @"Yes" : @"No",                           @"Elite",
 								  // isHostile ? @"Yes" : @"No",                           @"Hostile",
 								  // isCombat ? @"Yes" : @"No",                            @"Combat",
 								  (isDead ? @"3" : (isCombat ? @"1" : (isNeutral ? @"4" : (isHostile ? @"2" : @"5")))),  @"Status",

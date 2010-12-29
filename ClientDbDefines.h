@@ -133,3 +133,53 @@ typedef struct SpellDbc{
 	uint spellDescriptionVariableID;
 	uint SpellDifficultyId;			// 170
 } SpellDbc;
+
+
+
+
+typedef struct FactionDbcRecord{
+	int Id;
+	int _unk0;
+	int Allied;
+	int AtWar;
+	int _unk1;
+	int _unk2;
+	int _unk3;
+	int _unk4;
+	int _unk5;
+	int _unk6;
+	int Reputation;
+	int Mod1;
+	int Mod2;
+	int Mod3;
+	int _unk7;
+	int _unk8;
+	int _unk9;
+	int _unk10;
+	int ParentFaction;
+	
+	// 4 unknowns added recently. Cba to figure out what they're for
+	// since I have no use for them!
+	int _unk11;
+	int _unk12;
+	int _unk13;
+	int _unk14;
+	
+	char *Name;
+	char *Description;
+
+} FactionDbcRecord;
+
+typedef struct FactionTemplateDbcRecord{
+	int Id;
+	int FactionId;
+	int FactionFlags;
+	int FightSupport;
+	int FriendlyMask;
+	int HostileMask;
+	
+	int EnemyFactions[4];
+	
+	int FriendlyFactions[4];
+	
+} FactionTemplateDbcRecord;

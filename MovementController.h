@@ -201,4 +201,8 @@ typedef enum MovementType {
 
 - (void)moveUpStart;
 - (void)moveUpStop;
+
+// for fun!
+- (Route*)buildBestCorpseRoute:(RouteSet*)routeSet;
+
 @end

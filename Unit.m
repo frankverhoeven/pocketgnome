@@ -302,6 +302,8 @@ enum NPCFlags
 // type : 0 = current, 1 = percentage
 - (UInt32)unitPowerWithQuality:(int)quality andType:(int)type{
 	
+	NSLog(@"zomg %d %d", quality, type);
+	
 	// check if it's power or health
 	if ( quality == QualityHealth ){
 		return ( (type == TypeValue) ? [self currentHealth] : [self percentHealth] );
@@ -345,7 +347,7 @@ enum NPCFlags
 	}
 	// percentage
 	else{
-		return [self maxPowerOfType:powerType];
+		return [self percentPowerOfType:powerType];
 	}
 	
 	return 0;
@@ -515,6 +517,9 @@ enum NPCFlags
             break;
         case UnitRace_Skeleton:
             string = @"Skeleton";
+            break;
+		case UnitRace_Worgen:
+			string = @"Worgen";
             break;
         default:
             string = @"Unknown";

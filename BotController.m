@@ -51,6 +51,7 @@
 #import "BindingsController.h"
 #import "PvPController.h"
 #import "ProfileController.h"
+#import "FileController.h"
 
 #import "ChatLogEntry.h"
 #import "BetterSegmentedControl.h"
@@ -169,7 +170,7 @@
 
 - (BOOL)mountNow;
 
-- (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck;
+- (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck doElite:(BOOL)doEliteCheck;
 
 - (BOOL)combatProcedureValidForUnit: (Unit*)unit;
 
@@ -272,7 +273,7 @@
 	_needToTakeQueue = NO;
 	_waitForPvPPreparation = NO;
 	_isPvpMonitoring = NO;
-
+	
 	_jumpAttempt = 0;
 	_includeFriendly = NO;
 	_includeFriendlyPatrol = NO;
@@ -559,7 +560,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				for ( target in units ) {
 					if ( ![target isValid] ) continue;
 					int qualityValue = [target unitPowerWithQuality:[condition quality] andType:[condition type]];
-					
+	
 					// now we have the value of the quality
 					if( [condition comparator] == CompareMore) {
 						conditionEval = ( qualityValue > [[condition value] unsignedIntValue] ) ? YES : NO;
@@ -2125,6 +2126,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	// take the action here
 	if ( matchFound && rule ) {
+		
+		NSLog(@"Rules %@ matched!", rule);
 
 		// Dismount if mounted.
 		if ( [player isMounted] ) [movementController dismount];
@@ -2168,6 +2171,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 					default:
 						break;
 				}
+				
+				NSLog(@" action: %d  can perform: %d", actionID, canPerformAction);
 
 				// lets do the action
 				if ( canPerformAction ) {
@@ -4498,7 +4503,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	}
 
 	if( ![playerController corpsePosition] ) {
-		log(LOG_DEV, @"Still not near the corpse.");
+		log(LOG_DEV, @"No corpse position, error, we will never res");
+		[controller setCurrentStatus:@"Unable to find corpse position, unable to res"];
 
 		// Make sure the movement controller has the right route
 		if ( self.theRouteSet && movementController.currentRouteSet != self.theRouteSet )
@@ -5012,7 +5018,6 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	log(LOG_FUNCTION, @"evaluateForCombatContinuation");
 
 	if (self.theCombatProfile.ignoreFlying && [[playerController player] isFlyingMounted]) {
-		PGLog(@"wut?");
 		return NO;
 	}
 
@@ -5506,11 +5511,14 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			float dist = [playerPosition distanceToPosition: [node position]];
 
 			// If we're not supposed to loot this node due to proximity rules
-			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:node doMob: theCombatProfile.GatherNodesMobNear doFriendy: theCombatProfile.GatherNodesFriendlyPlayerNear doHostile: theCombatProfile.GatherNodesHostilePlayerNear];
+			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:node doMob:theCombatProfile.GatherNodesMobNear doFriendy:theCombatProfile.GatherNodesFriendlyPlayerNear doHostile:theCombatProfile.GatherNodesHostilePlayerNear doElite:theCombatProfile.GatherNodesEliteNear];
 
 			if ( nearbyScaryUnits ) {
 				log(LOG_NODE, @"Skipping node due to proximity count");
 				continue;
+			}
+			else{
+				log(LOG_NODE, @"No scary units near the node!");
 			}
 
 			if ( dist != INFINITY && dist < nodeDist ) {
@@ -8125,42 +8133,88 @@ NSMutableDictionary *_diffDict = nil;
 }
 
 // check if units are nearby
-- (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck{
+- (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck doElite:(BOOL)doEliteCheck{
+	
 	if ( doMobCheck ){
 		log(LOG_DEV, @"Scanning nearby mobs within %0.2f of %@", theCombatProfile.GatherNodesMobNearRange, [node position]);
 		NSArray *zeMobs = [mobController mobsWithinDistance: theCombatProfile.GatherNodesMobNearRange MobIDs:nil position:[node position] aliveOnly:YES];
 		NSMutableArray *mobs = [NSMutableArray arrayWithArray:zeMobs];
 		if ( [mobs count] ){
 			
+			// remove mobs that we don't care about!
 			int count = [mobs count];
-			// remove mobs that don't matter
 			NSMutableArray *mobsToRemove = [NSMutableArray array];
 			for ( Mob *mob in mobs ){
-					
-				if ( [mob level] == 1 ){
+
+				// critter
+				if ( [controller reactMaskForFaction: [mob factionTemplate]] == 0 && [mob level] == 1 ){
 					[mobsToRemove addObject:mob];
 				}
+				// dead
 				else if ( [mob isDead] ){
 					[mobsToRemove addObject:mob];
 				}
-				else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
+				// friendly
+				/*else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
 					[mobsToRemove addObject:mob];
-				}
+				}*/
 			}
 			[mobs removeObjectsInArray:mobsToRemove];
 			
 			log(LOG_NODE, @"Went from %d mobs to %d", count, [mobs count]);
 			
-			if ( [mobs count] > 1 ){
+			if ( [mobs count] ){
 				log(LOG_NODE, @"There %@ %d scary mob(s) near the node, ignoring %@ (Mobs: %@)", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node, mobs);
 				return YES;
 			}
-			
-			log(LOG_NODE, @"Only 1 mob near node, so ignoring!");
-			
-			return NO;
 		}
 	}
+	
+	// check for nearby elite mobs!
+	if ( doEliteCheck ){
+		log(LOG_DEV, @"Scanning nearby elites within %0.2f of %@", theCombatProfile.GatherNodesEliteNearRange, [node position]);
+		NSArray *zeMobs = [mobController mobsWithinDistance: theCombatProfile.GatherNodesEliteNearRange MobIDs:nil position:[node position] aliveOnly:YES];
+		NSMutableArray *mobs = [NSMutableArray arrayWithArray:zeMobs];
+		if ( [mobs count] ){
+			
+			// remove mobs that we don't care about!
+			int count = [mobs count];
+			NSMutableArray *mobsToRemove = [NSMutableArray array];
+			for ( Mob *mob in mobs ){
+				
+				// critter
+				if ( [controller reactMaskForFaction: [mob factionTemplate]] == 0 && [mob level] == 1 ){
+					log(LOG_NODE, @"Mob is critter, ignoring... %@", mob);
+					[mobsToRemove addObject:mob];
+				}
+				// dead
+				else if ( [mob isDead] ){
+					log(LOG_NODE, @"Mob is dead, ignoring... %@", mob);
+					[mobsToRemove addObject:mob];
+				}
+				// friendly
+				/*else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
+					log(LOG_NODE, @"Mob is friendly, ignoring... %@", mob);
+					[mobsToRemove addObject:mob];
+				}*/
+				// non elite
+				else if ( ![mob isElite] ){
+					log(LOG_NODE, @"Mob is not elite, ignoring... %@", mob);
+					[mobsToRemove addObject:mob];
+				}
+			}
+			[mobs removeObjectsInArray:mobsToRemove];
+			
+			log(LOG_NODE, @"Went from %d elites to %d", count, [mobs count]);
+			
+			if ( [mobs count] >= 1 ){
+				log(LOG_NODE, @"There %@ %d scary elites(s) near the node, ignoring %@ (Mobs: %@)", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node, mobs);
+				return YES;
+			}
+		}
+	}
+	
+	
 	if ( doFriendlyCheck ){
 		if ( [playersController playerWithinRangeOfUnit: theCombatProfile.GatherNodesFriendlyPlayerNearRange Unit:(Unit*)node includeFriendly:YES includeHostile:NO] ){
 			log(LOG_NODE, @"Friendly player(s) near node, ignoring %@", node);
@@ -8376,6 +8430,17 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
+
+	
+	return;
+	
+	self.theRouteCollection = [[routePopup selectedItem] representedObject];
+	self.theRouteSet = [_theRouteCollection startingRoute];
+	
+	[movementController buildBestCorpseRoute:[_theRouteCollection startingRoute]];
+	
+	return;
+	
 	NSLog(@"Runes? %d %d %d", [playerController runesAvailable:0], [playerController runesAvailable:1], [playerController runesAvailable:2]);
 							   
 	NSLog(@"offset: 0x%X", [offsetController offset:@"Lua_GetRuneCount"]);
@@ -8424,8 +8489,7 @@ NSMutableDictionary *_diffDict = nil;
 	
 	
 	
-	
-	
+
 	SpellDbc spell;
 	NSLog(@"O rly? %@", databaseManager);
 	[databaseManager getObjectForRow:34898 withTable:Spell_ withStruct:&spell withStructSize:(size_t)sizeof(spell)];
