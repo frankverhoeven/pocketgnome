@@ -12,6 +12,8 @@
 @interface MacroActionController : ActionController {
 	IBOutlet NSPopUpButton	*macroPopUp;
 	IBOutlet NSButton		*instantButton;
+	IBOutlet NSMatrix		*typeMatrix;
+	IBOutlet NSTextField	*macroTextField;
 	
 	NSArray *_macros;
 }

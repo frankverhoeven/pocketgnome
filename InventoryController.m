@@ -568,9 +568,6 @@ static InventoryController *sharedInventory = nil;
 							found = YES;
 							log(LOG_ITEM, @"[Mail] Saving %@ to be mailed", item);
 							itemsMailed++;
-							
-							// in case our exclusion removed it
-							allItems[k][j] = item;
 						}
 					}
 					
@@ -625,7 +622,7 @@ static InventoryController *sharedInventory = nil;
 				itemsMailed -= totalAdded;
 				
 				// send the mail
-				NSString *macroCommand = [NSString stringWithFormat:@"/script SendMail( \"%@\", \" \", \" \");", profile.sendTo];
+				NSString *macroCommand = [NSString stringWithFormat:@"/script SendMail( \"%@\", \"\", \"\");", profile.sendTo];
 				[macroController useMacroOrSendCmd:macroCommand];
 				usleep(100000);
 				totalAdded = 0;

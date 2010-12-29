@@ -29,4 +29,6 @@
 - (void)setStateFromAction: (Action*)action;
 - (void)removeBindings;
 
+-(CGFloat)cellHeight;
+
 @end

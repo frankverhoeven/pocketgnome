@@ -55,9 +55,14 @@
 @synthesize macros = _macros;
 
 - (void)setStateFromAction: (Action*)action{
-
 	NSNumber *macroID = [[action value] objectForKey:@"MacroID"];
 	NSNumber *instant = [[action value] objectForKey:@"Instant"];
+	NSString *macroText = [[action value] objectForKey:@"MacroText"];
+	if(macroText == nil)
+		macroText = @"";
+	NSNumber *isEntered = [[action value] objectForKey:@"EnteredMacro"];
+	if(isEntered == nil)
+		isEntered = [NSNumber numberWithBool:NO];
 	
 	for ( NSMenuItem *item in [macroPopUp itemArray] ){
 		if ( [[(Macro*)[item representedObject] number] intValue] == [macroID intValue] ){
@@ -67,6 +72,9 @@
 	}
 	
 	[instantButton setState:[instant boolValue]];
+	
+	[macroTextField setStringValue:macroText];
+	[typeMatrix selectCellWithTag:101+[isEntered boolValue]];
 	
 	[super setStateFromAction:action];
 }
@@ -79,14 +87,27 @@
 	[action setEnabled: self.enabled];
 	
 	NSNumber *macroID = [[[macroPopUp selectedItem] representedObject] number];
+	if(macroID == nil) {
+		macroID = [NSNumber numberWithInt:0];
+	}
 	NSNumber *instant = [NSNumber numberWithBool:[instantButton state]];
+	NSNumber *isEntered = [NSNumber numberWithBool:[[typeMatrix selectedCell] tag]-101];
+	NSString *macroText = [macroTextField stringValue];
+	
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:
 							macroID,		@"MacroID",
-							instant,		@"Instant", nil];
+							instant,		@"Instant", 
+							isEntered,		@"EnteredMacro",
+							macroText,		@"MacroText",
+							nil];
 	[action setValue: values];
     
     return action;
 }
 
+
+-(CGFloat)cellHeight {
+	return 64.0;
+}
 
 @end

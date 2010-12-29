@@ -2857,19 +2857,32 @@ typedef enum MovementState{
 
 		// macro
 		else if ( [action type] == ActionType_Macro ) {
-
-			UInt32 macroID = [[[action value] objectForKey:@"MacroID"] unsignedIntValue];
 			BOOL instant = [[[action value] objectForKey:@"Instant"] boolValue];
-			UInt32 actionID = (USE_MACRO_MASK + macroID);
-			
-			log(LOG_WAYPOINT, @"Using macro %d", macroID);
-			
-			// only pause movement if we have to!
-			if ( !instant )
-				[self stopMovement];
-			_isActive = YES;
 
-			[botController performAction:actionID];
+			if([[action value] objectForKey:@"EnteredMacro"] == nil || ![[[action value] objectForKey:@"EnteredMacro"] boolValue]) {
+				UInt32 macroID = [[[action value] objectForKey:@"MacroID"] unsignedIntValue];
+				UInt32 actionID = (USE_MACRO_MASK + macroID);
+				
+				log(LOG_WAYPOINT, @"Using macro %d", macroID);
+				
+				// only pause movement if we have to!
+				if ( !instant )
+					[self stopMovement];
+				_isActive = YES;
+				
+				[botController performAction:actionID];
+			}
+			else {
+				
+				NSString *macroCommand = [[action value] objectForKey:@"MacroText"];
+				if(macroCommand != nil && ![macroCommand isEqualToString:@""]) {
+					if ( !instant )
+						[self stopMovement];
+					_isActive = YES;
+					[macroController useMacroOrSendCmd:macroCommand];
+				}
+				
+			}
 		}
 		
 		// delay
