@@ -1320,8 +1320,8 @@ static PlayerDataController* sharedController = nil;
 		case ZoneAlteracValley:
 		case ZoneEyeOfTheStorm:
 		case ZoneIsleOfConquest:
-		case ZoneTwinPeaks;
-		case ZoneBattleForGilneas;
+		case ZoneTwinPeaks:
+		case ZoneBattleForGilneas:
 			return YES;
 		default:
 			return NO;
