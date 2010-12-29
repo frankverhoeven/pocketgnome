@@ -115,21 +115,27 @@
 		self.currentBehavior.AlteracValley.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
 	if ( self.currentBehavior.ArathiBasin.routeCollection == nil )
 		self.currentBehavior.ArathiBasin.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
+	if ( self.currentBehavior.BattleForGilneas.routeCollection == nil )
+		self.currentBehavior.BattleForGilneas.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
 	if ( self.currentBehavior.EyeOfTheStorm.routeCollection == nil )
 		self.currentBehavior.EyeOfTheStorm.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
 	if ( self.currentBehavior.IsleOfConquest.routeCollection == nil )
 		self.currentBehavior.IsleOfConquest.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
 	if ( self.currentBehavior.StrandOfTheAncients.routeCollection == nil )
 		self.currentBehavior.StrandOfTheAncients.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
+	if ( self.currentBehavior.TwinPeaks.routeCollection == nil )
+		self.currentBehavior.TwinPeaks.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
 	if ( self.currentBehavior.WarsongGulch.routeCollection == nil )
 		self.currentBehavior.WarsongGulch.routeCollection = [[waypointController routeCollections] objectAtIndex:0];
 	
 	// select the correct route
 	[self loadCorrectRouteCollection:self.currentBehavior.AlteracValley];
 	[self loadCorrectRouteCollection:self.currentBehavior.ArathiBasin];
+	[self loadCorrectRouteCollection:self.currentBehavior.BattleForGilneas];
 	[self loadCorrectRouteCollection:self.currentBehavior.EyeOfTheStorm];
 	[self loadCorrectRouteCollection:self.currentBehavior.IsleOfConquest];
 	[self loadCorrectRouteCollection:self.currentBehavior.StrandOfTheAncients];
+	[self loadCorrectRouteCollection:self.currentBehavior.TwinPeaks];
 	[self loadCorrectRouteCollection:self.currentBehavior.WarsongGulch];
 }
 
