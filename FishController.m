@@ -164,7 +164,7 @@
 - (void)findFishingSpellThenCast:(id)obj{
 	
 	// only search if we don't have one, or we have one but the player trained!
-	if ( !_fishingSpellID || ![spellController isPlayerSpell:_fishingSpellID] ){
+	if ( !_fishingSpellID || ![spellController isPlayerSpell:[spellController spellForID:[NSNumber numberWithInt:_fishingSpellID]]] ){
 	
 		// we need to get our fishing spell ID now!
 		for ( NSNumber *spellID in _fishingSpellIDs ){
