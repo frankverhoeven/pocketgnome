@@ -5484,24 +5484,23 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		// make sure it's not blacklisted!
 		if ( self.theRouteCollection && [[self.theRouteCollection blacklist] count] ){
 			
-			log(LOG_NODE, @"checking for blacklisted items in %@", self.theRouteCollection);
-			
+			BOOL isNodeBlacklisted = NO;
 			NSArray *blacklistedItems = [self.theRouteCollection blacklist];
 			
 			for ( NSDictionary *dict in blacklistedItems ){
-				
-				
-				
 				NSArray *allKeys = [dict allKeys];	// only 1 item, the name
 				Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
 				float dist = [pos distanceToPosition:[node position]];
-				
-				log(LOG_NODE, @"node is %0.2f from %@", dist, pos);
-				
+	
 				if ( dist <= 5.0f ){
-					log(LOG_NODE, @"Blacklisted node %@ being ignored", node);
-					continue;
+					isNodeBlacklisted = YES;
+					break;
 				}
+			}
+			
+			if ( isNodeBlacklisted ){
+				log(LOG_NODE, @"Blacklisted node %@ being ignored", node);
+				continue;
 			}
 		}
 
