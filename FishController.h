@@ -58,6 +58,8 @@
 	NSDate *_castStartTime;
 	
 	NSMutableArray *_facedSchool;
+	
+	NSArray *_fishingSpellIDs;
 }
 
 @property (readonly) BOOL isFishing;

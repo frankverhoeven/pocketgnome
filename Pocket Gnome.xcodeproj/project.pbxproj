@@ -131,6 +131,7 @@
 		03E1D7B8110F62CD003180E4 /* FileObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 03E1D7B7110F62CD003180E4 /* FileObject.m */; };
 		03FCD25F12CA73FF000A199D /* PG.png in Resources */ = {isa = PBXBuildFile; fileRef = 03FCD25E12CA73FF000A199D /* PG.png */; };
 		03FCD2AC12CAC104000A199D /* WoWFaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FCD2AB12CAC104000A199D /* WoWFaction.m */; };
+		03FCD3A412CAE74B000A199D /* PG.icns in Resources */ = {isa = PBXBuildFile; fileRef = 03FCD3A312CAE74B000A199D /* PG.icns */; };
 		03FFD45B110B922D0046AEDF /* MobsKilledCondition.xib in Resources */ = {isa = PBXBuildFile; fileRef = 03FFD45A110B922D0046AEDF /* MobsKilledCondition.xib */; };
 		03FFD46E110B930F0046AEDF /* MobsKilledConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FFD46D110B930F0046AEDF /* MobsKilledConditionController.m */; };
 		03FFD596110CB5440046AEDF /* InteractNPCActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FFD593110CB5440046AEDF /* InteractNPCActionController.m */; };
@@ -348,7 +349,6 @@
 		7DC41B000DEE156800F3B083 /* AllianceCrest.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7DC41AFD0DEE156800F3B083 /* AllianceCrest.gif */; };
 		7DC7A9580DFB70CA00F6FA63 /* pgRoute.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7DC7A9570DFB70CA00F6FA63 /* pgRoute.icns */; };
 		7DC7A9860DFC85C700F6FA63 /* pgBehavior.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7DC7A9850DFC85C700F6FA63 /* pgBehavior.icns */; };
-		7DC7A9A60DFC869400F6FA63 /* gnome2.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7DC7A9A50DFC869400F6FA63 /* gnome2.icns */; };
 		7DC8B44D0D4147CB00B25B45 /* DistanceConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC8B44C0D4147CB00B25B45 /* DistanceConditionController.m */; };
 		7DC8B4610D4152EC00B25B45 /* InventoryConditionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DC8B4600D4152EC00B25B45 /* InventoryConditionController.m */; };
 		7DCB5A400D540647001678BC /* Memory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DCB5A3F0D540647001678BC /* Memory.xib */; };
@@ -598,6 +598,7 @@
 		03FCD25E12CA73FF000A199D /* PG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PG.png; path = Images/PG.png; sourceTree = "<group>"; };
 		03FCD2AA12CAC104000A199D /* WoWFaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WoWFaction.h; sourceTree = "<group>"; };
 		03FCD2AB12CAC104000A199D /* WoWFaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoWFaction.m; sourceTree = "<group>"; };
+		03FCD3A312CAE74B000A199D /* PG.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = PG.icns; path = Images/PG.icns; sourceTree = "<group>"; };
 		03FFD45A110B922D0046AEDF /* MobsKilledCondition.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MobsKilledCondition.xib; sourceTree = "<group>"; };
 		03FFD46C110B930F0046AEDF /* MobsKilledConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobsKilledConditionController.h; sourceTree = "<group>"; };
 		03FFD46D110B930F0046AEDF /* MobsKilledConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobsKilledConditionController.m; sourceTree = "<group>"; };
@@ -752,7 +753,6 @@
 		7D5498950F02232500DD46F8 /* FishController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FishController.m; sourceTree = "<group>"; };
 		7D5A38480D14B52900E491CD /* NSNumberToHexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberToHexString.h; sourceTree = "<group>"; };
 		7D5A38490D14B52900E491CD /* NSNumberToHexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNumberToHexString.m; sourceTree = "<group>"; };
-		7D5B92960D9F179D00423FC6 /* gnome.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gnome.icns; sourceTree = "<group>"; };
 		7D60430B0D5FC2DF001501AF /* mixed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mixed.png; sourceTree = "<group>"; };
 		7D62BD380DE3790C000D0B6D /* ObjectConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectConstants.h; sourceTree = "<group>"; };
 		7D65C8F70D2EE14500C50DF7 /* Rule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rule.h; sourceTree = "<group>"; };
@@ -898,7 +898,6 @@
 		7DC41AFD0DEE156800F3B083 /* AllianceCrest.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AllianceCrest.gif; sourceTree = "<group>"; };
 		7DC7A9570DFB70CA00F6FA63 /* pgRoute.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pgRoute.icns; sourceTree = "<group>"; };
 		7DC7A9850DFC85C700F6FA63 /* pgBehavior.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = pgBehavior.icns; sourceTree = "<group>"; };
-		7DC7A9A50DFC869400F6FA63 /* gnome2.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gnome2.icns; sourceTree = "<group>"; };
 		7DC8B44B0D4147CB00B25B45 /* DistanceConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistanceConditionController.h; sourceTree = "<group>"; };
 		7DC8B44C0D4147CB00B25B45 /* DistanceConditionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistanceConditionController.m; sourceTree = "<group>"; };
 		7DC8B45F0D4152EC00B25B45 /* InventoryConditionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InventoryConditionController.h; sourceTree = "<group>"; };
@@ -1302,6 +1301,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				03FCD3A312CAE74B000A199D /* PG.icns */,
 				03A56B1212BAF78700BDCB24 /* buttons */,
 				0331619511AAF1B900467490 /* appcast.xml */,
 				03981DE8112B22E90081835F /* dsa_pub.pem */,
@@ -1309,8 +1309,6 @@
 				7D3109430EFDCBA700ECFABE /* splash.mp3 */,
 				7D3108E20EFDBCCB00ECFABE /* Bobber.png */,
 				7D41E99A0DEA731E00118EA0 /* Hotkey Help */,
-				7D5B92960D9F179D00423FC6 /* gnome.icns */,
-				7DC7A9A50DFC869400F6FA63 /* gnome2.icns */,
 				7DC7A9570DFB70CA00F6FA63 /* pgRoute.icns */,
 				7DC7A9850DFC85C700F6FA63 /* pgBehavior.icns */,
 				7DBC344F0DB57665000C9BCF /* SRImages */,
@@ -2041,7 +2039,6 @@
 				7DC41B000DEE156800F3B083 /* AllianceCrest.gif in Resources */,
 				7DC7A9580DFB70CA00F6FA63 /* pgRoute.icns in Resources */,
 				7DC7A9860DFC85C700F6FA63 /* pgBehavior.icns in Resources */,
-				7DC7A9A60DFC869400F6FA63 /* gnome2.icns in Resources */,
 				7DCE50660E12EF9100C5DF01 /* MainMenu.xib in Resources */,
 				7DCE50750E12F05E00C5DF01 /* AuraCondition.xib in Resources */,
 				7DCE50760E12F05E00C5DF01 /* StatusCondition.xib in Resources */,
@@ -2141,6 +2138,7 @@
 				03A56B4512BAF96700BDCB24 /* bStats_c.jpg in Resources */,
 				03A56B4612BAF96700BDCB24 /* bStats.jpg in Resources */,
 				03FCD25F12CA73FF000A199D /* PG.png in Resources */,
+				03FCD3A412CAE74B000A199D /* PG.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2127,8 +2127,6 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	// take the action here
 	if ( matchFound && rule ) {
 		
-		NSLog(@"Rules %@ matched!", rule);
-
 		// Dismount if mounted.
 		if ( [player isMounted] ) [movementController dismount];
 
@@ -2171,8 +2169,6 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 					default:
 						break;
 				}
-				
-				NSLog(@" action: %d  can perform: %d", actionID, canPerformAction);
 
 				// lets do the action
 				if ( canPerformAction ) {

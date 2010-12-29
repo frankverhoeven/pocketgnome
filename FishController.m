@@ -61,7 +61,7 @@
 - (BOOL)isPlayerFishing;
 - (void)facePool:(Node*)school;
 - (void)verifyLoot;
-- (void)findFishingSpellThenCast;
+- (void)findFishingSpellThenCast:(id)obj;
 @end
 
 
@@ -93,6 +93,17 @@
                                                  selector: @selector(playerIsInvalid:) 
                                                      name: PlayerIsInvalidNotification 
                                                    object: nil];
+		
+		// hard coded fishing spell IDs, lets hope these never change?
+		_fishingSpellIDs = [[NSArray arrayWithObjects:
+							[NSNumber numberWithInt:7620],		// 0
+							[NSNumber numberWithInt:7731],		// 50
+							[NSNumber numberWithInt:7732],		// 125
+							[NSNumber numberWithInt:18248],		// 200
+							[NSNumber numberWithInt:33095],		// 275
+							[NSNumber numberWithInt:51294],		// 340
+							[NSNumber numberWithInt:88868],		// 425
+							nil] retain];	
     }
     return self;
 }
@@ -100,6 +111,7 @@
 - (void) dealloc
 {
 	[_facedSchool release];
+	[_fishingSpellIDs release];
     [super dealloc];
 }
 
@@ -145,36 +157,38 @@
 	_totalFishLooted	= 0;
 	_playerGUID			= [[playerController player] GUID];
 	
-	// we need to get our fishing spell ID now!
-	[self findFishingSpellThenCast];	
+	// first search
+	[self findFishingSpellThenCast:nil];
 }
 
-- (void)findFishingSpellThenCast{
+- (void)findFishingSpellThenCast:(id)obj{
 	
-	// Get our fishing spell ID!
-	Spell *fishingSpell = [spellController playerSpellForName: @"Fishing"];
-	if ( fishingSpell ){
-		_fishingSpellID = [[fishingSpell ID] intValue];
-		
+	// we need to get our fishing spell ID now!
+	for ( NSNumber *spellID in _fishingSpellIDs ){
+		Spell *fishingSpell = [spellController spellForID:spellID];
+		if ( fishingSpell && [spellController isPlayerSpell:fishingSpell] ){
+			_fishingSpellID = [spellID intValue];
+			break;
+		}
 	}
+	
 	// lets search in a bit since we just reloaded...
-	else{
+	if ( obj == nil && !_fishingSpellID ){
 		
 		// Reload spells, since they may have just trained fishing!
 		[spellController reloadPlayerSpells];
 		
-		_searchForSpellAttempt++;
-		if ( _searchForSpellAttempt < 5 ){
-			[self performSelector:@selector(findFishingSpellThenCast) withObject:nil afterDelay:1.0f];
-			[controller setCurrentStatus:@"Bot: Searching for fishing spell..."];
-			return;
-		}
-		_searchForSpellAttempt = 0;
-		
-		[controller setCurrentStatus:@"Bot: You need to learn fishing!"];
+		// searching for spell...
+		[self performSelector:@selector(findFishingSpellThenCast) withObject:[NSNumber numberWithInt:0] afterDelay:2.5f];
+		[controller setCurrentStatus:@"Bot: Searching for fishing spell..."];
 		return;
 	}	
 	
+	// if we get here we already reloaded :/
+	if ( !_fishingSpellID ){
+		[controller setCurrentStatus:@"Bot: You need to learn fishing!"];
+		return;
+	}
 	
 	// are we on the ground? if not lets delay our cast a bit
 	if ( ![[playerController player] isOnGround] ){
