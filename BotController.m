@@ -8473,6 +8473,7 @@ NSMutableDictionary *_diffDict = nil;
 
 	RouteCollection *rc = [[RouteCollection alloc] init];
 	RouteSet *rs = [[RouteSet alloc] init];
+	rc.name = @"j005u";
 	rs.name = @"j005u";
 	[rs setRoute:route forKey:PrimaryRoute];
 	[rc addRouteSet:rs];
