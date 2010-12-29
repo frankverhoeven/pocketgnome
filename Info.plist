@@ -133,7 +133,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>${PRODUCT_NAME} 1.5.1.4</string>
 	<key>CFBundleIconFile</key>
-	<string>PG.icns</string>
+	<string>PGicon.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.savorydeviate.PocketGnome</string>
 	<key>CFBundleInfoDictionaryVersion</key>

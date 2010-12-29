@@ -12,7 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2375"/>
 			<integer value="1957"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -635,7 +634,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bStats_c</string>
+									<string key="NSResourceName">bStats</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -657,7 +656,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bMemory_c</string>
+									<string key="NSResourceName">bMemory</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -679,7 +678,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bSpells_c</string>
+									<string key="NSResourceName">bSpells</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -701,7 +700,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bBot_c</string>
+									<string key="NSResourceName">bBot</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -723,7 +722,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bPvP_c</string>
+									<string key="NSResourceName">bPvP</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -745,7 +744,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bSettings_c</string>
+									<string key="NSResourceName">bSettings</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -767,7 +766,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bChat_c</string>
+									<string key="NSResourceName">bChat</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -789,7 +788,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bPlayer_c</string>
+									<string key="NSResourceName">bPlayer</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -811,7 +810,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bObjects_c</string>
+									<string key="NSResourceName">bObjects</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -833,7 +832,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bRoutes_c</string>
+									<string key="NSResourceName">bRoutes</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -855,7 +854,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bBehaviors_c</string>
+									<string key="NSResourceName">bBehavior</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -877,7 +876,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">bProfiles_c</string>
+									<string key="NSResourceName">bProfiles</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -992,7 +991,6 @@
 					</object>
 					<object class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<bool key="EncodedWithXMLCoder">YES</bool>
-						<reference ref="442076634"/>
 						<reference ref="484822692"/>
 						<reference ref="805655019"/>
 						<reference ref="778403213"/>
@@ -4018,7 +4016,7 @@
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="992636968">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4164,7 +4162,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{607, 197}</string>
-				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSWindowTemplate" id="279232022">
@@ -15809,7 +15806,7 @@
 					<integer value="1"/>
 					<string>{700, 200}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{403, 715}, {617, 0}}</string>
+					<string>{{593, 594}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{57, 707}, {616, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -22407,18 +22404,18 @@
 				<string>NSStopProgressTemplate</string>
 				<string>NSSwitch</string>
 				<string>PG</string>
-				<string>bBehaviors_c</string>
-				<string>bBot_c</string>
-				<string>bChat_c</string>
-				<string>bMemory_c</string>
-				<string>bObjects_c</string>
-				<string>bPlayer_c</string>
-				<string>bProfiles_c</string>
-				<string>bPvP_c</string>
-				<string>bRoutes_c</string>
-				<string>bSettings_c</string>
-				<string>bSpells_c</string>
-				<string>bStats_c</string>
+				<string>bBehavior</string>
+				<string>bBot</string>
+				<string>bChat</string>
+				<string>bMemory</string>
+				<string>bObjects</string>
+				<string>bPlayer</string>
+				<string>bProfiles</string>
+				<string>bPvP</string>
+				<string>bRoutes</string>
+				<string>bSettings</string>
+				<string>bSpells</string>
+				<string>bStats</string>
 				<string>good</string>
 				<string>off</string>
 			</object>
