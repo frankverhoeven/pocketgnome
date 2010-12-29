@@ -163,26 +163,30 @@
 
 - (void)findFishingSpellThenCast:(id)obj{
 	
-	// we need to get our fishing spell ID now!
-	for ( NSNumber *spellID in _fishingSpellIDs ){
-		Spell *fishingSpell = [spellController spellForID:spellID];
-		if ( fishingSpell && [spellController isPlayerSpell:fishingSpell] ){
-			_fishingSpellID = [spellID intValue];
-			break;
-		}
-	}
+	// only search if we don't have one, or we have one but the player trained!
+	if ( !_fishingSpellID || ![spellController isPlayerSpell:_fishingSpellID] ){
 	
-	// lets search in a bit since we just reloaded...
-	if ( obj == nil && !_fishingSpellID ){
+		// we need to get our fishing spell ID now!
+		for ( NSNumber *spellID in _fishingSpellIDs ){
+			Spell *fishingSpell = [spellController spellForID:spellID];
+			if ( fishingSpell && [spellController isPlayerSpell:fishingSpell] ){
+				_fishingSpellID = [spellID intValue];
+				break;
+			}
+		}
 		
-		// Reload spells, since they may have just trained fishing!
-		[spellController reloadPlayerSpells];
-		
-		// searching for spell...
-		[self performSelector:@selector(findFishingSpellThenCast) withObject:[NSNumber numberWithInt:0] afterDelay:2.5f];
-		[controller setCurrentStatus:@"Bot: Searching for fishing spell..."];
-		return;
-	}	
+		// lets search in a bit since we just reloaded...
+		if ( obj == nil && !_fishingSpellID ){
+			
+			// Reload spells, since they may have just trained fishing!
+			[spellController reloadPlayerSpells];
+			
+			// searching for spell...
+			[self performSelector:@selector(findFishingSpellThenCast) withObject:[NSNumber numberWithInt:0] afterDelay:2.5f];
+			[controller setCurrentStatus:@"Bot: Searching for fishing spell..."];
+			return;
+		}	
+	}
 	
 	// if we get here we already reloaded :/
 	if ( !_fishingSpellID ){
