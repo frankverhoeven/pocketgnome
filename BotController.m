@@ -8457,11 +8457,27 @@ NSMutableDictionary *_diffDict = nil;
 
 - (IBAction)test: (id)sender{
 	
+	NSArray *coords = [NSArray arrayWithContentsOfFile:@"/testroute.xml"];
 	
+	Route *route = [[Route alloc] init];
+	for ( NSArray *coord in coords ){
+		float x = [[coord valueForKey:@"x"] floatValue];
+		float y = [[coord valueForKey:@"y"] floatValue];
+		float z = [[coord valueForKey:@"z"] floatValue];
+
+		Position *pos = [Position positionWithX:x Y:y Z:z];
+		Waypoint *wp = [Waypoint waypointWithPosition:pos];
+		[route addWaypoint:wp];
+	}
 	
+
+	RouteCollection *rc = [[RouteCollection alloc] init];
+	RouteSet *rs = [[RouteSet alloc] init];
+	rs.name = @"j005u";
+	[rs setRoute:route forKey:PrimaryRoute];
+	[rc addRouteSet:rs];
 	
-	
-	//[NSArray arrayWithContentsOfFile:@"pathtotheplist"]
+	[waypointController addNewRouteCollection:rc];
 	
 	return;
 	

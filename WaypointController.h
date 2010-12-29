@@ -183,5 +183,6 @@
 - (IBAction)deleteBlacklistedItem: (id)sender;
 
 // TO DO: add import/export/show/duplicate
+- (void)addNewRouteCollection: (RouteCollection*)rc;
 
 @end

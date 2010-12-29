@@ -1367,11 +1367,14 @@ enum AutomatorIntervalType {
 }
 
 - (IBAction)addRouteCollection: (id)sender{
+	[self addRouteCollection:[RouteCollection routeCollectionWithName:@"New Set"]];
+}
+
+- (void)addNewRouteCollection: (RouteCollection*)rc{
 	
 	[self willChangeValueForKey: @"routeCollections"];
 	
 	// add item and reload the table!
-	RouteCollection *rc = [RouteCollection routeCollectionWithName:@"New Set"];
 	[_routeCollectionList addObject:rc];
 	[routesTable reloadData];
 	
