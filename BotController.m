@@ -5471,7 +5471,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	int blacklistTriggerNodeMadeMeFall = [[[NSUserDefaults standardUserDefaults] objectForKey: @"BlacklistTriggerNodeMadeMeFall"] intValue];
 
-	for( Node *node in nodes) {
+	for ( Node *node in nodes) {
 		
 		log(LOG_NODE, @"checking %@", node);
 
@@ -5484,14 +5484,20 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		// make sure it's not blacklisted!
 		if ( self.theRouteCollection && [[self.theRouteCollection blacklist] count] ){
 			
+			log(LOG_NODE, @"checking %@", self.theRouteCollection);
+			
 			BOOL isNodeBlacklisted = NO;
 			NSArray *blacklistedItems = [self.theRouteCollection blacklist];
+			
+			log(LOG_NODE, @"items: %d", [blacklistedItems count]);
 			
 			for ( NSDictionary *dict in blacklistedItems ){
 				NSArray *allKeys = [dict allKeys];	// only 1 item, the name
 				Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
 				float dist = [pos distanceToPosition:[node position]];
 	
+				
+				log(LOG_NODE, @"%0.2f from %@", dist, pos);
 				if ( dist <= 5.0f ){
 					isNodeBlacklisted = YES;
 					break;
