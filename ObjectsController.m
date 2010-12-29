@@ -572,6 +572,8 @@
 		// just blacklisting the position!
 		RouteCollection *rc = [[botController.routePopup selectedItem] representedObject];
 		[rc addItemToBlacklistWithName:[node name] andPosition:[node position]];
+		
+		[controller setCurrentStatus:[NSString stringWithFormat:@"Blacklisted node for route: %@", rc.name]];
 	}
 }
 

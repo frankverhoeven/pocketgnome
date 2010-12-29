@@ -13,6 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="2375"/>
+			<integer value="1957"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1015,7 +1016,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{700, 200}</string>
 				<object class="NSView" key="NSWindowView" id="307790377">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1138,7 +1139,7 @@
 						<object class="NSTextField" id="397222545">
 							<reference key="NSNextResponder" ref="307790377"/>
 							<int key="NSvFlags">290</int>
-							<string key="NSFrame">{{284, 3}, {399, 14}}</string>
+							<string key="NSFrame">{{257, 3}, {475, 14}}</string>
 							<reference key="NSSuperview" ref="307790377"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="369689885">
@@ -1153,6 +1154,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{749, 200}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMinSize">{700, 277}</string>
@@ -21053,6 +21055,7 @@
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
 							<string>closestWaypoint:</string>
+							<string>deleteBlacklistedItem:</string>
 							<string>deleteRouteButton:</string>
 							<string>deleteRouteMenu:</string>
 							<string>duplicateRoute:</string>
@@ -21108,6 +21111,7 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -21124,6 +21128,7 @@
 							<string>closeHelpPanel:</string>
 							<string>closeVisualize:</string>
 							<string>closestWaypoint:</string>
+							<string>deleteBlacklistedItem:</string>
 							<string>deleteRouteButton:</string>
 							<string>deleteRouteMenu:</string>
 							<string>duplicateRoute:</string>
@@ -21186,6 +21191,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">closestWaypoint:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">deleteBlacklistedItem:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

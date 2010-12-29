@@ -265,6 +265,14 @@
 		// Reset this!  We only want this to be YES when we have to re-cast b/c we're not close to a school!
 		_ignoreIsFishing = NO;
 		
+		// verify it's still the same spell ID before we cast!
+		if ( ![spellController isPlayerSpell:[spellController spellForID:[NSNumber numberWithInt:_fishingSpellID]]] ){
+		
+			[self findFishingSpellThenCast:nil];
+			[controller setCurrentStatus: @"Bot: Fishing spell changed, searching!"];
+			return;
+		}
+		
 		// Time to fish!
 		[botController performAction: _fishingSpellID];
 		_castStartTime = [[NSDate date] retain];

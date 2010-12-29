@@ -5492,7 +5492,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
 				
 				if ( [pos distanceToPosition:[node position]] <= 5.0f ){
-					log(LOG_NODE, "Blacklisted node %@ being ignored", node);
+					log(LOG_NODE, @"Blacklisted node %@ being ignored", node);
 					continue;
 				}
 			}

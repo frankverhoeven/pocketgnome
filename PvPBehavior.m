@@ -40,9 +40,11 @@
 		// initiate our BGs
 		_bgAlteracValley			= [[Battleground battlegroundWithName:@"Alterac Valley" andZone:ZoneAlteracValley andQueueID:1] retain];
 		_bgArathiBasin				= [[Battleground battlegroundWithName:@"Arathi Basin" andZone:ZoneArathiBasin andQueueID:3] retain];
+		_bgBattleForGilneas			= [[Battleground battlegroundWithName:@"Battle For Gilneas" andZone:ZoneBattleForGilneas andQueueID:120] retain];
 		_bgEyeOfTheStorm			= [[Battleground battlegroundWithName:@"Eye of the Storm" andZone:ZoneEyeOfTheStorm andQueueID:7] retain];
 		_bgIsleOfConquest			= [[Battleground battlegroundWithName:@"Isle of Conquest" andZone:ZoneIsleOfConquest andQueueID:30] retain];
 		_bgStrandOfTheAncients		= [[Battleground battlegroundWithName:@"Strand of the Ancients" andZone:ZoneStrandOfTheAncients andQueueID:9] retain];
+		_bgTwinPeaks				= [[Battleground battlegroundWithName:@"Twin Peaks" andZone:ZoneTwinPeaks andQueueID:108] retain];
 		_bgWarsongGulch				= [[Battleground battlegroundWithName:@"Warsong Gulch" andZone:ZoneWarsongGulch andQueueID:2] retain];
 		
 		_random = NO;
@@ -58,9 +60,11 @@
 		_observers = [[NSArray arrayWithObjects: 
 					   @"AlteracValley",
 					   @"ArathiBasin",
+					   @"BattleForGilneas",
 					   @"EyeOfTheStorm",
 					   @"IsleOfConquest",
 					   @"StrandOfTheAncients",
+					   @"TwinPeaks",
 					   @"WarsongGulch",
 					   @"random",
 					   @"stopHonor",
@@ -77,9 +81,11 @@
 - (void) dealloc{
 	[_bgAlteracValley release];
 	[_bgArathiBasin release];
+	[_bgBattleForGilneas release];
 	[_bgEyeOfTheStorm release];
 	[_bgIsleOfConquest release];
 	[_bgStrandOfTheAncients release];
+	[_bgTwinPeaks release];
 	[_bgWarsongGulch release];
 	[_name release];
 	
@@ -104,9 +110,11 @@
 		
 		self.AlteracValley			= [decoder decodeObjectForKey: @"AlteracValley"];
 		self.ArathiBasin			= [decoder decodeObjectForKey: @"ArathiBasin"];
+		self.BattleForGilneas		= [decoder decodeObjectForKey: @"BattleForGilneas"];
 		self.EyeOfTheStorm			= [decoder decodeObjectForKey: @"EyeOfTheStorm"];
 		self.IsleOfConquest			= [decoder decodeObjectForKey: @"IsleOfConquest"];
 		self.StrandOfTheAncients	= [decoder decodeObjectForKey: @"StrandOfTheAncients"];
+		self.TwinPeaks				= [decoder decodeObjectForKey: @"TwinPeaks"];
 		self.WarsongGulch			= [decoder decodeObjectForKey: @"WarsongGulch"];
 		
 		self.random = [[decoder decodeObjectForKey: @"Random"] boolValue];
@@ -125,9 +133,11 @@
 	
 	[coder encodeObject: self.AlteracValley forKey:@"AlteracValley"];
 	[coder encodeObject: self.ArathiBasin forKey:@"ArathiBasin"];
+	[coder encodeObject: self.BattleForGilneas forKey:@"BattleForGilneas"];
 	[coder encodeObject: self.EyeOfTheStorm forKey:@"EyeOfTheStorm"];
 	[coder encodeObject: self.IsleOfConquest forKey:@"IsleOfConquest"];
 	[coder encodeObject: self.StrandOfTheAncients forKey:@"StrandOfTheAncients"];
+	[coder encodeObject: self.TwinPeaks forKey:@"TwinPeaks"];
 	[coder encodeObject: self.WarsongGulch forKey:@"WarsongGulch"];
 	
 	[coder encodeObject: [NSNumber numberWithBool:self.random] forKey:@"Random"];
@@ -145,9 +155,11 @@
 	
 	copy.AlteracValley = self.AlteracValley;
 	copy.ArathiBasin = self.ArathiBasin;
+	copy.BattleForGilneas = self.BattleForGilneas;
 	copy.EyeOfTheStorm = self.EyeOfTheStorm;
 	copy.IsleOfConquest = self.IsleOfConquest;
 	copy.StrandOfTheAncients = self.StrandOfTheAncients;
+	copy.TwinPeaks = self.TwinPeaks;
 	copy.WarsongGulch = self.WarsongGulch;
 	
 	copy.random = self.random;
@@ -162,9 +174,11 @@
 
 @synthesize AlteracValley = _bgAlteracValley;
 @synthesize ArathiBasin = _bgArathiBasin;
+@synthesize BattleForGilneas = _bgBattleForGilneas;
 @synthesize EyeOfTheStorm = _bgEyeOfTheStorm;
 @synthesize IsleOfConquest = _bgIsleOfConquest;
 @synthesize StrandOfTheAncients = _bgStrandOfTheAncients;
+@synthesize TwinPeaks = _bgTwinPeaks;
 @synthesize WarsongGulch = _bgWarsongGulch;
 
 @synthesize random = _random;
@@ -184,11 +198,15 @@
 		totalEnabled++;
 	if ( self.ArathiBasin.enabled && self.ArathiBasin.routeCollection != nil )
 		totalEnabled++;
+	if ( self.BattleForGilneas.enabled && self.BattleForGilneas.routeCollection != nil )
+		totalEnabled++;
 	if ( self.EyeOfTheStorm.enabled && self.EyeOfTheStorm.routeCollection != nil )
 		totalEnabled++;
 	if ( self.IsleOfConquest.enabled && self.IsleOfConquest.routeCollection != nil )
 		totalEnabled++;
 	if ( self.StrandOfTheAncients.enabled && self.StrandOfTheAncients.routeCollection != nil )
+		totalEnabled++;
+	if ( self.TwinPeaks.enabled && self.TwinPeaks.routeCollection != nil )
 		totalEnabled++;
 	if ( self.WarsongGulch.enabled && self.WarsongGulch.routeCollection != nil )
 		totalEnabled++;
@@ -213,11 +231,15 @@
 		totalEnabled++;
 	if ( self.ArathiBasin.enabled && self.ArathiBasin.routeCollection != nil )
 		totalEnabled++;
+	if ( self.BattleForGilneas.enabled && self.BattleForGilneas.routeCollection != nil )
+		totalEnabled++;
 	if ( self.EyeOfTheStorm.enabled && self.EyeOfTheStorm.routeCollection != nil )
 		totalEnabled++;
 	if ( self.IsleOfConquest.enabled && self.IsleOfConquest.routeCollection != nil )
 		totalEnabled++;
 	if ( self.StrandOfTheAncients.enabled && self.StrandOfTheAncients.routeCollection != nil )
+		totalEnabled++;
+	if ( self.TwinPeaks.enabled && self.TwinPeaks.routeCollection != nil )
 		totalEnabled++;
 	if ( self.WarsongGulch.enabled && self.WarsongGulch.routeCollection != nil )
 		totalEnabled++;	
@@ -261,9 +283,11 @@
 	if ( changed == NO ){
 		[self.AlteracValley setChanged:NO];
 		[self.ArathiBasin setChanged:NO];
+		[self.BattleForGilneas setChanged:NO];
 		[self.EyeOfTheStorm setChanged:NO];
 		[self.IsleOfConquest setChanged:NO];
 		[self.StrandOfTheAncients setChanged:NO];
+		[self.TwinPeaks setChanged:NO];
 		[self.WarsongGulch setChanged:NO];
 	}
 }
@@ -278,12 +302,16 @@
 		[validBGs addObject:self.AlteracValley];
 	if ( [self.ArathiBasin isValid] )
 		[validBGs addObject:self.ArathiBasin];
+	if ( [self.BattleForGilneas isValid] )
+		[validBGs addObject:self.BattleForGilneas];
 	if ( [self.EyeOfTheStorm isValid] )
 		[validBGs addObject:self.EyeOfTheStorm];
 	if ( [self.IsleOfConquest isValid] )
 		[validBGs addObject:self.IsleOfConquest];
 	if ( [self.StrandOfTheAncients isValid] )
 		[validBGs addObject:self.StrandOfTheAncients];
+	if ( [self.TwinPeaks isValid] )
+		[validBGs addObject:self.TwinPeaks];
 	if ( [self.WarsongGulch isValid] )
 		[validBGs addObject:self.WarsongGulch];
 	
@@ -309,6 +337,9 @@
 	else if ( zone == [self.ArathiBasin zone] && [self.ArathiBasin enabled] ){
 		return self.ArathiBasin;	
 	}
+	else if ( zone == [self.BattleForGilneas zone] && [self.BattleForGilneas enabled] ){
+		return self.BattleForGilneas;	
+	}
 	else if ( zone == [self.EyeOfTheStorm zone] && [self.EyeOfTheStorm enabled] ){
 		return self.EyeOfTheStorm;
 	}
@@ -317,6 +348,9 @@
 	}
 	else if ( zone == [self.StrandOfTheAncients zone] && [self.StrandOfTheAncients enabled] ){
 		return self.StrandOfTheAncients;
+	}
+	else if ( zone == [self.TwinPeaks zone] && [self.TwinPeaks enabled] ){
+		return self.TwinPeaks;	
 	}
 	else if ( zone == [self.WarsongGulch zone] && [self.WarsongGulch enabled] ){
 		return self.WarsongGulch;
@@ -332,12 +366,16 @@
 		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.AlteracValley queueID]]];
 	if ( self.ArathiBasin.enabled && self.ArathiBasin.routeCollection != nil )
 		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.ArathiBasin queueID]]];
+	if ( self.BattleForGilneas.enabled && self.BattleForGilneas.routeCollection != nil )
+		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.BattleForGilneas queueID]]];
 	if ( self.EyeOfTheStorm.enabled && self.EyeOfTheStorm.routeCollection != nil )
 		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.EyeOfTheStorm queueID]]];
 	if ( self.IsleOfConquest.enabled && self.IsleOfConquest.routeCollection != nil )
 		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.IsleOfConquest queueID]]];
 	if ( self.StrandOfTheAncients.enabled && self.StrandOfTheAncients.routeCollection != nil )
 		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.StrandOfTheAncients queueID]]];
+	if ( self.TwinPeaks.enabled && self.TwinPeaks.routeCollection != nil )
+		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.TwinPeaks queueID]]];
 	if ( self.WarsongGulch.enabled && self.WarsongGulch.routeCollection != nil )
 		[bgs appendString:[NSString stringWithFormat:@"%d,", [self.WarsongGulch queueID]]];
 	
