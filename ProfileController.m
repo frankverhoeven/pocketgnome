@@ -384,9 +384,13 @@
 		profile = [MailActionProfile mailActionProfileWithName:profileName];
 	}
 	
-	// create a new profile
+	// create a new profile06124513
+	
 	[sender setStringValue: @""];
+	
+	[self willChangeValueForKey: @"combatProfiles"];
     [self addProfile: profile];
+	[self didChangeValueForKey: @"combatProfiles"];
 }
 
 - (IBAction)renameProfile: (id)sender{
