@@ -26,6 +26,7 @@
 #import "Mob.h"
 #import "ActionMenusController.h"
 #import "FileController.h"
+#import "BlacklistItem.h"
 
 #import "RouteVisualizationView.h"
 
@@ -50,6 +51,7 @@ enum AutomatorIntervalType {
 - (void)selectItemInOutlineViewToEdit:(id)item;
 - (void)setViewTitle;
 - (void)deleteRoute:(id)selectedItem;
+- (void)deleteBlacklistedItemAtIndex:(int)index;
 @end
 
 @interface WaypointController ()
@@ -776,21 +778,25 @@ enum AutomatorIntervalType {
 			rc = [self.currentRouteSet parent];
 		}
 		
-		NSDictionary *dict = [[rc blacklist] objectAtIndex:rowIndex];
-		NSArray *allKeys = [dict allKeys];
-		Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
+		BlacklistItem *item = [[rc blacklist] objectAtIndex:rowIndex];
 		
 		if ( [[aTableColumn identifier] isEqualToString: @"Node"] ){
-			return [allKeys objectAtIndex:0];
+			return item.name;
+		}
+		else if ( [[aTableColumn identifier] isEqualToString: @"Description"] ){
+			return item.description;
+		}
+		else if ( [[aTableColumn identifier] isEqualToString: @"Type"] ){
+			return item.type;
 		}
 		else if ( [[aTableColumn identifier] isEqualToString: @"X"] ){
-			return [NSNumber numberWithFloat:pos.xPosition];
+			return [NSNumber numberWithFloat:item.position.xPosition];
 		}
 		else if ( [[aTableColumn identifier] isEqualToString: @"Y"] ){
-			return [NSNumber numberWithFloat:pos.yPosition];
+			return [NSNumber numberWithFloat:item.position.yPosition];
 		}
 		else if ( [[aTableColumn identifier] isEqualToString: @"Z"] ){
-			return [NSNumber numberWithFloat:pos.zPosition];
+			return [NSNumber numberWithFloat:item.position.zPosition];
 		}
 	}
     
@@ -808,6 +814,21 @@ enum AutomatorIntervalType {
 			}
 		}
 	}
+	else if ( aTableView == blacklistTable ){
+		if ( [[aTableColumn identifier] isEqualToString:@"Description"] ){
+			RouteCollection *rc = nil;
+			if ( self.currentRouteCollection ){
+				rc = self.currentRouteCollection;
+			}
+			else if ( self.currentRouteSet ){
+				rc = [self.currentRouteSet parent];
+			}
+			
+			BlacklistItem *item = [[rc blacklist] objectAtIndex:rowIndex];
+			item.description = anObject;
+			rc.changed = YES;
+		}	
+	}
 }
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
@@ -816,6 +837,10 @@ enum AutomatorIntervalType {
 		if([[aTableColumn identifier] isEqualToString: @"Type"] )
 			return YES;
 		else if([[aTableColumn identifier] isEqualToString: @"Description"] )
+			return YES;
+	}
+	else if ( aTableView == blacklistTable ){
+		if([[aTableColumn identifier] isEqualToString: @"Description"] )
 			return YES;
 	}
 
@@ -833,6 +858,15 @@ enum AutomatorIntervalType {
 	}
 	else if ( aTableView == blacklistTable ){
 		
+		// delete selected rows
+		unsigned current_index = [rowIndexes firstIndex];
+		while ( current_index != NSNotFound ) {
+			
+			[self deleteBlacklistedItemAtIndex:current_index];
+			
+			//DO SOMETHING WITH INDEX current_index
+			current_index = [rowIndexes indexGreaterThanIndex: current_index];
+		}
 	}
 }
 
@@ -1752,7 +1786,11 @@ enum AutomatorIntervalType {
 }
 
 - (IBAction)deleteBlacklistedItem: (id)sender{
+	[self deleteBlacklistedItemAtIndex:[blacklistTable clickedRow]];
+}
 
+- (void)deleteBlacklistedItemAtIndex:(int)index{
+	
 	RouteCollection *rc = nil;
 	if ( self.currentRouteCollection ){
 		rc = self.currentRouteCollection;
@@ -1763,7 +1801,7 @@ enum AutomatorIntervalType {
 	
 	// then we can delete!
 	if ( rc ){
-		[rc removedBlacklistedItemAtIndex:[blacklistTable clickedRow]];
+		[rc removedBlacklistedItemAtIndex:index];
 	}
 	
 	// now reload our table!

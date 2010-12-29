@@ -3668,7 +3668,9 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	[self resetLootScanIdleTimer];
 
 	// Retarget ourselves
-	[playerController targetGuid:[[playerController player] cachedGUID]];
+	if ( ![fishController isFishing] ){	// don't need to do this when fishing!
+		[playerController targetGuid:[[playerController player] cachedGUID]];
+	}
 
 //	if ( self.evaluationInProgress != @"Fishing") [movementController establishPlayerPosition];
 	[self performSelector: @selector(evaluateSituation) withObject: nil afterDelay: delay];
@@ -5484,12 +5486,10 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		// make sure it's not blacklisted!
 		if ( self.theRouteCollection && [[self.theRouteCollection blacklist] count] ){
 			
-			log(LOG_NODE, @"checking %@", self.theRouteCollection);
-			
 			BOOL isNodeBlacklisted = NO;
 			NSArray *blacklistedItems = [self.theRouteCollection blacklist];
 			
-			log(LOG_NODE, @"items: %d", [blacklistedItems count]);
+			log(LOG_NODE, @"Total items: %d in %@", [blacklistedItems count], self.theRouteCollection);
 			
 			for ( NSDictionary *dict in blacklistedItems ){
 				NSArray *allKeys = [dict allKeys];	// only 1 item, the name
@@ -5497,7 +5497,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				float dist = [pos distanceToPosition:[node position]];
 	
 				
-				log(LOG_NODE, @"%0.2f from %@", dist, pos);
+				log(LOG_NODE, @"Node is %0.2f from blacklisted position: %@", dist, pos);
 				if ( dist <= 5.0f ){
 					isNodeBlacklisted = YES;
 					break;
@@ -8401,7 +8401,7 @@ NSMutableDictionary *_diffDict = nil;
 	// 0x131C in 4.0.1
 	offset = [offsetController offset:@"PlayerField_Pointer"];
 	if ( offset < 0x1000 || offset > 0x2000 ){
-		PGLog(@"[OffsetTest] PlayerField_Pointer invalid? 0x%X", offset);
+		PGLog(@"[OffsetTest] PlayerField_Pointer invalid? 0x%X", (unsigned int)offset);
 	}
 	
 	// we just want to make sure they are close to each other (all should be w/in 0x28)
@@ -8420,42 +8420,50 @@ NSMutableDictionary *_diffDict = nil;
 	offset6 = [offsetController offset:@"BaseField_Spell_ChannelTimeStart"];
 	
 	// this obviously doesn't indicate a problem
-	PGLog(@"BaseField_Spell_ToCast: 0x%X", offset);
+	PGLog(@"BaseField_Spell_ToCast: 0x%X", (unsigned int)offset);
 	
 	// BaseField_Spell_ChannelTimeStart
 	UInt32 result = offset6 - offset;
 	if ( result > 0x40 || result < 0x0 ){
-		PGLog(@"BaseField_Spell_ChannelTimeStart: 0x%X", offset6);
+		PGLog(@"BaseField_Spell_ChannelTimeStart: 0x%X", (unsigned int)offset6);
 	}
 	
 	// BaseField_Spell_ChannelTimeEnd
 	result = offset5 - offset;
 	if ( result > 0x40 || result < 0x0 ){
-		PGLog(@"BaseField_Spell_ChannelTimeEnd: 0x%X", offset5);
+		PGLog(@"BaseField_Spell_ChannelTimeEnd: 0x%X", (unsigned int)offset5);
 	}
 	
 	// BaseField_Spell_Channeling
 	result = offset4 - offset;
 	if ( result > 0x40 || result < 0x0 ){
-		PGLog(@"BaseField_Spell_Channeling: 0x%X", offset4);
+		PGLog(@"BaseField_Spell_Channeling: 0x%X", (unsigned int)offset4);
 	}
 	
 	// BaseField_Spell_TimeEnd
 	result = offset3 - offset;
 	if ( result > 0x40 || result < 0x0 ){
-		PGLog(@"BaseField_Spell_TimeEnd: 0x%X", offset3);
+		PGLog(@"BaseField_Spell_TimeEnd: 0x%X", (unsigned int)offset3);
 	}
 	
 	// BaseField_Spell_Casting
 	result = offset2 - offset;
 	if ( result > 0x40 || result < 0x0 ){
-		PGLog(@"BaseField_Spell_Casting: 0x%X", offset2);
+		PGLog(@"BaseField_Spell_Casting: 0x%X", (unsigned int)offset2);
 	}
 	
 	
 }
 
 - (IBAction)test: (id)sender{
+	
+	
+	
+	
+	
+	//[NSArray arrayWithContentsOfFile:@"pathtotheplist"]
+	
+	return;
 	
 	self.theRouteCollection = [[routePopup selectedItem] representedObject];
 	self.theRouteSet = [_theRouteCollection startingRoute];
@@ -8466,11 +8474,11 @@ NSMutableDictionary *_diffDict = nil;
 	
 	NSLog(@"Runes? %d %d %d", [playerController runesAvailable:0], [playerController runesAvailable:1], [playerController runesAvailable:2]);
 							   
-	NSLog(@"offset: 0x%X", [offsetController offset:@"Lua_GetRuneCount"]);
+	NSLog(@"offset: 0x%X", (unsigned int)[offsetController offset:@"Lua_GetRuneCount"]);
 	
-	NSLog(@"Time: %d", [playerController currentTime]);
+	NSLog(@"Time: %d", (unsigned int)[playerController currentTime]);
 	
-	NSLog(@"Eclipse power: %d", [[playerController player] currentPowerOfType: UnitPower_Eclipse]);
+	NSLog(@"Eclipse power: %d", (unsigned int)[[playerController player] currentPowerOfType: UnitPower_Eclipse]);
 	
 	return;
 	

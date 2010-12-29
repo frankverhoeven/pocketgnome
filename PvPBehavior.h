@@ -42,8 +42,6 @@
 	// battlegrounds
 	Battleground *_bgAlteracValley, *_bgArathiBasin, *_bgEyeOfTheStorm, *_bgIsleOfConquest, *_bgStrandOfTheAncients, *_bgWarsongGulch, *_bgTwinPeaks, *_bgBattleForGilneas;
 	
-	
-	
 	// Note that these are all deprecaed (in the comabt profile now), but they've been left here so we dont' screw up the object people already have stored (not sure if it would be bad to remove these?)
 	// options
 	BOOL _random;

@@ -11,6 +11,8 @@
 
 #import "RouteSet.h"
 #import "Position.h"
+#import "BlacklistItem.h"
+#import "WoWObject.h"
 
 @interface RouteCollection ()
 @property (readwrite, retain) NSMutableArray *routes;
@@ -221,8 +223,18 @@
 
 #pragma mark Blacklist
 
-- (void)addItemToBlacklistWithName:(NSString*)name andPosition:(Position*)position{
-	[_blacklist addObject:[NSDictionary dictionaryWithObject:position forKey:name]];
+- (void)blacklistObject:(WoWObject*)obj{
+	BlacklistItem *item = [[BlacklistItem alloc] init];
+	item.name = obj.name;
+	item.position = obj.position;
+	
+	if ( [obj isNode] ){
+		item.type = @"Node";
+	}
+	else if ( [obj isNPC] ){
+		item.type = @"Mob";
+	}
+	[_blacklist addObject:item];
 	self.changed = YES;
 }
 

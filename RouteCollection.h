@@ -10,7 +10,7 @@
 #import "FileObject.h"
 
 @class RouteSet;
-@class Position;
+@class WoWObject;
 
 @interface RouteCollection : FileObject {
 	NSMutableArray *_routes;
@@ -37,7 +37,7 @@
 - (void)setStartRoute:(RouteSet*)route;
 - (BOOL)isStartingRoute:(RouteSet*)route;
 
-- (void)addItemToBlacklistWithName:(NSString*)name andPosition:(Position*)position;
+- (void)blacklistObject:(WoWObject*)obj;
 - (BOOL)removedBlacklistedItemAtIndex:(int)index;
 
 @end

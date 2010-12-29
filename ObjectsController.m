@@ -562,16 +562,33 @@
 
 - (IBAction)blacklistNode: (id)sender{
 	
-	int clickedRow = [nodeTable clickedRow];
-	
-	NSDictionary *dict = [[nodeController objectDataList] objectAtIndex:clickedRow];
-	
-	if ( dict ){
-		Node *node = [dict objectForKey:@"Node"];
+	WoWObject *obj = nil;
+	if ( _currentTab == Tab_Nodes ){
+		NSDictionary *dict = [[nodeController objectDataList] objectAtIndex:[nodeTable clickedRow]];
 		
+		if ( dict ){
+			obj = [dict objectForKey:@"Node"];
+		}
+	}
+	else if ( _currentTab == Tab_Mobs ){
+		NSDictionary *dict = [[mobController objectDataList] objectAtIndex:[mobTable clickedRow]];
+		if ( dict ){
+			obj = [dict objectForKey:@"Mob"];
+			
+			// verify the mob is a gas cloud!
+			if ( ![(Mob*)obj isGasCloud] ){
+				NSBeep();
+				NSRunAlertPanel(@"Invalid!", @"Currently you can only blacklist Gas Clouds using this feature! Use the ignore feature of combat profiles to ignore mobs during grinding.", @"Okay", NULL, NULL);
+				return;
+			}
+		}
+	}
+	
+
+	if ( obj != nil ){
 		// just blacklisting the position!
 		RouteCollection *rc = [[botController.routePopup selectedItem] representedObject];
-		[rc addItemToBlacklistWithName:[node name] andPosition:[node position]];
+		[rc blacklistObject:obj];
 		
 		[controller setCurrentStatus:[NSString stringWithFormat:@"Blacklisted node for route: %@", rc.name]];
 	}

@@ -506,7 +506,7 @@ typedef struct WoWBinding {
 		int modifier	= [[dict objectForKey:@"Modifier"] intValue];
 		
 		// close chat box?
-		if ( [controller isWoWChatBoxOpen] && code != kVK_F13 && code != kVK_F14 && code != kVK_F15){
+		if ( [controller isWoWChatBoxOpen] && code != kVK_F13 ){
 			[chatController pressHotkey:kVK_Escape withModifier:0x0];
 			usleep(10000);
 		}
