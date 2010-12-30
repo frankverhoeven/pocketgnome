@@ -29,6 +29,7 @@
 #import "CombatProfile.h"
 #import "Player.h"
 #import "Mob.h"
+#import "PlayerDataController.h"
 
 #import "FileController.h"
 #import "Controller.h"
@@ -38,6 +39,7 @@
 @interface ProfileController (Internal)
 - (void)setProfile:(Profile *)profile;
 - (void)updateTitle;
+- (void)updateSkillLevels;
 @end
 
 #define CombatProfileName		@"Combat"
@@ -53,9 +55,13 @@
 		
 		_currentCombatProfile = nil;
 		_currentMailActionProfile = nil;
+		_updateSkills = NO;
 		
 		[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(applicationWillTerminate:) name: NSApplicationWillTerminateNotification object: nil];
-		
+		[[NSNotificationCenter defaultCenter] addObserver: self
+                                                 selector: @selector(viewLoaded:) 
+                                                     name: DidLoadViewInMainWindowNotification 
+                                                   object: nil];
 		if ( fileController == nil ){
 			fileController = [[FileController sharedFileController] retain];
 		}
@@ -629,6 +635,12 @@
 
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem{
 	_selectedTab = [[tabViewItem identifier] intValue];
+	
+	// update our skill levels
+	if ( _selectedTab == TabCombat ){
+		_updateSkills = YES;
+		[self updateSkillLevels];
+	}
 }
 
 #pragma mark Combat Profile Editor
@@ -806,6 +818,50 @@
     }
 }
 
+#pragma mark Skills
+
+- (NSNumber*)miningLevel{
+	return [NSNumber numberWithInt:[playerController getMiningLevel]];
+}
+
+- (NSNumber*)skinningLevel{
+	return [NSNumber numberWithInt:[playerController getSkinningLevel]];
+}
+
+- (NSNumber*)herbalismLevel{
+	return [NSNumber numberWithInt:[playerController getHerbalismLevel]];
+}
+
+- (void)updateSkillLevels{
+	
+	if ( !_updateSkills ){
+		return;
+	}
+	NSLog(@"updating...");
+	
+	// update our skill levels
+	[self willChangeValueForKey: @"miningLevel"];
+	[self didChangeValueForKey: @"miningLevel"];
+	[self willChangeValueForKey: @"skinningLevel"];
+	[self didChangeValueForKey: @"skinningLevel"];
+	[self willChangeValueForKey: @"herbalismLevel"];
+	[self didChangeValueForKey: @"herbalismLevel"];	
+	
+	// every 10 seconds shouldn't be too intense
+	[self performSelector:@selector(updateSkillLevels) withObject:nil afterDelay:10.0f];
+}
+
+- (void)viewLoaded: (NSNotification*)notification {
+	
+	// so that we don't update the skills anymore!
+    if( [notification object] != self.view ) {
+        _updateSkills = NO;
+    }
+	else{
+		_updateSkills = YES;
+		[self updateSkillLevels];
+	}
+}
 
 
 @end

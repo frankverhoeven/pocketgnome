@@ -196,8 +196,6 @@ static Controller* sharedController = nil;
 
 - (void)checkWoWVersion {
 	
-	NSLog(@"here it is: %@", [self wowVersionShort]);
-    
     NSString *appVers = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
     
     if ( [self isWoWVersionValid] ){
@@ -716,7 +714,7 @@ typedef struct NameObjectStruct{
 }
 
 - (IBAction)launchWebsite:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: @"http://www.savorydeviate.com/pocketgnome/forum/viewforum.php?f=39"]];
+    [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: @"http://www.savorydeviate.com/pocketgnome/forum/viewforum.php?f=14"]];
 }
 
 - (void)loadView: (NSView*)newView withTitle: (NSString*)title {
@@ -1519,7 +1517,7 @@ typedef struct NameObjectStruct{
 
 - (BOOL)updater: (SUUpdater *)updater shouldPostponeRelaunchForUpdate: (SUAppcastItem *)update untilInvoking: (NSInvocation *)invocation {
 	
-    if( ![[self appName] isEqualToString: @"Pocket Gnome"] ) {
+    /*if( ![[self appName] isEqualToString: @"Pocket Gnome"] ) {
 		// log(LOG_CONTROLLER, @"[Update] We've been renamed.");
         
         NSAlert *alert = [NSAlert alertWithMessageText: @"SECURITY ALERT: PLEASE BE AWARE" 
@@ -1533,7 +1531,7 @@ typedef struct NameObjectStruct{
                          didEndSelector: @selector(updateAlertConfirmed:returnCode:contextInfo:)
                             contextInfo: (void*)[invocation retain]];
         return YES;
-    }
+    }*/
     //log(LOG_CONTROLLER, @"[Update] Relaunching as expected.");
     return NO;
 }

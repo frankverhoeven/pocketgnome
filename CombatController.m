@@ -417,7 +417,8 @@ int WeightCompare(id unit1, id unit2, void *context) {
 	float distanceToTarget = 0.0f;
 
 	// Add our pets target
-	if ( [botController.theBehavior usePet] && [playerData pet] && ![[playerData pet] isDead] && [[playerData pet] isInCombat] ) {
+	//  removed [botController.theBehavior usePet] as we could have our water elemental out but PG may not be telling it to do anything
+	if ( [playerData pet] && ![[playerData pet] isDead] && [[playerData pet] isInCombat] ) {
 
 		targetID = [[playerData pet] targetID];
 		if ( targetID > 0x0) {

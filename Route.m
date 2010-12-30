@@ -147,7 +147,7 @@
 }
 
 // returns a new route w/the shortest distance in b/t the two waypoints
-- (NSArray*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP{
+- (Route*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP{
 	
 	NSLog(@"finding shortest route from %@ to %@", fromWP, toWP);
 	

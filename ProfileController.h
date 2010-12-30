@@ -31,6 +31,7 @@
 @class Controller;
 @class PlayersController;
 @class MobController;
+@class PlayerDataController;
 
 @class Profile;
 @class CombatProfile;
@@ -43,10 +44,11 @@ typedef enum SelectedTab{
 } SelectedTab;
 
 @interface ProfileController : NSObject {
-	IBOutlet FileController		*fileController;
-	IBOutlet Controller			*controller;
-	IBOutlet PlayersController	*playersController;
-	IBOutlet MobController		*mobController;
+	IBOutlet FileController			*fileController;
+	IBOutlet Controller				*controller;
+	IBOutlet PlayersController		*playersController;
+	IBOutlet MobController			*mobController;
+	IBOutlet PlayerDataController	*playerController;
 	
 	IBOutlet NSPopUpButton		*profileTypePopUp;
 	IBOutlet NSTabView			*profileTabView;
@@ -66,6 +68,7 @@ typedef enum SelectedTab{
 	MailActionProfile	*_currentMailActionProfile;
 	
 	SelectedTab _selectedTab;
+	BOOL _updateSkills;
 	
 	NSMutableArray *_profiles;
 }
@@ -77,6 +80,10 @@ typedef enum SelectedTab{
 
 @property (readwrite, retain) CombatProfile *currentCombatProfile;
 @property (readwrite, retain) MailActionProfile *currentMailActionProfile;
+
+@property (readonly) NSNumber *miningLevel;
+@property (readonly) NSNumber *skinningLevel;
+@property (readonly) NSNumber *herbalismLevel;
 
 - (void)importProfileAtPath: (NSString*)path;
 

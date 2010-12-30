@@ -155,7 +155,7 @@
 		bg.routeCollection = newRC;
 	}
 	else{
-		log(LOG_GENERAL, @"[PvP] Didn't find for %@? %@", bg, bg.routeCollection);
+		//log(LOG_GENERAL, @"[PvP] Didn't find for %@? %@", bg, bg.routeCollection);
 		bg.routeCollection = nil;
 	}
 }

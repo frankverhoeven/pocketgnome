@@ -200,4 +200,12 @@ enum ePlayer_RuneTypes {
 - (BOOL)isOnLeftBoatInStrand;
 - (BOOL)isOnRightBoatInStrand;
 
+- (int)getMiningLevel;
+- (int)getSkinningLevel;
+- (int)getHerbalismLevel;
+
+- (int)getMiningMaxLevel;
+- (int)getSkinningMaxLevel;
+- (int)getHerbalismMaxLevel;
+
 @end

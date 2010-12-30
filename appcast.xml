@@ -6,6 +6,37 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
+            <title>Pocket Gnome 1.5.1.4 (Build 619) </title>
+            <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.4 (Build 619) Release Notes </span></p>
+                <ul>
+					<li>New Pocket Gnome logo and toolbar images!</li>
+					<li>New: You can now ignore nodes if ONLY elites are nearby (check your combat profile)</li>
+					<li>New: Mining/Herbalism for Cataclysm nodes operates correctly</li>
+					<li>New: You can now decrease/increase ALL of your routes nodes by an offset (great for making a ground route a flying one ;)  )</li>
+					<li>New: <b>You can now BLACKLIST NODES!</b> Right click them in the object view and it will be added to the currently selected route! Then you can edit the list of blacklisted nodes on the route tab.</li>
+					<li>New: Twin Peaks and Battle of Gilneas added! You should now be able to run routes in them.</li>
+					<li>New: Faction template updated, so you should no longer have issues w/Worgens! (untested)</li>
+					<li>New: Option to stop looting when bags are full added to the combat profile</li>
+					<li>New: Worgens added to the Players UI</li>
+					<li>New: You can now enter a macro in waypoint actions, vs. having to always have the macro on EVERY toon</li>
+					<li>Bug Fix: If PG says there is an update, there will actually be one now ;)</li>
+					<li>Bug Fix: Chat will no longer be closed if lower left action bar is bound to F13.  BUT - if you are looting or targeting mobs, your chat will be closed.</li>
+					<li>Bug Fix: If you now create a new combat profile, it will be reflected on the main bot screen</li>
+					<li>Bug Fix: No longer need to restart PG if you train fishing, just start/stop</li>
+					<li>Bug Fix: If you start to fly off to your death for no reason, you will be auto corrected after going 300 yards away</li>
+					<li>Bug Fix: Excessive memory reads during fishing has been corrected</li>
+					<li>Bug Fix: Inventory checks should now operate correct (i.e. log out on full inventory)</li>
+					<li>Bug Fix: Mail action issues have been semi corrected</li>
+					<li>Bug Fix: Issue with looting and combat</li>
+					<li>Bug Fix: Searching for nearby mobs will now ignore critters and dead mobs</li>
+					<li>Bug Fix: Various memory leaks fixed by Gnome Overlord</li>
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.4.zip" length="4858509" type="application/zip" sparkle:version="619" sparkle:shortVersionString="1.5.1.4" sparkle:dsaSignature="MCwCFHWh3brdQbQGWtmkQErV5vWlZHcVAhRGfaHg0S7r256JB9u9XaTTrMb4YA=="/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1.3 (Build 573) </title>
             <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.3 (Build 573) Release Notes </span></p>

@@ -1092,7 +1092,9 @@ typedef enum SearchType{
 			}
 			
 			[resultsTextView setString: offsets];
-			[offsets release];
+			
+			// Gnome Overlord: if you do this, signature scanning will crash, I have no idea why
+			//[offsets release];
 			
 		}
 		// none :(

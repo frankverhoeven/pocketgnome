@@ -2,6 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>SkillLineOffset</key>
+	<dict>
+		<key>Intel</key>
+		<dict>
+			<key>Signature</key>
+			<string>\x8B\x45\xE4\x03\x82\x34\x13\x00\x00\x0F\xB7\x90\x90\x08\x00\x00</string>
+			<key>Mask</key>
+			<string>xxxxx%%xxxxx??xx</string>
+			<key>Comment</key>
+			<string>From 4.0.3: CGPlayer_C__GetSkillIndexById</string>
+		</dict>
+	</dict>
 	<key>PlayerField_Pointer</key>
 	<dict>
 		<key>Intel</key>

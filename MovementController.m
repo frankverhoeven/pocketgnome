@@ -3189,13 +3189,13 @@ typedef enum MovementState{
 	}
 	
 	// TO DO: if distance is > 50.0, it could be risky to just try to walk to your body in a straight line - give up?
-	
+
 	// find quickest route from normalConnector to closestWaypointToBody
 	Route *newNormalRoute = [normalRoute routeFromWP:normalConnector toWP:closestWaypointToBody];
 	
+	NSLog(@"route: %@", newNormalRoute);
 	
-	
-	return nil;
+	return newNormalRoute;
 }
 
 @end

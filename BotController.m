@@ -72,6 +72,7 @@
 #import "Errors.h"
 #import "PvPBehavior.h"
 #import "Battleground.h"
+#import "BlacklistItem.h"
 
 #import "ScanGridView.h"
 #import "TransparentWindow.h"
@@ -3489,7 +3490,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	// Up to skinning 100, you can find out the highest level mob you can skin by: ((Skinning skill)/10)+10.
 	// From skinning level 100 and up the formula is simply: (Skinning skill)/5.
 	int canSkinUpToLevel = 0;
-	if (theCombatProfile.SkinningLevel <= 100) canSkinUpToLevel = (theCombatProfile.SkinningLevel/10)+10; else canSkinUpToLevel = (theCombatProfile.SkinningLevel/5);
+	int skinningLevel = [playerController getSkinningLevel];
+	if (skinningLevel <= 100) canSkinUpToLevel = (skinningLevel/10)+10; else canSkinUpToLevel = (skinningLevel/5);
 	
 	if ( canSkinUpToLevel >= [self.mobToSkin level] ) {
 		_skinAttempt = 0;
@@ -5445,8 +5447,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	// check for mining and herbalism
 	NSMutableArray *nodes = [NSMutableArray array];
-	if( theCombatProfile.DoMining)			[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: MiningNode maxLevel: theCombatProfile.MiningLevel]];
-	if( theCombatProfile.DoHerbalism)		[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: HerbalismNode maxLevel: theCombatProfile.HerbalismLevel]];
+	if( theCombatProfile.DoMining)			[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: MiningNode maxLevel: [playerController getMiningLevel]]];
+	if( theCombatProfile.DoHerbalism)		[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: HerbalismNode maxLevel: [playerController getHerbalismLevel]]];
 	if( theCombatProfile.DoNetherwingEggs)	[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance EntryID: 185915 position:[playerController position]]];
 	if( theCombatProfile.DoGasClouds)		[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: GasCloud maxLevel:5000]];
 
@@ -5491,13 +5493,11 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			
 			log(LOG_NODE, @"Total items: %d in %@", [blacklistedItems count], self.theRouteCollection);
 			
-			for ( NSDictionary *dict in blacklistedItems ){
-				NSArray *allKeys = [dict allKeys];	// only 1 item, the name
-				Position *pos = [dict objectForKey:[allKeys objectAtIndex:0]];
-				float dist = [pos distanceToPosition:[node position]];
-	
+			for ( BlacklistItem *item in blacklistedItems ){
+
+				float dist = [item.position distanceToPosition:[node position]];
 				
-				log(LOG_NODE, @"Node is %0.2f from blacklisted position: %@", dist, pos);
+				log(LOG_NODE, @"Node is %0.2f from blacklisted position: %@", dist, item.position);
 				if ( dist <= 5.0f ){
 					isNodeBlacklisted = YES;
 					break;
@@ -6524,11 +6524,11 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
     status = [status stringByAppendingString: bleh];
 
     if ( theCombatProfile.DoMining )
-		status = [status stringByAppendingFormat: @" Mining (%d).", theCombatProfile.MiningLevel];
+		status = [status stringByAppendingFormat: @" Mining (%d).", [playerController getMiningLevel]];
     if( theCombatProfile.DoHerbalism )
-		status = [status stringByAppendingFormat: @" Herbalism (%d).", theCombatProfile.HerbalismLevel];
+		status = [status stringByAppendingFormat: @" Herbalism (%d).", [playerController getHerbalismLevel]];
     if( theCombatProfile.DoSkinning )
-		status = [status stringByAppendingFormat: @" Skinning (%d).", theCombatProfile.SkinningLevel];
+		status = [status stringByAppendingFormat: @" Skinning (%d).", [playerController getSkinningLevel]];
     
     [statusText setStringValue: status];
 	
@@ -6814,12 +6814,13 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	_logOutTimer = [NSTimer scheduledTimerWithTimeInterval: 5.0f target: self selector: @selector(logOutTimer:) userInfo: nil repeats: YES];
 
 	int canSkinUpToLevel = 0;
-	if ( theCombatProfile.SkinningLevel <= 100) {
-		canSkinUpToLevel = (theCombatProfile.SkinningLevel/10)+10;
+	int skinningLevel = [playerController getSkinningLevel];
+	if ( skinningLevel <= 100) {
+		canSkinUpToLevel = (skinningLevel/10)+10;
 	} else {
-		canSkinUpToLevel = (theCombatProfile.SkinningLevel/5);
+		canSkinUpToLevel = (skinningLevel/5);
 	}
-	if ( theCombatProfile.DoSkinning ) log(LOG_STARTUP, @"Skinning enabled with skill %d, allowing mobs up to level %d.",theCombatProfile.SkinningLevel, canSkinUpToLevel);
+	if ( theCombatProfile.DoSkinning ) log(LOG_STARTUP, @"Skinning enabled with skill %d, allowing mobs up to level %d.",[playerController getSkinningLevel], canSkinUpToLevel);
 	if ( theCombatProfile.DoNinjaSkin ) log(LOG_STARTUP, @"Ninja Skin enabled.");
 
 	log(LOG_DEV, @"StartBot");
@@ -8455,11 +8456,8 @@ NSMutableDictionary *_diffDict = nil;
 	
 }
 
-- (IBAction)test: (id)sender{
-	
-	return;
-	
-	// for j005u only!!!
+// for j005u only!!!
+- (IBAction)j005u: (id)sender{
 	NSArray *coords = [NSArray arrayWithContentsOfFile:@"/testroute.xml"];
 	
 	Route *route = [[Route alloc] init];
@@ -8467,13 +8465,13 @@ NSMutableDictionary *_diffDict = nil;
 		float x = [[coord valueForKey:@"x"] floatValue];
 		float y = [[coord valueForKey:@"y"] floatValue];
 		float z = [[coord valueForKey:@"z"] floatValue];
-
+		
 		Position *pos = [Position positionWithX:x Y:y Z:z];
 		Waypoint *wp = [Waypoint waypointWithPosition:pos];
 		[route addWaypoint:wp];
 	}
 	
-
+	
 	RouteCollection *rc = [[RouteCollection alloc] init];
 	RouteSet *rs = [[RouteSet alloc] init];
 	rc.name = @"j005u";
@@ -8482,9 +8480,16 @@ NSMutableDictionary *_diffDict = nil;
 	[rc addRouteSet:rs];
 	
 	[waypointController addNewRouteCollection:rc];
+}
+
+- (IBAction)test: (id)sender{
+	
+	NSLog(@"Mining %d/%d", [playerController getMiningLevel], [playerController getMiningMaxLevel]);
+	NSLog(@"Skinning %d/%d", [playerController getSkinningLevel], [playerController getSkinningMaxLevel]);
+	NSLog(@"Herbalism %d/%d", [playerController getHerbalismLevel], [playerController getHerbalismMaxLevel]);
 	
 	return;
-	
+
 	self.theRouteCollection = [[routePopup selectedItem] representedObject];
 	self.theRouteSet = [_theRouteCollection startingRoute];
 	
