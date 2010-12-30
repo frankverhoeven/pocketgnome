@@ -5681,7 +5681,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				}
 			}
 
-			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:nodeToFish doMob:theCombatProfile.GatherNodesMobNear doFriendy:theCombatProfile.GatherNodesFriendlyPlayerNear doHostile:theCombatProfile.GatherNodesHostilePlayerNear];
+			BOOL nearbyScaryUnits = [self scaryUnitsNearNode:nodeToFish doMob:theCombatProfile.GatherNodesMobNear doFriendy:theCombatProfile.GatherNodesFriendlyPlayerNear doHostile:theCombatProfile.GatherNodesHostilePlayerNear doElite:theCombatProfile.GatherNodesEliteNear];
 
 			// we have a valid node!
 			if ( nodeDist != INFINITY && !nearbyScaryUnits ) {
