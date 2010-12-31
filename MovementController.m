@@ -2619,7 +2619,7 @@ typedef enum MovementState{
 	[memory saveDataForAddress: [offsetController offset:@"CTM_SCALE"] Buffer: (Byte *)&scale BufLength: sizeof(scale)];
 	
 	// Set our distance to the target until we stop moving
-	float distance = 0.5f;	// Default for just move to position
+	float distance = 0.1f;	// Default for just move to position
 	if ( type == ctmAttackGuid ){
 		distance = 3.66f;
 	}

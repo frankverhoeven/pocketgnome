@@ -101,7 +101,7 @@
     [coder encodeObject: self.procedures forKey: @"Procedures"];
     [coder encodeObject: [NSNumber numberWithBool: self.meleeCombat] forKey: @"MeleeCombat"];
     [coder encodeObject: [NSNumber numberWithBool: self.usePet] forKey: @"UsePet"];
-    [coder encodeObject: [NSNumber numberWithBool: self.usePet] forKey: @"UseStartAttack"];
+    [coder encodeObject: [NSNumber numberWithBool: self.useStartAttack] forKey: @"UseStartAttack"];
 }
 
 - (id)copyWithZone:(NSZone *)zone
