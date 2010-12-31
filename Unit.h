@@ -211,7 +211,7 @@ typedef enum {
 	UnitPower_SoulShard		= 7,
 	UnitPower_Eclipse		= 8,
 	UnitPower_HolyPower		= 9,
-    UnitPower_Max			= 10,
+    UnitPower_Max			= 11,
 } UnitPower;
 
 typedef enum {
