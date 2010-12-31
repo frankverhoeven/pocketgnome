@@ -6,8 +6,24 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
+            <title>Pocket Gnome 1.5.1.5 (Build 625) </title>
+            <pubDate>Fri, 31 December 2010 09:07:00 -0400</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.5 (Build 625) Release Notes </span></p>
+                <ul>
+					<li>New: You no longer need to enter your herbalism/skinning/mining skill level! PG will detect it automatically! (thanks JuJu!)</li>
+					<li>Bug Fix: Blacklisting nodes will now work correctly (you could add them, but it would fail in 1.5.1.4 when you started the bot</li>
+					<li>Bug Fix: Fishing pools in routes should now work correctly</li>
+					<li>Bug Fix:/startattack option in behaviors will now save correctly (thanks j005u)</li>
+					<li>Bug Fix: When trying to add a new route PG would just spin (stuck in an infinite loop)</li>
+					<li>Bug Fix: It didn't look like you were in combat if your pet aggroed the mob (and the use pet box wasn't checked)</li>
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.5.zip" length="4856963" type="application/zip" sparkle:version="625" sparkle:shortVersionString="1.5.1.5" sparkle:dsaSignature="MC4CFQC88njXjLo+5f7LwV43S0wrQIvrjgIVAK513SlqppizNe93CLyevw1e68aL"/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1.4 (Build 619) </title>
-            <pubDate>Wed, 23 June 2010 09:07:00 -0400</pubDate>
+            <pubDate>Wed, 29 December 2010 09:07:00 -0400</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.4 (Build 619) Release Notes </span></p>
                 <ul>
 					<li>New Pocket Gnome logo and toolbar images!</li>

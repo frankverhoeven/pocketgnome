@@ -453,18 +453,11 @@
 		<key>Intel</key>
 		<dict>
 			<key>Comment</key>
-			<string>For 3.3.0: sub_42EF80</string>
+			<string>For 4.0.3: sub_41D730</string>
 			<key>Signature</key>
-			<string>\xC7\x05\xEC\x74\x0C\x01\xDB\x0F\x49\x40</string>
+			<string>\x75\x72\xC7\x05\xEC\x74\x0C\x01\xDB\x0F\x49\x40</string>
 			<key>Mask</key>
-			<string>xx????xxxx</string>
-		</dict>
-		<key>ppc</key>
-		<dict>
-			<key>Signature</key>
-			<string>\xC0\x02\x00\xA8\x3C\x40\x01\x1F\xD0\x02\x4E\xDC\x48\x00\x00\x14</string>
-			<key>Mask</key>
-			<string>xxxxxx??xx??xxxx</string>
+			<string>xxxx????xxxx</string>
 		</dict>
 	</dict>
 	<key>CTM_GUID</key>

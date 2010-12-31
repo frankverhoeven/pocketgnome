@@ -27,6 +27,7 @@
 #import "ActionMenusController.h"
 #import "FileController.h"
 #import "BlacklistItem.h"
+#import "Player.h"
 
 #import "RouteVisualizationView.h"
 
@@ -1807,6 +1808,24 @@ enum AutomatorIntervalType {
 		[rc removedBlacklistedItemAtIndex:index];
 	}
 	
+	// now reload our table!
+	[blacklistTable reloadData];
+}
+
+- (IBAction)addPlayerPosition: (id)sender{
+	
+	RouteCollection *rc = nil;
+	if ( self.currentRouteCollection ){
+		rc = self.currentRouteCollection;
+	}
+	else if ( self.currentRouteSet ){
+		rc = [self.currentRouteSet parent];
+	}
+	
+	if ( rc ){
+		[rc blacklistObject:[playerData player]];
+	}
+
 	// now reload our table!
 	[blacklistTable reloadData];
 }

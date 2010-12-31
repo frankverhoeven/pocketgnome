@@ -181,6 +181,7 @@
 - (IBAction)openBlacklistPanel: (id)sender;
 - (IBAction)closeBlacklistPanel: (id)sender;
 - (IBAction)deleteBlacklistedItem: (id)sender;
+- (IBAction)addPlayerPosition: (id)sender;
 
 // TO DO: add import/export/show/duplicate
 - (void)addNewRouteCollection: (RouteCollection*)rc;

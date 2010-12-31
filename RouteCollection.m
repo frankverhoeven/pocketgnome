@@ -234,6 +234,10 @@
 	else if ( [obj isNPC] ){
 		item.type = @"Mob";
 	}
+	else if ( [obj isPlayer] ){
+		item.type = @"Player";
+	}
+	
 	[_blacklist addObject:item];
 	self.changed = YES;
 }
