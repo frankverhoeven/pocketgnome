@@ -112,7 +112,8 @@
 							[NSNumber numberWithInt:kVK_F16]				,@"f16",	
 							[NSNumber numberWithInt:kVK_F17]				,@"f17",	
 							[NSNumber numberWithInt:kVK_F18]				,@"f18",	
-							[NSNumber numberWithInt:kVK_F19]				,@"f19",	
+							[NSNumber numberWithInt:kVK_F19]				,@"f19",
+							[NSNumber numberWithInt:kVK_ANSI_KeypadEquals] 	,@"numpadequals",	
 							nil] retain];
 						   
 		_bindings = [[NSMutableDictionary dictionary] retain];
