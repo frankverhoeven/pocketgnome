@@ -13,6 +13,7 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="1957"/>
+			<integer value="2378"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1160,7 +1161,7 @@
 				<string key="NSFrameAutosaveName">MainWindow</string>
 			</object>
 			<object class="NSCustomView" id="754616829">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2451,7 +2452,7 @@
 							<object class="NSTabViewItem" id="83364149">
 								<string key="NSIdentifier">Item 2</string>
 								<object class="NSView" key="NSView" id="326515954">
-									<reference key="NSNextResponder" ref="895177953"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">256</int>
 									<object class="NSMutableArray" key="NSSubviews">
 										<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2981,7 +2982,6 @@
 										</object>
 									</object>
 									<string key="NSFrame">{{10, 33}, {694, 351}}</string>
-									<reference key="NSSuperview" ref="895177953"/>
 								</object>
 								<string key="NSLabel">Log Out</string>
 								<reference key="NSColor" ref="1031085640"/>
@@ -2990,7 +2990,7 @@
 							<object class="NSTabViewItem" id="162552892">
 								<string key="NSIdentifier">Alarms</string>
 								<object class="NSView" key="NSView" id="63361735">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder" ref="895177953"/>
 									<int key="NSvFlags">256</int>
 									<object class="NSMutableArray" key="NSSubviews">
 										<bool key="EncodedWithXMLCoder">YES</bool>
@@ -3101,7 +3101,7 @@
 																			<string>.</string>
 																			<integer value="1000"/>
 																			<string>,</string>
-																			<real value="50000"/>
+																			<real value="200000"/>
 																			<real value="1"/>
 																			<string/>
 																			<string>0</string>
@@ -3121,7 +3121,7 @@
 																		<reference key="NSAttributes" ref="23514237"/>
 																	</object>
 																	<real value="1" key="NS.min"/>
-																	<real value="50000" key="NS.max"/>
+																	<real value="200000" key="NS.max"/>
 																	<nil key="NS.rounding"/>
 																	<string key="NS.decimal">.</string>
 																	<string key="NS.thousand">,</string>
@@ -3538,6 +3538,7 @@
 										</object>
 									</object>
 									<string key="NSFrame">{{10, 33}, {694, 351}}</string>
+									<reference key="NSSuperview" ref="895177953"/>
 								</object>
 								<string key="NSLabel">Alarms</string>
 								<reference key="NSColor" ref="1031085640"/>
@@ -4001,18 +4002,19 @@
 								<reference key="NSTabView" ref="895177953"/>
 							</object>
 						</object>
-						<reference key="NSSelectedTabViewItem" ref="83364149"/>
+						<reference key="NSSelectedTabViewItem" ref="162552892"/>
 						<reference key="NSFont" ref="699098009"/>
 						<int key="NSTvFlags">0</int>
 						<bool key="NSAllowTruncatedLabels">YES</bool>
 						<bool key="NSDrawsBackground">YES</bool>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="326515954"/>
+							<reference ref="63361735"/>
 						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{740, 413}</string>
+				<reference key="NSSuperview"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 			<object class="NSCustomView" id="992636968">
@@ -20031,6 +20033,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addGatherItem:</string>
 							<string>addIgnoreEntry:</string>
 							<string>addIgnoreFromTarget:</string>
 							<string>createProfile:</string>
@@ -20039,11 +20042,14 @@
 							<string>duplicateProfile:</string>
 							<string>exportProfile:</string>
 							<string>importProfile:</string>
+							<string>removeGatherItem:</string>
 							<string>renameProfile:</string>
 							<string>showInFinder:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -20060,6 +20066,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addGatherItem:</string>
 							<string>addIgnoreEntry:</string>
 							<string>addIgnoreFromTarget:</string>
 							<string>createProfile:</string>
@@ -20068,11 +20075,16 @@
 							<string>duplicateProfile:</string>
 							<string>exportProfile:</string>
 							<string>importProfile:</string>
+							<string>removeGatherItem:</string>
 							<string>renameProfile:</string>
 							<string>showInFinder:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">addGatherItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">addIgnoreEntry:</string>
 								<string key="candidateClassName">id</string>
@@ -20106,6 +20118,10 @@
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
+								<string key="name">removeGatherItem:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
 								<string key="name">renameProfile:</string>
 								<string key="candidateClassName">id</string>
 							</object>
@@ -20123,6 +20139,8 @@
 							<string>controller</string>
 							<string>fileController</string>
 							<string>followPopUpButton</string>
+							<string>gatherTable</string>
+							<string>gatherTextField</string>
 							<string>ignoreTable</string>
 							<string>mobController</string>
 							<string>playerController</string>
@@ -20140,6 +20158,8 @@
 							<string>Controller</string>
 							<string>FileController</string>
 							<string>NSPopUpButton</string>
+							<string>NSTableView</string>
+							<string>NSTextField</string>
 							<string>NSTableView</string>
 							<string>MobController</string>
 							<string>PlayerDataController</string>
@@ -20160,6 +20180,8 @@
 							<string>controller</string>
 							<string>fileController</string>
 							<string>followPopUpButton</string>
+							<string>gatherTable</string>
+							<string>gatherTextField</string>
 							<string>ignoreTable</string>
 							<string>mobController</string>
 							<string>playerController</string>
@@ -20188,6 +20210,14 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">followPopUpButton</string>
 								<string key="candidateClassName">NSPopUpButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">gatherTable</string>
+								<string key="candidateClassName">NSTableView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">gatherTextField</string>
+								<string key="candidateClassName">NSTextField</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">ignoreTable</string>
@@ -21064,6 +21094,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addPlayerPosition:</string>
 							<string>addRouteCollection:</string>
 							<string>addRouteSet:</string>
 							<string>addWaypoint:</string>
@@ -21099,6 +21130,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -21137,6 +21169,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>addPlayerPosition:</string>
 							<string>addRouteCollection:</string>
 							<string>addRouteSet:</string>
 							<string>addWaypoint:</string>
@@ -21172,6 +21205,10 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">addPlayerPosition:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">addRouteCollection:</string>
 								<string key="candidateClassName">id</string>
