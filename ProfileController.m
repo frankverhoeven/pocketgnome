@@ -420,7 +420,9 @@
 - (IBAction)duplicateProfile: (id)sender{
 	id object = [profileOutlineView itemAtRow:[profileOutlineView clickedRow]];
 	if ( [self isValidProfile:object] ){
-		[self addProfile:[object copy]];
+		[self willChangeValueForKey: @"combatProfiles"];
+		[self addProfile: [object copy]];
+		[self didChangeValueForKey: @"combatProfiles"];
 	}
 }
 

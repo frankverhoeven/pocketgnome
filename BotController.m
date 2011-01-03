@@ -3919,7 +3919,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 				distance = [playerPosition distanceToPosition: [followTarget position]];
 			
 				if ( theCombatProfile.followDoNotAssignLeader && distance > theCombatProfile.followDoNotAssignLeaderRange ) {
-					log(LOG_DEV, @"Leader is out of range so we're not assigning.");
+					log(LOG_DEV, @"Leader is out of range so we're not assigning the follow unit");
 				} else
 
 				if ( [[followTarget position] verticalDistanceToPosition: playerPosition] > vertOffset ) {
@@ -3941,6 +3941,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		}
 	}
 
+	// follow the tank if we don't have a follow unit
 	if ( !_followUnit && theCombatProfile.partyEnabled && theCombatProfile.tankUnit && _tankUnit ) {
 		if ( [_tankUnit isValid] ) {
 			distance = [playerPosition distanceToPosition: [_tankUnit position]];
@@ -3968,6 +3969,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		}
 	}
 
+	// follow the assist unit if we don't have a follow unit or tank!
 	if ( !_followUnit && theCombatProfile.partyEnabled && theCombatProfile.assistUnit && _assistUnit ) {
 		if ( [_assistUnit isValid] ) {
 			distance = [playerPosition distanceToPosition: [_assistUnit position]];
@@ -4037,7 +4039,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	}
 
 	if ( !_followUnit ) {
-		log(LOG_DEV, @"No leader found to follow!");
+		log(LOG_DEV, @"No unit found to follow!");
 		return NO;
 	}
 
@@ -4299,7 +4301,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		
 		float playerDistance = [[playerController position] distanceToPosition: [player position]];
 		
-		if ( playerDistance >  theCombatProfile.partyLeaderWaitRange ) {
+		if ( playerDistance > theCombatProfile.partyLeaderWaitRange ) {
 			if ( !_leaderBeenWaiting ) log(LOG_PARTY, @"[LeaderWait] not close enough yet: %@ (%0.2f yards)", player, playerDistance);
 			needToWait = YES;
 			break;
@@ -6446,17 +6448,16 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 - (IBAction)editRoute: (id)sender {
 	
-	/*
-	 // This doesn't fail, but it doesn't work entirely as it only pulls up the route and doesn't do the rest of the stuff the interface needs to do.
-	 
-	 RouteCollection *selectedRouteCollection;
-	 RouteSet *selectedRouteSet;
-	 
-	 selectedRouteCollection = [[routePopup selectedItem] representedObject];
-	 if ( selectedRouteCollection ) selectedRouteSet = [selectedRouteCollection startingRoute];
-	 
-	 if ( selectedRouteSet && selectedRouteSet != nil ) [waypointController setCurrentRouteSet: selectedRouteSet];
-	 */
+	RouteCollection *rc = [[routePopup selectedItem] representedObject];
+	
+	if ( rc ){
+		RouteSet *rs = [rc startingRoute];
+		
+		// 
+		[waypointController selectRouteCollection:rc withRouteSet:rs];
+	}
+	
+	// select the route tab!
 	[controller selectRouteTab];
 }
 

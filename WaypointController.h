@@ -186,4 +186,7 @@
 // TO DO: add import/export/show/duplicate
 - (void)addNewRouteCollection: (RouteCollection*)rc;
 
+// for clicking the config button on the bot tab
+- (void)selectRouteCollection:(RouteCollection*)rc withRouteSet:(RouteSet*)rs;
+
 @end

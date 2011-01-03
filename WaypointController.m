@@ -1830,4 +1830,32 @@ enum AutomatorIntervalType {
 	[blacklistTable reloadData];
 }
 
+
+#pragma mark UI
+
+- (void)selectRouteCollection:(RouteCollection*)rc withRouteSet:(RouteSet*)rs{
+	//self.currentRouteCollection = rc;
+	
+	// expand the route collection
+	[routesTable expandItem:rc];
+	
+	int row = 0;
+	
+	// select the route set
+	if ( rs ){
+		row = [routesTable rowForItem:rs];
+	}
+	// otherwise select the route collection
+	else{
+		row = [routesTable rowForItem:rc];
+	}
+	
+	// select the new item!
+	[routesTable selectRow:row byExtendingSelection:NO];
+	[routesTable scrollRowToVisible:row];
+	
+	// is this necessary?
+	[routesTable reloadData];
+}
+
 @end
