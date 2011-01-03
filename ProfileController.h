@@ -60,6 +60,8 @@ typedef enum SelectedTab{
 	IBOutlet NSPopUpButton		*tankPopUpButton;
 	IBOutlet NSPopUpButton		*followPopUpButton;
 	IBOutlet NSTableView		*ignoreTable;
+	IBOutlet NSTableView		*gatherTable;
+	IBOutlet NSTextField		*gatherTextField;
 	
 	IBOutlet NSView *view;
 	NSSize minSectionSize, maxSectionSize;
@@ -100,6 +102,8 @@ typedef enum SelectedTab{
 - (IBAction)addIgnoreEntry: (id)sender;
 - (IBAction)addIgnoreFromTarget: (id)sender;
 - (IBAction)deleteIgnoreEntry: (id)sender;
+- (IBAction)addGatherItem: (id)sender;
+- (IBAction)removeGatherItem: (id)sender;
 
 - (NSArray*)profilesOfClass:(Class)objectClass;
 

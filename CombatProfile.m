@@ -12,6 +12,7 @@
 #import "IgnoreEntry.h"
 #import "Offsets.h"
 #import "FileObject.h"
+#import "Condition.h"
 
 #import "PlayerDataController.h"
 
@@ -22,6 +23,7 @@
     self = [super init];
     if (self != nil) {
         self.entries = [NSArray array];
+		self.gatherList = nil;
         self.combatEnabled = YES;
         self.onlyRespond = NO;
         self.attackNeutralNPCs = YES;
@@ -111,6 +113,14 @@
 		self.GatherNodesMobNearRange = 50.0;
 		self.GatherNodesEliteNear = NO;
 		self.GatherNodesEliteNearRange = 50.0;
+		self.GatherNodesHostilePlayerNearNum = 0;
+		self.GatherNodesFriendlyPlayerNearNum = 0;
+		self.GatherNodesMobNearNum = 0;
+		self.GatherNodesEliteNearNum = 0;
+		self.GatherNodesHostilePlayerNearQuality = CompareMore;
+		self.GatherNodesFriendlyPlayerNearQuality = CompareMore;
+		self.GatherNodesMobNearQuality = CompareMore;
+		self.GatherNodesEliteNearQuality = CompareMore;
 		self.DoFishing = NO;
 		self.FishingApplyLure = 0;
 		self.FishingLureID = NO;
@@ -194,6 +204,14 @@
 					   @"GatherNodesMobNearRange",
 					   @"GatherNodesEliteNear",
 					   @"GatherNodesEliteNearRange",
+					   @"GatherNodesHostilePlayerNearNum",
+					   @"GatherNodesFriendlyPlayerNearNum",
+					   @"GatherNodesMobNearNum",
+					   @"GatherNodesEliteNearNum",
+					   @"GatherNodesHostilePlayerNearQuality",
+					   @"GatherNodesFriendlyPlayerNearQuality",
+					   @"GatherNodesMobNearQuality",
+					   @"GatherNodesEliteNearQuality",
 					   @"DoFishing",
 					   @"FishingApplyLure",
 					   @"FishingLureID",
@@ -223,11 +241,13 @@
     return [[[CombatProfile alloc] initWithName: name] autorelease];
 }
 
+// copy
 - (id)copyWithZone:(NSZone *)zone
 {
     CombatProfile *copy = [[[self class] allocWithZone: zone] initWithName: self.name];
     
     copy.entries = self.entries;
+	copy.gatherList = self.gatherList;
     copy.combatEnabled = self.combatEnabled;
     copy.onlyRespond = self.onlyRespond;
     copy.attackNeutralNPCs = self.attackNeutralNPCs;
@@ -314,6 +334,14 @@
 	copy.GatherNodesMobNearRange = self.GatherNodesMobNearRange;
 	copy.GatherNodesEliteNear = self.GatherNodesEliteNear;
 	copy.GatherNodesEliteNearRange = self.GatherNodesEliteNearRange;
+	copy.GatherNodesHostilePlayerNearNum = self.GatherNodesHostilePlayerNearNum;
+	copy.GatherNodesFriendlyPlayerNearNum = self.GatherNodesFriendlyPlayerNearNum;
+	copy.GatherNodesMobNearNum = self.GatherNodesMobNearNum;
+	copy.GatherNodesEliteNearNum = self.GatherNodesEliteNearNum;
+	copy.GatherNodesHostilePlayerNearQuality = self.GatherNodesHostilePlayerNearQuality;
+	copy.GatherNodesFriendlyPlayerNearQuality = self.GatherNodesFriendlyPlayerNearQuality;
+	copy.GatherNodesMobNearQuality = self.GatherNodesMobNearQuality;
+	copy.GatherNodesEliteNearQuality = self.GatherNodesEliteNearQuality;
 	copy.DoFishing = self.DoFishing;
 	copy.FishingApplyLure = self.FishingApplyLure;
 	copy.FishingLureID = self.FishingLureID;
@@ -327,11 +355,28 @@
     return copy;
 }
 
+// loading
 - (id)initWithCoder:(NSCoder *)decoder
 {
 	self = [self init];
 	if ( self ) {
-        self.entries = [decoder decodeObjectForKey: @"IgnoreList"] ? [decoder decodeObjectForKey: @"IgnoreList"] : [NSArray array];
+		
+		// have we had a gatherlist before?
+		if ( [decoder decodeObjectForKey: @"GatherList"] ){
+			self.gatherList = [decoder decodeObjectForKey: @"GatherList"];
+		}
+		// then lets create one with netherwing eggs!
+		else{
+			self.gatherList = [NSMutableArray array];
+			[self addGatherItem:[NSDictionary dictionaryWithObjectsAndKeys:
+								 @"Netherwing Egg",
+								 @"Node",
+								 [NSNumber numberWithBool:NO],
+								 @"Do",
+								 nil]];
+		}
+		
+        self.entries = [decoder decodeObjectForKey: @"IgnoreList"] ? [decoder decodeObjectForKey: @"IgnoreList"] : [NSMutableArray array];
 
         self.combatEnabled = [[decoder decodeObjectForKey: @"CombatEnabled"] boolValue];
         self.onlyRespond = [[decoder decodeObjectForKey: @"OnlyRespond"] boolValue];
@@ -419,6 +464,14 @@
 		self.GatherNodesMobNearRange = [[decoder decodeObjectForKey: @"GatherNodesMobNearRange"] floatValue];
 		self.GatherNodesEliteNear = [[decoder decodeObjectForKey: @"GatherNodesEliteNear"] boolValue];
 		self.GatherNodesEliteNearRange = [[decoder decodeObjectForKey: @"GatherNodesEliteNearRange"] floatValue];
+		self.GatherNodesHostilePlayerNearNum = [[decoder decodeObjectForKey: @"GatherNodesHostilePlayerNearNum"] unsignedIntValue];
+		self.GatherNodesFriendlyPlayerNearNum = [[decoder decodeObjectForKey: @"GatherNodesFriendlyPlayerNearNum"] unsignedIntValue];
+		self.GatherNodesMobNearNum = [[decoder decodeObjectForKey: @"GatherNodesMobNearNum"] unsignedIntValue];
+		self.GatherNodesEliteNearNum = [[decoder decodeObjectForKey: @"GatherNodesEliteNearNum"] unsignedIntValue];
+		self.GatherNodesHostilePlayerNearQuality = [decoder decodeObjectForKey: @"GatherNodesHostilePlayerNearQuality"] ? [[decoder decodeObjectForKey: @"GatherNodesHostilePlayerNearQuality"] unsignedIntValue] : CompareMore;
+		self.GatherNodesFriendlyPlayerNearQuality = [decoder decodeObjectForKey: @"GatherNodesFriendlyPlayerNearQuality"] ? [[decoder decodeObjectForKey: @"GatherNodesFriendlyPlayerNearQuality"] unsignedIntValue] : CompareMore;
+		self.GatherNodesMobNearQuality = [decoder decodeObjectForKey: @"GatherNodesMobNearQuality"] ? [[decoder decodeObjectForKey: @"GatherNodesMobNearQuality"] unsignedIntValue] : CompareMore;
+		self.GatherNodesEliteNearQuality = [decoder decodeObjectForKey: @"GatherNodesEliteNearQuality"] ? [[decoder decodeObjectForKey: @"GatherNodesEliteNearQuality"] unsignedIntValue] : CompareMore;
 		self.DoFishing = [[decoder decodeObjectForKey: @"DoFishing"] boolValue];
 		self.FishingApplyLure = [[decoder decodeObjectForKey: @"FishingApplyLure"] boolValue];
 		self.FishingLureID = [[decoder decodeObjectForKey: @"FishingLureID"] intValue];
@@ -432,6 +485,7 @@
 	return self;
 }
 
+// saving
 -(void)encodeWithCoder:(NSCoder *)coder
 {
 	[super encodeWithCoder:coder];
@@ -521,6 +575,15 @@
 	[coder encodeObject: [NSNumber numberWithFloat: self.GatherNodesMobNearRange] forKey: @"GatherNodesMobNearRange"];
 	[coder encodeObject: [NSNumber numberWithBool: self.GatherNodesEliteNear] forKey: @"GatherNodesEliteNear"];
 	[coder encodeObject: [NSNumber numberWithFloat: self.GatherNodesEliteNearRange] forKey: @"GatherNodesEliteNearRange"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesHostilePlayerNearNum] forKey: @"GatherNodesHostilePlayerNearNum"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesFriendlyPlayerNearNum] forKey: @"GatherNodesFriendlyPlayerNearNum"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesMobNearNum] forKey: @"GatherNodesMobNearNum"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesEliteNearNum] forKey: @"GatherNodesEliteNearNum"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesHostilePlayerNearQuality] forKey: @"GatherNodesHostilePlayerNearQuality"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesFriendlyPlayerNearQuality] forKey: @"GatherNodesFriendlyPlayerNearQuality"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesMobNearQuality] forKey: @"GatherNodesMobNearQuality"];
+	[coder encodeObject: [NSNumber numberWithInt: self.GatherNodesEliteNearQuality] forKey: @"GatherNodesEliteNearQuality"];
+	
 	[coder encodeObject: [NSNumber numberWithBool: self.DoFishing] forKey: @"DoFishing"];
 	[coder encodeObject: [NSNumber numberWithBool: self.FishingApplyLure] forKey: @"FishingApplyLure"];
 	[coder encodeObject: [NSNumber numberWithInt: self.FishingLureID] forKey: @"FishingLureID"];
@@ -530,17 +593,20 @@
 	[coder encodeObject: [NSNumber numberWithFloat: self.FishingGatherDistance] forKey: @"FishingGatherDistance"];
 	
     [coder encodeObject: self.entries forKey: @"IgnoreList"];
+	[coder encodeObject: self.gatherList forKey: @"GatherList"];
 }
 
 - (void) dealloc
 {
     self.name = nil;
     self.entries = nil;
+	self.gatherList = nil;
     [super dealloc];
 }
 
 @synthesize name = _name;
 @synthesize entries = _combatEntries;
+@synthesize gatherList = _gatherList;
 @synthesize combatEnabled;
 @synthesize onlyRespond;
 @synthesize attackNeutralNPCs;
@@ -627,6 +693,14 @@
 @synthesize GatherNodesMobNearRange;
 @synthesize GatherNodesEliteNear;
 @synthesize GatherNodesEliteNearRange;
+@synthesize GatherNodesHostilePlayerNearNum;
+@synthesize GatherNodesFriendlyPlayerNearNum;
+@synthesize GatherNodesMobNearNum;
+@synthesize GatherNodesEliteNearNum;
+@synthesize GatherNodesHostilePlayerNearQuality;
+@synthesize GatherNodesFriendlyPlayerNearQuality;
+@synthesize GatherNodesMobNearQuality;
+@synthesize GatherNodesEliteNearQuality;
 @synthesize DoFishing;
 @synthesize FishingApplyLure;
 @synthesize FishingLureID;
@@ -635,6 +709,78 @@
 @synthesize FishingRecast;
 @synthesize FishingGatherDistance;
 
+#pragma mark Gather List
+
+- (void)setGatherEntries: (NSArray*)newEntries {
+    [self willChangeValueForKey: @"gatherList"];
+    [_gatherList autorelease];
+    if ( newEntries ) {
+        _gatherList = [[NSMutableArray alloc] initWithArray:newEntries copyItems: YES];
+    }
+	else {
+        _gatherList = nil;
+    }
+	self.changed = YES;
+    [self didChangeValueForKey: @"gatherList"];
+}
+
+- (unsigned)gatherCount{
+	return [_gatherList count];
+	
+}
+
+- (BOOL)removeGatherItemAtIndex:(unsigned)index{
+	if ( index >= 0 && index < [self gatherCount] ){
+		[_gatherList removeObjectAtIndex:index];
+		self.changed = YES;
+		return YES;
+	}
+	return NO;
+}
+
+- (void)addGatherItem:(NSDictionary *)item{
+	
+	// make sure this item doesn't exist!
+	for ( NSDictionary *dict in _gatherList ){
+		NSString *node = [dict objectForKey:@"Node"];
+		
+		if ( [node isEqualToString:[item objectForKey:@"Node"]] ){
+			log(LOG_PROFILE, @"Node %@ already exists, ignoring...", item);
+			return;
+		}
+	}
+	[_gatherList addObject:item];
+	self.changed = YES;
+}
+
+- (NSDictionary *)gatherItemAtIndex:(unsigned)index{
+	if ( index >= 0 && index < [self gatherCount] ){
+        return [[[_gatherList objectAtIndex: index] retain] autorelease];
+	}
+    return nil;
+}
+
+- (void)updateGatherItem:(id)value withKey:(NSString*)key atIndex:(unsigned)index{
+	if ( index >= 0 && index < [self gatherCount] ){
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[_gatherList objectAtIndex:index]];
+		[_gatherList removeObjectAtIndex:index];
+		[dict setObject:value forKey:key];		
+		[_gatherList insertObject:dict atIndex:index];
+		self.changed = YES;
+	}
+}
+
+// returns true if we have at least 1 enabled item
+- (BOOL)validGatherList{
+	for ( NSDictionary *object in _gatherList ){
+		if ( [[object objectForKey:@"Do"] intValue] > 0 ){
+			return YES;
+		}
+	}
+	return NO;
+}
+
+#pragma mark Ignore List
 
 - (BOOL)unitShouldBeIgnored: (Unit*)unit{
 	

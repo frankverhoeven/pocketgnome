@@ -345,6 +345,10 @@
 	}
 	[self populatePlayerLists];
 	[self updateTitle];
+	
+	// reload tabls
+	[ignoreTable reloadData];
+	[gatherTable reloadData];
 }
 
 #pragma mark Notifications
@@ -789,6 +793,9 @@
     if ( aTableView == ignoreTable ) {
         return [self.currentCombatProfile entryCount];
     }
+	else if ( aTableView == gatherTable ){
+		return [self.currentCombatProfile gatherCount];
+	}
     return 0;
 }
 
@@ -804,18 +811,75 @@
             return [[self.currentCombatProfile entryAtIndex: rowIndex] ignoreValue];
         }
     }
+	else if ( aTableView == gatherTable ){
+		// invalid
+		if ( rowIndex >= [self.currentCombatProfile gatherCount] ) {
+			return nil;
+		}
+		
+		// grab our item!
+		NSDictionary *item = [self.currentCombatProfile gatherItemAtIndex:rowIndex];
+		
+		if ( [[aTableColumn identifier] isEqualToString: @"Do"] ){
+			if ( [[item objectForKey:@"Do"] intValue] > 0 ){
+				return [NSNumber numberWithBool:YES];
+			}
+			
+			return [NSNumber numberWithBool:NO];
+		}
+		if ( [[aTableColumn identifier] isEqualToString: @"Node"] ){
+            return [item objectForKey:@"Node"];
+		}
+	}
     
     return nil;
 }
 
 
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
-    if([[aTableColumn identifier] isEqualToString: @"Type"])
-        [[self.currentCombatProfile entryAtIndex: rowIndex] setIgnoreType: anObject];
+	
+	if ( aTableView == ignoreTable ){
+		if ( [[aTableColumn identifier] isEqualToString: @"Type"] ) {
+			[[self.currentCombatProfile entryAtIndex: rowIndex] setIgnoreType: anObject];
+		}
     
-    if([[aTableColumn identifier] isEqualToString: @"Value"]) {
-        [[self.currentCombatProfile entryAtIndex: rowIndex] setIgnoreValue: anObject];
-    }
+		if ( [[aTableColumn identifier] isEqualToString: @"Value"] ) {
+			[[self.currentCombatProfile entryAtIndex: rowIndex] setIgnoreValue: anObject];
+		}
+	}
+	else if ( aTableView == gatherTable ){
+		[self.currentCombatProfile updateGatherItem:anObject withKey:[aTableColumn identifier] atIndex:rowIndex]; 
+		
+	}
+}
+
+#pragma mark Gather List
+
+- (IBAction)addGatherItem: (id)sender{
+	
+	NSString *node = [gatherTextField stringValue];
+	
+	// add the node!
+	if ( [node length] > 0 ){
+		[self.currentCombatProfile addGatherItem:[NSDictionary dictionaryWithObjectsAndKeys:
+												  node,
+												  @"Node", 
+												  [NSNumber numberWithBool:YES],
+												  @"Do",
+												  nil]];
+		[gatherTextField setStringValue: @""];
+		[gatherTable reloadData];
+	}
+	else {
+		NSBeep();
+	}	
+}
+
+- (IBAction)removeGatherItem: (id)sender{
+	int row = [[gatherTable selectedRowIndexes] firstIndex];
+	if ( [self.currentCombatProfile removeGatherItemAtIndex:row] ){
+		[gatherTable reloadData];
+	}
 }
 
 #pragma mark Skills
@@ -837,8 +901,7 @@
 	if ( !_updateSkills ){
 		return;
 	}
-	NSLog(@"updating...");
-	
+
 	// update our skill levels
 	[self willChangeValueForKey: @"miningLevel"];
 	[self didChangeValueForKey: @"miningLevel"];

@@ -436,7 +436,7 @@
 // - (IBAction)gatheringLootingSelectAction: (id)sender;
 
 // Looting
-- (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck;
+- (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck doElite:(BOOL)doEliteCheck;
 
 // PVP
 - (BOOL)pvpIsBattlegroundEnding;

@@ -15,6 +15,7 @@
 
 @interface CombatProfile : FileObject {
     NSMutableArray *_combatEntries;
+	NSMutableArray *_gatherList;
     
     BOOL combatEnabled, onlyRespond, attackNeutralNPCs, attackHostileNPCs, attackPlayers, attackPets;
     BOOL attackAnyLevel, ignoreElite, ignoreLevelOne, ignoreFlying;
@@ -89,6 +90,15 @@
 	float GatherNodesMobNearRange;
 	BOOL GatherNodesEliteNear;
 	float GatherNodesEliteNearRange;
+	unsigned GatherNodesHostilePlayerNearNum;
+	unsigned GatherNodesFriendlyPlayerNearNum;
+	unsigned GatherNodesMobNearNum;
+	unsigned GatherNodesEliteNearNum;
+	unsigned GatherNodesHostilePlayerNearQuality;
+	unsigned GatherNodesFriendlyPlayerNearQuality;
+	unsigned GatherNodesMobNearQuality;
+	unsigned GatherNodesEliteNearQuality;
+	
 	BOOL DoFishing;
 	BOOL FishingApplyLure;
 	int FishingLureID;
@@ -102,16 +112,24 @@
 + (id)combatProfile;
 + (id)combatProfileWithName: (NSString*)name;
 
+// ignore list
 - (BOOL)unitShouldBeIgnored: (Unit*)unit;
-
 - (unsigned)entryCount;
 - (IgnoreEntry*)entryAtIndex: (unsigned)index;
-
 - (void)addEntry: (IgnoreEntry*)entry;
 - (void)removeEntry: (IgnoreEntry*)entry;
 - (void)removeEntryAtIndex: (unsigned)index;
 
+// gather list
+- (unsigned)gatherCount;
+- (BOOL)removeGatherItemAtIndex:(unsigned)index;
+- (void)addGatherItem:(NSDictionary *)entry;
+- (NSDictionary *)gatherItemAtIndex:(unsigned)index;
+- (void)updateGatherItem:(id)value withKey:(NSString*)key atIndex:(unsigned)index;
+- (BOOL)validGatherList;
+
 @property (readwrite, retain) NSArray *entries;
+@property (readwrite, retain) NSArray *gatherList;
 @property (readwrite, assign) UInt64 tankUnitGUID;
 @property (readwrite, assign) UInt64 assistUnitGUID;
 @property (readwrite, assign) UInt64 followUnitGUID;
@@ -198,6 +216,14 @@
 @property (readwrite, assign) float GatherNodesMobNearRange;
 @property (readwrite, assign) BOOL GatherNodesEliteNear;
 @property (readwrite, assign) float GatherNodesEliteNearRange;
+@property (readwrite, assign) unsigned GatherNodesHostilePlayerNearNum;
+@property (readwrite, assign) unsigned GatherNodesFriendlyPlayerNearNum;
+@property (readwrite, assign) unsigned GatherNodesMobNearNum;
+@property (readwrite, assign) unsigned GatherNodesEliteNearNum;
+@property (readwrite, assign) unsigned GatherNodesHostilePlayerNearQuality;
+@property (readwrite, assign) unsigned GatherNodesFriendlyPlayerNearQuality;
+@property (readwrite, assign) unsigned GatherNodesMobNearQuality;
+@property (readwrite, assign) unsigned GatherNodesEliteNearQuality;
 @property (readwrite, assign) BOOL DoFishing;
 @property (readwrite, assign) BOOL FishingApplyLure;
 @property (readwrite, assign) int FishingLureID;

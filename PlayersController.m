@@ -208,29 +208,29 @@ static PlayersController *sharedPlayers = nil;
     return unitsWithinRange;
 }
 
-- (BOOL)playerWithinRangeOfUnit: (float)distance Unit:(Unit*)unit includeFriendly:(BOOL)friendly includeHostile:(BOOL)hostile {
+- (NSArray*)playersWithinRangeOfUnit: (float)distance Unit:(Unit*)unit includeFriendly:(BOOL)friendly includeHostile:(BOOL)hostile {
 	
 	log(LOG_DEV, @"checking distance %0.2f  %@ %d %d", distance, unit, friendly, hostile);
 	Position *position = [unit position];
+	NSMutableArray *players = [NSMutableArray array];
 	
 	// loop through all players
-	for(Unit *player in [self allPlayers]) {
+	for ( Unit *player in [self allPlayers] ) {
 		
 		BOOL isHostile = [playerData isHostileWithFaction: [player factionTemplate]];
-		// range check
 		float range = [position distanceToPosition: [player position]];
 		
-		if (
-			range <= distance &&                                            // 1 - in range
-			(!friendly || (friendly && !isHostile)) &&      // 2 - friendly
-			(!hostile || (hostile && isHostile))            // 3 - hostile
+		if ( range <= distance &&                            // 1 - in range
+			(!friendly || (friendly && !isHostile)) &&       // 2 - friendly
+			(!hostile || (hostile && isHostile))             // 3 - hostile
 			){
-			log(LOG_GENERAL, @"[Loot] Player %@ found %0.2f yards away! I scared! Friendly?(%d)  Hostile?(%d)", player, range, friendly, hostile);
-			return YES;
+			
+			log(LOG_DEV, @"Player %@ found %0.2f yards away! I scared! Friendly?(%d)  Hostile?(%d)", player, range, friendly, hostile);
+			[players addObject:player];
 		}
 	}
 	
-	return NO;
+	return players;
 }
 
 - (void)updateTracking: (id)sender{

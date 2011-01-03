@@ -4435,8 +4435,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		if ( theCombatProfile.checkForCampers ) {
 			log(LOG_GHOST, @"Checking for campers.");
 			// Check for Campers
-			BOOL nearbyCampers = [playersController playerWithinRangeOfUnit: theCombatProfile.checkForCampersRange Unit:[playerController player] includeFriendly:NO includeHostile:YES];
-			if ( nearbyCampers ) {
+			NSArray *nearbyCampers = [playersController playersWithinRangeOfUnit: theCombatProfile.checkForCampersRange Unit:[playerController player] includeFriendly:NO includeHostile:YES];
+			if ( [nearbyCampers count] ) {
 				log(LOG_GHOST, @"Looks like I'm being camped, going to hold of on resurrecting.");
 				[self performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 5.0f];
 				return YES;
@@ -4552,8 +4552,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	if ( theCombatProfile.checkForCampers ) {
 		log(LOG_GHOST, @"Checking for campers.");
 		// Check for Campers
-		BOOL nearbyCampers = [playersController playerWithinRangeOfUnit: theCombatProfile.checkForCampersRange Unit:[playerController player] includeFriendly:NO includeHostile:YES];
-		if ( nearbyCampers ) {
+		NSArray *nearbyCampers = [playersController playersWithinRangeOfUnit: theCombatProfile.checkForCampersRange Unit:[playerController player] includeFriendly:NO includeHostile:YES];
+		if ( [nearbyCampers count] ) {
 			log(LOG_GHOST, @"Looks like I'm being camped, going to hold of on resurrecting.");
 			[self performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 5.0f];
 			return YES;
@@ -5428,7 +5428,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 - (BOOL)evaluateForMiningAndHerbalism {
 	log(LOG_FUNCTION, @"evaluateForMiningAndHerbalism");
 
-	if (!theCombatProfile.DoMining && !theCombatProfile.DoHerbalism && !theCombatProfile.DoNetherwingEggs && !theCombatProfile.DoGasClouds ) return NO;
+	if (!theCombatProfile.DoMining && !theCombatProfile.DoHerbalism && !theCombatProfile.DoNetherwingEggs && !theCombatProfile.DoGasClouds && ![theCombatProfile validGatherList] ) return NO;
 
 	if ( [playerController isDead] ) return NO;
 
@@ -5452,6 +5452,58 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	if( theCombatProfile.DoNetherwingEggs)	[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance EntryID: 185915 position:[playerController position]]];
 	if( theCombatProfile.DoGasClouds)		[nodes addObjectsFromArray: [nodeController nodesWithinDistance: theCombatProfile.GatheringDistance ofType: GasCloud maxLevel:5000]];
 
+	
+	// time to add our new nodes that are in our list!
+	if ( [theCombatProfile validGatherList] ){
+		NSMutableArray *allNodesAndMobs = [NSMutableArray array];
+		[allNodesAndMobs addObjectsFromArray:[nodeController allObjects]];
+		[allNodesAndMobs addObjectsFromArray:[mobController allObjects]];
+		NSMutableArray *objectsToAdd = [NSMutableArray array];
+	
+		// check this
+		for ( NSDictionary *item in theCombatProfile.gatherList ){
+			
+			// should we do this one?
+			if ( [[item objectForKey:@"Do"] boolValue] ){
+				
+				// this is either the name or ID
+				NSString *name = [item objectForKey:@"Node"];
+				int objectID = [name intValue];
+				
+				// loop through all the objects we have
+				for ( WoWObject *obj in allNodesAndMobs ){
+					
+					// ID search
+					if ( objectID > 0 ){
+						
+						// id match!
+						if ( [obj entryID] == objectID ){
+							log(LOG_NODE, @"Found %@ to add to node list by ID search %d", obj, objectID);
+							if ( ![objectsToAdd containsObject:obj] )
+								[objectsToAdd addObject:obj];
+						}
+					}
+					// name match!
+					else if ( [[obj name] isEqualToString: name] ) {
+						log(LOG_NODE, @"Found %@ to add to node list", obj);
+						if ( ![objectsToAdd containsObject:obj] )
+							[objectsToAdd addObject:obj];
+					}
+				}
+			}
+		}
+		
+		if ( [objectsToAdd count] ){
+			log(LOG_NODE, @"Adding %d objects to the node list for searching!", [objectsToAdd count]);
+			[nodes addObjectsFromArray:objectsToAdd];
+		}
+	}
+	
+	if ( [nodes count] == 0 ){
+		return NO;
+	}
+
+	
 	[nodes sortUsingFunction: DistanceFromPositionCompare context: playerPosition];
 	
 	// If we've no node then skip this
@@ -5477,7 +5529,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	for ( Node *node in nodes) {
 		
-		log(LOG_NODE, @"checking %@", node);
+		log(LOG_NODE, @"verifying node %@ is valid", node);
 
 		// not valid to loot!
 		if ( ![node validToLoot] ) {
@@ -8160,8 +8212,32 @@ NSMutableDictionary *_diffDict = nil;
 	[controller killWOW];
 }
 
+// just used for scaryUnitsNearNode
+- (BOOL)qualityCheck:(ConditionComparator)quality withLeftVal:(int)leftVal withRightVal:(int)rightVal{
+	
+	BOOL conditionEval = NO;
+	
+	if ( quality == CompareMore) {
+		conditionEval = ( leftVal > rightVal ) ? YES : NO;
+		log(LOG_NODE, @"	%d > %d is %d", leftVal, rightVal, conditionEval);
+	}
+	else if ( quality == CompareEqual ) {
+		conditionEval = ( leftVal == rightVal ) ? YES : NO;
+		log(LOG_NODE, @"	%d = %d is %d", leftVal, rightVal, conditionEval);
+	}
+	else if ( quality == CompareLess ) {
+		conditionEval = ( leftVal < rightVal ) ? YES : NO;
+		log(LOG_NODE, @"	%d > %d is %d", leftVal, rightVal, conditionEval);
+	}
+	
+	return conditionEval;
+}
+
 // check if units are nearby
 - (BOOL)scaryUnitsNearNode: (WoWObject*)node doMob:(BOOL)doMobCheck doFriendy:(BOOL)doFriendlyCheck doHostile:(BOOL)doHostileCheck doElite:(BOOL)doEliteCheck{
+	
+	// not necessary, but in case we eventually need to pass it as an argument
+	CombatProfile *profile = theCombatProfile;
 	
 	if ( doMobCheck ){
 		log(LOG_DEV, @"Scanning nearby mobs within %0.2f of %@", theCombatProfile.GatherNodesMobNearRange, [node position]);
@@ -8178,10 +8254,10 @@ NSMutableDictionary *_diffDict = nil;
 				if ( [controller reactMaskForFaction: [mob factionTemplate]] == 0 && [mob level] == 1 ){
 					[mobsToRemove addObject:mob];
 				}
-				// dead
-				else if ( [mob isDead] ){
+				// dead (in theory this check should already have occurred)
+				/*else if ( [mob isDead] ){
 					[mobsToRemove addObject:mob];
-				}
+				}*/
 				// friendly
 				/*else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
 					[mobsToRemove addObject:mob];
@@ -8191,7 +8267,7 @@ NSMutableDictionary *_diffDict = nil;
 			
 			log(LOG_NODE, @"Went from %d mobs to %d", count, [mobs count]);
 			
-			if ( [mobs count] ){
+			if ( [self qualityCheck:profile.GatherNodesMobNearQuality withLeftVal:[mobs count] withRightVal:profile.GatherNodesMobNearNum] ){
 				log(LOG_NODE, @"There %@ %d scary mob(s) near the node, ignoring %@ (Mobs: %@)", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node, mobs);
 				return YES;
 			}
@@ -8215,11 +8291,11 @@ NSMutableDictionary *_diffDict = nil;
 					log(LOG_NODE, @"Mob is critter, ignoring... %@", mob);
 					[mobsToRemove addObject:mob];
 				}
-				// dead
-				else if ( [mob isDead] ){
+				// dead (in theory this check should already have occurred)
+				/*else if ( [mob isDead] ){
 					log(LOG_NODE, @"Mob is dead, ignoring... %@", mob);
 					[mobsToRemove addObject:mob];
-				}
+				}*/
 				// friendly
 				/*else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
 					log(LOG_NODE, @"Mob is friendly, ignoring... %@", mob);
@@ -8235,22 +8311,23 @@ NSMutableDictionary *_diffDict = nil;
 			
 			log(LOG_NODE, @"Went from %d elites to %d", count, [mobs count]);
 			
-			if ( [mobs count] >= 1 ){
+			if ( [self qualityCheck:profile.GatherNodesEliteNearQuality withLeftVal:[mobs count] withRightVal:profile.GatherNodesEliteNearNum] ){
 				log(LOG_NODE, @"There %@ %d scary elites(s) near the node, ignoring %@ (Mobs: %@)", ([mobs count] == 1) ? @"is" : @"are", [mobs count], node, mobs);
 				return YES;
 			}
 		}
 	}
 	
-	
 	if ( doFriendlyCheck ){
-		if ( [playersController playerWithinRangeOfUnit: theCombatProfile.GatherNodesFriendlyPlayerNearRange Unit:(Unit*)node includeFriendly:YES includeHostile:NO] ){
+		NSArray *players = [playersController playersWithinRangeOfUnit: theCombatProfile.GatherNodesFriendlyPlayerNearRange Unit:(Unit*)node includeFriendly:YES includeHostile:NO];
+		if ( [self qualityCheck:profile.GatherNodesFriendlyPlayerNearQuality withLeftVal:[players count] withRightVal:profile.GatherNodesFriendlyPlayerNearNum] ){
 			log(LOG_NODE, @"Friendly player(s) near node, ignoring %@", node);
 			return YES;
 		}
 	}
 	if ( doHostileCheck ) {
-		if ( [playersController playerWithinRangeOfUnit: theCombatProfile.GatherNodesHostilePlayerNearRange Unit:(Unit*)node includeFriendly:NO includeHostile:YES] ){
+		NSArray *players = [playersController playersWithinRangeOfUnit: theCombatProfile.GatherNodesHostilePlayerNearRange Unit:(Unit*)node includeFriendly:NO includeHostile:YES];
+		if ( [self qualityCheck:profile.GatherNodesHostilePlayerNearQuality withLeftVal:[players count] withRightVal:profile.GatherNodesHostilePlayerNearNum] ){
 			log(LOG_NODE, @"Hostile player(s) near node, ignoring %@", node);
 			return YES;
 		}
