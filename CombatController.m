@@ -1045,7 +1045,7 @@ int WeightCompare(id unit1, id unit2, void *context) {
 
 	// add new units w/in range if we're not on assist
 	if ( botController.theCombatProfile.combatEnabled && !botController.theCombatProfile.onlyRespond && !onlyHostilesInCombat ) {
-		log(LOG_DEV, @"Adding ALL available combat units");
+		log(LOG_COMBAT, @"Adding ALL available combat units");
 
 		[allPotentialUnits addObjectsFromArray:[self enemiesWithinRange:attackRange]];
 	}
@@ -1056,11 +1056,11 @@ int WeightCompare(id unit1, id unit2, void *context) {
 	// add combat units that have been validated! (includes attack unit + add)
 	NSArray *inCombatUnits = [self combatListValidated];
 	if ( botController.theCombatProfile.combatEnabled && [inCombatUnits count] ) {
-		log(LOG_DEV, @"Adding %d validated in combat units to list", [inCombatUnits count]);
+		log(LOG_COMBAT, @"Adding %d validated in combat units to list", [inCombatUnits count]);
 		for ( Unit *unit in inCombatUnits ) if ( ![allPotentialUnits containsObject:unit] ) [allPotentialUnits addObject:unit];
 	}
 
-	log(LOG_DEV, @"Found %d potential units to validate", [allPotentialUnits count]);
+	log(LOG_COMBAT, @"Found %d potential units to validate", [allPotentialUnits count]);
 
 	// *************************************************
 	//	Validate all potential units - check for:
@@ -1080,7 +1080,7 @@ int WeightCompare(id unit1, id unit2, void *context) {
 		for ( Unit *unit in allPotentialUnits ){
 
 			if ( [blacklistController isBlacklisted:unit] ) {
-				log(LOG_DEV, @":Ignoring blacklisted unit: %@", unit);
+				log(LOG_COMBAT, @":Ignoring blacklisted unit: %@", unit);
 				continue;
 			}
 
@@ -1108,7 +1108,7 @@ int WeightCompare(id unit1, id unit2, void *context) {
 		}
 	}
 
-	if ([validUnits count]) log(LOG_DEV, @"Found %d valid units", [validUnits count]);
+	if ([validUnits count]) log(LOG_COMBAT, @"Found %d valid units", [validUnits count]);
 	// sort
 	NSMutableDictionary *dictOfWeights = [NSMutableDictionary dictionary];
 	for ( Unit *unit in validUnits ) {
@@ -1122,10 +1122,10 @@ int WeightCompare(id unit1, id unit2, void *context) {
 // find a unit to attack, CC, or heal
 - (Unit*)findUnitWithFriendly:(BOOL)includeFriendly onlyHostilesInCombat:(BOOL)onlyHostilesInCombat {
 
-	log(LOG_FUNCTION, @"findCombatTarget called");
+	log(LOG_FUNCTION, @"findUnitWithFriendly called");
 
 	// flying check?
-	if ( botController.theCombatProfile.ignoreFlying ) if ( ![playerData isOnGround] ) return nil;
+	if ( botController.theCombatProfile.ignoreFlying && [[playerData player] isFlyingMounted] ) return nil;
 
 	// no combat or healing?
 	if ( !botController.theCombatProfile.healingEnabled && !botController.theCombatProfile.combatEnabled ) return nil;

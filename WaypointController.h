@@ -175,6 +175,7 @@
 - (IBAction)renameRoute: (id)sender;
 - (IBAction)duplicateRoute: (id)sender;
 - (IBAction)showInFinder: (id)sender;
+- (IBAction)saveAll: (id)sender;
 
 - (IBAction)changeCoords: (id)sender;
 

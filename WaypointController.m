@@ -1461,6 +1461,10 @@ enum AutomatorIntervalType {
 
 #pragma mark Route Collection UI
 
+- (IBAction)saveAll: (id)sender{
+	[self saveRoutes];
+}
+
 - (IBAction)showInFinder: (id)sender{
 	[fileController showInFinder:[self currentRoute]];
 }

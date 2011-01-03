@@ -2963,6 +2963,12 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		log(LOG_GHOST, @"Ignoring release due to a combat setting");
 		return;
 	}
+	
+	// are we in party mode?
+	if ( self.theCombatProfile.partyEnabled ){
+		log(LOG_GHOST, @"Ignoring release due to being in party mode");
+		return;
+	}
 
 	// We need to repop!
 	if ( ![playerController isGhost] && [playerController isDead] ) {
@@ -4826,14 +4832,15 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	log(LOG_EVALUATE, @"Evaluating for Party");
 
+	// get our tank
 	if ( [self establishTankUnit] ) {
-//		[movementController resetMovementState];
 
 		// Loop again to evaluate after setting tank unit
 		[self performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.25f];
 		return YES;
 	}
 
+	// get our assist unit
 	if ( [self establishAssistUnit] ) {
 //		[movementController resetMovementState];
 
@@ -4842,6 +4849,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		return YES;
 	}
 
+	// should we wait for everyone?
 	if ( [self leaderWait] ) {
 
 		// Looks like we need to wait!
@@ -4854,8 +4862,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		// Loop again to wait
 		[self performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 3.0f];
 		return YES;
-	} else 
-	if ( _leaderBeenWaiting ) {
+	}
+	else if ( _leaderBeenWaiting ) {
 		if ( [movementController isActive] ) [movementController resetMovementState];
 
 		_leaderBeenWaiting = NO;
@@ -4870,7 +4878,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		self.evaluationInProgress = nil;
 		[self performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.25f];
 		return YES;
-	} else {
+	}
+	else {
 		return NO;
 	}
 }
@@ -4884,7 +4893,8 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	if ( !theCombatProfile.followEnabled || self.followSuspended ) return NO;
 
 	log(LOG_EVALUATE, @"Evaluating for Follow");
-	// If we're following a flag carrier lets make sure they still have the buff
+	
+	// if we're following a flag carrier lets make sure they still have the buff
 	if ( _followingFlagCarrier ) {
 		if ( ![auraController unit: _followUnit hasAura: SilverwingFlagSpellID] && 
 			![auraController unit: _followUnit hasAura: WarsongFlagSpellID] && 
@@ -5020,7 +5030,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	log(LOG_FUNCTION, @"evaluateForCombatContinuation");
 
-	if (self.theCombatProfile.ignoreFlying && [[playerController player] isFlyingMounted]) {
+	if ( self.theCombatProfile.ignoreFlying && [[playerController player] isFlyingMounted] ) {
 		return NO;
 	}
 
@@ -5040,7 +5050,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		else bestUnit = [combatController findUnitWithFriendly:_includeFriendly onlyHostilesInCombat:YES];
 
 	if ( !bestUnit || bestUnit == nil ) return NO;
-	log(LOG_DEV, @"[CombatContinuation] Found %@ to act on!", bestUnit);
+	log(LOG_EVALUATE, @"[evaluateForCombatContinuation] Found %@ to act on!", bestUnit);
 
 	// Reset the party emotes idle
 	if ( theCombatProfile.partyEmotes ) _partyEmoteIdleTimer = 0;
@@ -6182,6 +6192,12 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		_evaluationIsActive = NO;
 		return YES;
 	}
+	
+	// this before combat! (we'll see)
+	if ( [self evaluateForFollow] ) {
+		_evaluationIsActive = NO;
+		return YES;
+	}
 
 	if ( [self evaluateForCombatContinuation] ) {
 		_evaluationIsActive = NO;
@@ -6193,18 +6209,10 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		return YES;
 	}
 	
-	// should we be mounted?
-	
-
 	// Increment the party emote timer
 	if ( theCombatProfile.partyEnabled && theCombatProfile.partyEmotes && ![playerController isInCombat] ) if (_partyEmoteIdleTimer <= (theCombatProfile.partyEmotesIdleTime*10)) _partyEmoteIdleTimer++;
 
 	if ( [self evaluateForMiningAndHerbalism] ) {
-		_evaluationIsActive = NO;
-		return YES;
-	}
-
-	if ( [self evaluateForFollow] ) {
 		_evaluationIsActive = NO;
 		return YES;
 	}
