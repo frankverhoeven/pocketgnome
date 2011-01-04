@@ -8,10 +8,6 @@
 
 #import "Route.h"
 
-@interface Route ()
-@property (readwrite, retain) NSArray *waypoints;
-@end
-
 @implementation Route
 
 - (id) init
@@ -147,7 +143,7 @@
 }
 
 // returns a new route w/the shortest distance in b/t the two waypoints
-- (Route*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP{
+- (Route*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP compare:(BOOL)compare{
 	
 	NSLog(@"finding shortest route from %@ to %@", fromWP, toWP);
 	
@@ -162,39 +158,8 @@
 	float leftDist = 0.0f, rightDist = 0.0f;
 	BOOL routeComplete = NO;
 	
-
-	// run left
+	// run right (this is how PG has always operated, just increment the route by 1 and keep going down the list)
 	int i = fromIndex;
-	while ( !routeComplete ){
-		
-		Waypoint *r = [_waypoints objectAtIndex:i];
-		[goLeftRoute addObject:r];
-		
-		// then the waypoint to the left or r is going to be at the end of our array!
-		if ( i == 0 ){
-			i = [_waypoints count];
-			NSLog(@" jumping to last WP");
-		}
-		
-		Waypoint *l = [_waypoints objectAtIndex:i-1];
-		
-		float dist = [[r position] distanceToPosition:[l position]];
-		
-		NSLog(@" %0.2f %@ %@", dist, l, r);
-		
-		leftDist += dist;
-		
-		if ( i-1 == toIndex ){
-			NSLog(@" ** full route going left complete! %0.2f", leftDist);
-			break;
-		}
-		
-		i--;
-	}
-	
-	routeComplete = NO;
-	// run right
-	i = fromIndex;
 	while ( !routeComplete ){
 		
 		Waypoint *l = [_waypoints objectAtIndex:i];
@@ -203,14 +168,13 @@
 		// we're at the end, reset to the beginning!
 		if ( i == [_waypoints count]-1 ){
 			i = -1;
-			NSLog(@" jumping to first WP");
 		}
 		
 		Waypoint *r = [_waypoints objectAtIndex:i+1];
 		
 		float dist = [[l position] distanceToPosition:[r position]];
 		
-		NSLog(@" %0.2f %@ %@", dist, r, l);
+		//NSLog(@" %0.2f %@ %@", dist, r, l);
 		
 		rightDist += dist;
 		
@@ -220,6 +184,43 @@
 		}
 		
 		i++;
+	}
+	
+	// no comparison!
+	if ( !compare ){
+		Route *route = [Route route];
+		[route setWaypoints:goRightRoute];
+		return [[route retain] autorelease];
+	}
+	
+	
+	routeComplete = NO;
+	// run left
+	i = fromIndex;
+	while ( !routeComplete ){
+		
+		Waypoint *r = [_waypoints objectAtIndex:i];
+		[goLeftRoute addObject:r];
+		
+		// then the waypoint to the left or r is going to be at the end of our array!
+		if ( i == 0 ){
+			i = [_waypoints count];
+		}
+		
+		Waypoint *l = [_waypoints objectAtIndex:i-1];
+		
+		float dist = [[r position] distanceToPosition:[l position]];
+		
+		//NSLog(@" %0.2f %@ %@", dist, l, r);
+		
+		leftDist += dist;
+		
+		if ( i-1 == toIndex ){
+			NSLog(@" ** full route going left complete! %0.2f", leftDist);
+			break;
+		}
+		
+		i--;
 	}
 	
 	Route *route = [Route route];

@@ -98,6 +98,8 @@
 
 - (void)unStickify;
 
+- (Route*)getCorpseRoute;
+
 @end
 
 @implementation MovementController
@@ -373,7 +375,7 @@ typedef enum MovementState{
 	if ( [playerData isGhost] || [playerData isDead] ) {
 		// player is dead
 		self.currentRouteKey = CorpseRunRoute;
-		self.currentRoute = [self.currentRouteSet routeForKey:CorpseRunRoute];
+		self.currentRoute = [self getCorpseRoute];
 	} else {
 		// normal route
 		self.currentRouteKey = PrimaryRoute;
@@ -468,12 +470,25 @@ typedef enum MovementState{
 	// if the player is dead, find the closest WP based on both routes
 	if ( [playerData isDead] && !self.isFollowing ){
 		
-		// we switched to a corpse route on death
-		if ( [[self.currentRoute waypoints] count] == 0 ){
+		// duh use the best route
+		self.currentRoute = [self getCorpseRoute];
+		self.currentRouteKey = CorpseRunRoute;
+		
+		if ( !self.currentRoute ){
 			log(LOG_GHOST, @"Unable to resume, we're dead and there is no corpse route!");
 			return;
 		}
 		
+	
+		/*
+		 
+		 
+		 // we switched to a corpse route on death
+		 if ( [[self.currentRoute waypoints] count] == 0 ){
+		 log(LOG_GHOST, @"Unable to resume, we're dead and there is no corpse route!");
+		 return;
+		 }
+		 
 		Waypoint *closestWaypointCorpseRoute	= [[self.currentRouteSet routeForKey:CorpseRunRoute] waypointClosestToPosition:playerPosition];
 		Waypoint *closestWaypointPrimaryRoute	= [[self.currentRouteSet routeForKey:PrimaryRoute] waypointClosestToPosition:playerPosition];
 		
@@ -483,7 +498,9 @@ typedef enum MovementState{
 		// use corpse route
 		if ( corpseDistance < primaryDistance ){
 			self.currentRouteKey = CorpseRunRoute;
-			self.currentRoute = [self.currentRouteSet routeForKey:CorpseRunRoute];
+			//self.currentRoute = [self.currentRouteSet routeForKey:CorpseRunRoute];
+			self.currentRoute = [self buildBestCorpseRoute:self.currentRouteSet];
+			
 			newWP = closestWaypointCorpseRoute;
 		}
 		// use primary route
@@ -491,11 +508,24 @@ typedef enum MovementState{
 			self.currentRouteKey = PrimaryRoute;
 			self.currentRoute = [self.currentRouteSet routeForKey:PrimaryRoute];
 			newWP = closestWaypointPrimaryRoute;
-		}
-	} else {
+		}*/
+	}
+	/*else {
 		// find the closest waypoint in our primary route!
 		newWP = [self.currentRoute waypointClosestToPosition:playerPosition];
-	}
+	}*/
+	
+	NSLog(@"snagging new one...");
+	
+	newWP = [self.currentRoute waypointClosestToPosition:playerPosition];
+	
+
+
+	NSLog(@"current WP: %@   FIRST: %@", newWP, [[self.currentRoute waypoints] objectAtIndex:0]);
+	
+	NSLog(@" First: %0.2f", [playerPosition distanceToPosition:[[[self.currentRoute waypoints] objectAtIndex:0] position]]);
+	NSLog(@" Last: %0.2f", [playerPosition distanceToPosition:[[[self.currentRoute waypoints] objectAtIndex:[[self.currentRoute waypoints] count]-1] position]]);
+	
 /*
 	// Check to see if we're ion BG and this is the last waypoint
 	if ( botController.pvpIsInBG && !self.isFollowing ) {
@@ -582,7 +612,8 @@ typedef enum MovementState{
 		theRouteCollection =  botController.theRouteCollectionPvP;
 			else theRouteCollection =  botController.theRouteCollection;
 
-	if ( distanceToWaypoint > 80.0f  && theRouteCollection.routes.count > 1) {
+	// confused why we have this - are we trying to make up for people making stupid routes?
+	/*if ( distanceToWaypoint > 80.0f  && theRouteCollection.routes.count > 1) {
 		log(LOG_WAYPOINT, @"Looks like the next waypoint is very far, checking to see if we have a closer route.");
 
 		float closestDistance = 0.0f;
@@ -592,9 +623,14 @@ typedef enum MovementState{
 
 		for (RouteSet *routeSet in [theRouteCollection routes] ) {
  
-			// Set the route to test against
-			if ( [playerData isGhost] || [playerData isDead] ) route = [routeSet routeForKey:CorpseRunRoute];
-				else route = [routeSet routeForKey:PrimaryRoute];
+			// player is dead
+			if ( [playerData isGhost] || [playerData isDead] ){
+				route = [routeSet routeForKey:CorpseRunRoute];
+			}
+			// not dead
+			else{
+				route = [routeSet routeForKey:PrimaryRoute];
+			}
 
 			if ( !route || route == nil) continue;
  
@@ -622,7 +658,7 @@ typedef enum MovementState{
 			[self performSelector: _cmd withObject: nil afterDelay:0.3f];
 			return;
 		}
-	}
+	}*/
 
 	float tooClose = ( [playerData speedMax] / 2.0f);
 	if ( tooClose < 4.0f ) tooClose = 4.0f;
@@ -845,13 +881,15 @@ typedef enum MovementState{
 
 	NSArray *waypoints = [self.currentRoute waypoints];
 	int index = [waypoints indexOfObject:self.destinationWaypoint];
+	
+	log(LOG_WAYPOINT, @"[%d] total waypoints: %d", index, [waypoints count]);
 
 	// we have an index! yay!
 	if ( index != NSNotFound ){
 
 		// at the end of the route
 		if ( index == [waypoints count] - 1 ){
-			log(LOG_WAYPOINT, @"We've reached the end of the route!");
+			log(LOG_WAYPOINT, @"We've reached the end of the route! %@", self.currentRoute);
 			
 			// TO DO: keep a dictionary w/the route collection (or set) to remember how many times we've run a route
 			
@@ -902,14 +940,6 @@ typedef enum MovementState{
 		return;
 	}
 
-	// player is currently on the primary route and is dead, if they've finished, then we ran the entire route and didn't find our body :(
-	if ( self.currentRouteKey == PrimaryRoute && [playerData isGhost] ) {
-		[botController stopBot:nil];
-		[controller setCurrentStatus:@"Bot: Unable to find body, stopping bot"];
-		log(LOG_GHOST, @"Unable to find your body after running the full route, stopping bot");
-		return;
-	}
-
 	// In PvP we stay where we went unless the waypoint tells us to switch routes.
 	if ( botController.pvpIsInBG ) {
 		log(LOG_DEV, @"End of PvP Route, stoping movement.");
@@ -917,22 +947,28 @@ typedef enum MovementState{
 		[botController evaluateSituation];
 		return;
 	}
-
-	// we've reached the end of our corpse route, lets switch to our main route
-	if ( self.currentRouteKey == CorpseRunRoute ) {
-		
-		log(LOG_GHOST, @"Switching from corpse to primary route!");
-		
-		self.currentRouteKey = PrimaryRoute;
-		self.currentRoute = [self.currentRouteSet routeForKey:PrimaryRoute];
-		
-		// find the closest WP
-		self.destinationWaypoint = [self.currentRoute waypointClosestToPosition:[playerData position]];
+	
+	// didn't find our body, in theory this should never happen, but who knows!
+	if ( self.currentRouteKey == CorpseRunRoute && [playerData isGhost] ){
+		[botController stopBot:nil];
+		[controller setCurrentStatus:@"Bot: Unable to find body, stopping bot"];
+		log(LOG_GHOST, @"Unable to find your body after running the full route, stopping bot");
+		return;
 	}
-
-	// Use the first waypoint
-	else{
-		self.destinationWaypoint = [[self.currentRoute waypoints] objectAtIndex:0];
+	
+	// are we at the last waypoint in our primary route? 
+	if ( self.currentRouteKey == PrimaryRoute && ![playerData isGhost] ){
+		
+		NSArray *waypoints = [self.currentRoute waypoints];
+		int index = [waypoints indexOfObject:self.destinationWaypoint];
+		
+		// last route
+		if ( index == [waypoints count] - 1 ){
+			log(LOG_MOVEMENT, @"Reached the last waypoint, restarting!");
+			
+			// go back to the first waypoint!
+			self.destinationWaypoint = [waypoints objectAtIndex:0];
+		}
 	}
 	
 	[self resumeMovement];
@@ -2081,7 +2117,7 @@ typedef enum MovementState{
 	}
 	
 	// set our current route!
-	self.currentRoute = [self.currentRouteSet routeForKey:CorpseRunRoute];
+	self.currentRoute = [self getCorpseRoute];
 
 	if ( self.currentRoute && [[self.currentRoute waypoints] count] == 0  ){
 		log(LOG_MOVEMENT, @"No corpse route! Ending movement");
@@ -2581,13 +2617,13 @@ typedef enum MovementState{
 //				[self establishPlayerPosition];
 			}
 			
-			if ( printTurnInfo ) log(LOG_MOVEMENT, @"Doing sharp turn to %.2f", theAngle );
+			log(LOG_MOVEMENT, @"Doing sharp turn to %.2f", theAngle );
 
             usleep( [controller refreshDelay] *2 );
         }
     }
 	else {
-        if(printTurnInfo) log(LOG_MOVEMENT, @"Skipping turn because right mouse button is down.");
+        log(LOG_MOVEMENT, @"Skipping turn because right mouse button is down.");
     }
 }
 
@@ -3129,8 +3165,23 @@ typedef enum MovementState{
 
 #pragma mark Testing
 
+- (Route*)getCorpseRoute{
+	NSLog(@"returning the best route!");
+	// return [self.currentRouteSet routeForKey:CorpseRunRoute];
+	return [self buildBestCorpseRoute:self.currentRouteSet];
+}
+
 // just pass the routeset over! (note:this could be horribly more advanced if we take the FULL routecollections into account, this is VERY basic)
 - (Route*)buildBestCorpseRoute:(RouteSet*)routeSet{
+	
+	// STEPS:
+	//	1) Find the connecting waypoint that will link the corpse run and the nomal route together (this is where we want to get to!)
+	//	2) Find closest waypoint in CorpseRoute route to current player (your ghost)
+	//	3) Find closest waypoint in PrimaryRoute route to corpse
+	//  4) Find the route from the current player position to the corpse connector (will follow CorpseRoute)
+	//	5) Find the route from the corpse connector to the corpse (will follow PrimaryRoute)
+	//	6) Combine the 2 routes!	
+	//		More: Take multiple RouteSets into consideration...  Not difficult, just more work
 	
 	Route *corpseRoute = [routeSet routeForKey:CorpseRunRoute];										// our current corpse route
 	Route *normalRoute = [routeSet routeForKey:PrimaryRoute];		// the normal route we want to be running!
@@ -3138,8 +3189,6 @@ typedef enum MovementState{
 	// lets search for where we will switch from the corpse route to the normal route
 	NSArray *corpseWaypoints = [corpseRoute waypoints];
 	NSArray *normalWaypoints = [normalRoute waypoints];
-	
-	NSLog(@"finding connectors...");
 	
 	float distance = INFINITY;
 	Waypoint *corpseConnector = nil;
@@ -3160,7 +3209,7 @@ typedef enum MovementState{
 				corpseConnector = c;
 				normalConnector = n;
 				
-				NSLog(@" new %0.2f < %0.2f [%d]%@ [%d]%@", d, distance, i, c, j, n );
+				//NSLog(@" new %0.2f < %0.2f [%d]%@ [%d]%@", d, distance, i, c, j, n );
 				
 				distance = d;
 			}
@@ -3168,10 +3217,36 @@ typedef enum MovementState{
 		}
 		i++;
 	}
-
-	NSLog(@"searching for body...");
 	
-	// which waypoint is closest to our corpse!
+	log(LOG_MOVEMENT, @"Found corpse connector at %@", corpseConnector);
+	log(LOG_MOVEMENT, @"Found normal conentor at %@", normalConnector);
+	log(LOG_MOVEMENT, @"Distance in between waypoints is %0.2f", distance);
+	log(LOG_MOVEMENT, @" Finding closest waypoint to your current position...");
+
+	
+	// 2: Find closest waypoint to your ghost
+	Position *playerPosition = [playerData position];
+	Waypoint *closestWaypointToGhost = nil;
+	distance = INFINITY;
+	// lets hope it's the first one right?
+	for ( Waypoint *n in corpseWaypoints ){
+		float d = [playerPosition distanceToPosition:[n position]];
+		
+		if ( d < distance ){
+			
+			distance = d;
+			
+			//NSLog(@" new %0.2f < %0.2f %@ by %@", d, distance, n, corpsePosition );
+			
+			closestWaypointToGhost = n;
+		}
+	}
+	
+	log(LOG_MOVEMENT, @"  %@", closestWaypointToGhost);
+	log(LOG_MOVEMENT, @"  distance: %0.2f", distance);
+	log(LOG_MOVEMENT, @" Finding closest waypoint to your corpse...");
+	
+	// 3: Find closest waypoint to your corpse
 	Position *corpsePosition = [playerData corpsePosition];
 	Waypoint *closestWaypointToBody = nil;
 	distance = INFINITY;
@@ -3182,20 +3257,31 @@ typedef enum MovementState{
 			
 			distance = d;
 			
-			NSLog(@" new %0.2f < %0.2f %@ by %@", d, distance, n, corpsePosition );
+			//NSLog(@" new %0.2f < %0.2f %@ by %@", d, distance, n, corpsePosition );
 			
 			closestWaypointToBody = n;
 		}
 	}
 	
+	log(LOG_MOVEMENT, @"  %@", closestWaypointToBody);
+	log(LOG_MOVEMENT, @"  distance: %0.2f", distance);
+	
 	// TO DO: if distance is > 50.0, it could be risky to just try to walk to your body in a straight line - give up?
 
-	// find quickest route from normalConnector to closestWaypointToBody
-	Route *newNormalRoute = [normalRoute routeFromWP:normalConnector toWP:closestWaypointToBody];
+	// 4: Get route from current position to the corpseConnector
+	//	this is nothing advanced, we just only want the waypoints from closestWaypointToGhost to corpseConnector
+	Route *newCorpseRoute = [corpseRoute routeFromWP:closestWaypointToGhost toWP:corpseConnector compare:NO];
 	
-	NSLog(@"route: %@", newNormalRoute);
+	// 5: Get route from normal connector to body
+	Route *newNormalRoute = [normalRoute routeFromWP:normalConnector toWP:closestWaypointToBody compare:YES];
 	
-	return newNormalRoute;
+	// 6: Combine the routes
+	Route *finalRoute = [Route route];
+	NSMutableArray *finalWaypoints = [NSMutableArray arrayWithArray:[newCorpseRoute waypoints]];
+	[finalWaypoints addObjectsFromArray:[newNormalRoute waypoints]];
+	[finalRoute setWaypoints:finalWaypoints];
+	
+	return [[finalRoute retain] autorelease];
 }
 
 @end

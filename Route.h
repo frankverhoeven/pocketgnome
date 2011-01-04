@@ -15,7 +15,7 @@
 
 + (id)route;
 
-@property (readonly, retain) NSArray *waypoints;
+@property (readwrite, retain) NSArray *waypoints;
 
 - (unsigned)waypointCount;
 - (Waypoint*)waypointAtIndex: (unsigned)index;
@@ -27,6 +27,6 @@
 - (void)removeWaypointAtIndex: (unsigned)index;
 - (void)removeAllWaypoints;
 
-- (Route*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP;
+- (Route*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP compare:(BOOL)compare;
 
 @end

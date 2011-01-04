@@ -4416,12 +4416,13 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 #pragma mark Evaluation Tasks
 
 -(BOOL)evaluateForGhost {
-
-	// Spooky stories go here
-	if ( ![playerController isGhost] && ![playerController isDead] ) return NO;
-
+	
 	if ( !self.isBotting ) return NO;
 
+	// if we're alive or not a ghost, then why are we here?
+	if ( ![playerController isGhost] && ![playerController isDead] ) return NO;
+
+	// currently moving to an object? (i.e. spirit healer)
 	if ( movementController.moveToObject ) return NO;
 
 	log(LOG_EVALUATE, @"Evaluating for Ghost");
@@ -4432,13 +4433,14 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		[controller setCurrentStatus: @"Bot: Player is Dead"];
 	}
 
+	// do nothing if we're in PvP!
 	if ( self.pvpIsInBG ) {
 		log(LOG_GHOST, @"Player is dead in a BG, stoping evaluation until we revive.");
 		return YES;
 	}
 
+	// resurrect with the Spirit Healer
 	if ( theCombatProfile.resurrectWithSpiritHealer ) {
-		// Resurrect with the Spirit Healer
 		
 		if ( theCombatProfile.checkForCampers ) {
 			log(LOG_GHOST, @"Checking for campers.");
@@ -4511,15 +4513,10 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		}
 	}
 
-	if( ![playerController corpsePosition] ) {
+	// no corpse position, that kind of sucks b/c we can't really do anything!
+	if ( ![playerController corpsePosition] ) {
 		log(LOG_DEV, @"No corpse position, error, we will never res");
 		[controller setCurrentStatus:@"Unable to find corpse position, unable to res"];
-
-		// Make sure the movement controller has the right route
-		if ( self.theRouteSet && movementController.currentRouteSet != self.theRouteSet )
-			[movementController setPatrolRouteSet:self.theRouteSet];
-
-		[movementController resumeMovement];
 		return NO;
 	}
 
@@ -4540,10 +4537,10 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		[movementController moveToPosition: corpsePosition];
 		log(LOG_GHOST, @"Moving to the corpse now.");
 		return YES;
-	} else
+	}
 
 	// If we're not close to the corpse let's keep moving
-	if( _ghostDance == 0 && distanceToCorpse > 6.0f ) {
+	else if ( _ghostDance == 0 && distanceToCorpse > 6.0f ) {
 		
 		// Make sure the movement controller has the right route
 		if ( self.theRouteSet && movementController.currentRouteSet != self.theRouteSet )
@@ -4557,6 +4554,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	// we found our corpse
 	[controller setCurrentStatus: @"Bot: Waiting to Resurrect"];
 
+	// look for campers
 	if ( theCombatProfile.checkForCampers ) {
 		log(LOG_GHOST, @"Checking for campers.");
 		// Check for Campers
@@ -4569,17 +4567,22 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		log(LOG_GHOST, @"No campers.");
 	}
 
-	if (theCombatProfile.avoidMobsWhenResurrecting) {
-		if (_ghostDance <= 3) {
+	// lets avoid mobs!
+	if ( theCombatProfile.avoidMobsWhenResurrecting ) {
+		if ( _ghostDance <= 3 ) {
+			
 			NSMutableArray *mobs = [NSMutableArray array];
-			[mobs addObjectsFromArray: [mobController mobsWithinDistance: 20.0f MobIDs:nil position:[[playerController player]position] aliveOnly:YES]];
-			// Do a little dance to make sure we're clear of mobs
-			if ([mobs count]) {
+			[mobs addObjectsFromArray: [mobController mobsWithinDistance: 20.0f MobIDs:nil position:[[playerController player] position] aliveOnly:YES]];
+			
+			// do a little dance to make sure we're clear of mobs
+			if ( [mobs count] ) {
 				log(LOG_GHOST, @"Mobs near the corpse, finding a safe spot.");
+				
 				[mobs sortUsingFunction: DistanceFromPositionCompare context: playerPosition];
 				Unit *mob = nil;
+				
+				// simply moves a step away from each mob
 				for ( mob in mobs ) {
-					// This is very basic, but it's a good place to start =]
 					log(LOG_DEV, @"Face and Reverse...");
 					
 					// Face the target
@@ -4595,7 +4598,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			}
 		}
 
-		// Ghost was dancin a lil too much
+		// moved too far away
 		if ( _ghostDance > 3 && distanceToCorpse > 26.0 ) {
 			log(LOG_GHOST, @"Ghost dance didnt help, moving back to the corpse.");
 			[movementController moveToPosition: corpsePosition];
@@ -6126,20 +6129,18 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	UInt32 offset = [offsetController offset:@"WorldState"];
 	UInt32 worldState = 0;
-	if ( [[controller wowMemoryAccess] loadDataForObject: self atAddress: offset Buffer: (Byte *)&worldState BufLength: sizeof(worldState)] ) {
-		if ( worldState == 10 ) {
+	if ( offset && [[controller wowMemoryAccess] loadDataForObject: self atAddress: offset Buffer: (Byte *)&worldState BufLength: sizeof(worldState)] && worldState == 10 ) {
 
-			log(LOG_GENERAL, @"Game is loading, waiting...");
-			if ( self.procedureInProgress )
-				[self cancelCurrentProcedure];
-			if ( self.evaluationInProgress ) 
-				self.evaluationInProgress = nil;
-			if ( [movementController isActive] ) 
-				[movementController resetMovementState];
-			
-			[self performSelector: _cmd withObject: nil afterDelay: 1.0f];
-			return NO;
-		}
+		log(LOG_GENERAL, @"Game is loading, waiting...");
+		if ( self.procedureInProgress )
+			[self cancelCurrentProcedure];
+		if ( self.evaluationInProgress ) 
+			self.evaluationInProgress = nil;
+		if ( [movementController isActive] ) 
+			[movementController resetMovementState];
+		
+		[self performSelector: _cmd withObject: nil afterDelay: 1.0f];
+		return NO;
 	}
 
     if ( ![playerController playerIsValid:self] ) {
@@ -6907,7 +6908,10 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			[self corpseRelease:[NSNumber numberWithInt:0]];
 		}
 
-	} else if ( theCombatProfile.ShouldLoot ) [self lootScan];
+	}
+	else if ( theCombatProfile.ShouldLoot ){
+		[self lootScan];
+	}
 
 	// we have a PvP behavior!
 	if ( self.useRoutePvP && self.pvpBehavior ) {
