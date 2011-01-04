@@ -131,7 +131,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleGetInfoString</key>
-	<string>${PRODUCT_NAME} 1.5.1.5</string>
+	<string>${PRODUCT_NAME} 1.5.1.6</string>
 	<key>CFBundleIconFile</key>
 	<string>PGicon.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -143,11 +143,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.1.5 (r625)</string>
+	<string>1.5.1.6 (r640)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>625</string>
+	<string>640</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>10.5</string>
 	<key>NSAppleScriptEnabled</key>

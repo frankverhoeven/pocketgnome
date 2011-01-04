@@ -6,6 +6,26 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
+            <title>Pocket Gnome 1.5.1.6 (Build 640) </title>
+            <pubDate>Tue, 4 January 2011 15:13:00 -0500</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.6 (Build 640) Release Notes </span></p>
+                <ul>
+					<li>New: You can add the player's position to be blacklisted (in case you mine the node then forget to blacklist it), click the Blacklisted button on the Routes tab</li>
+					<li>New: You can now gather <b>anything</b>! Check your combat profile!</li>
+					<li>New: When you die, PG will now calculate the shortest route back to your body vs. just running around aimlessly (lightly tested)</li>
+					<li>New: You can now specify the number of mobs near a node when searching for scary units!</li>
+					<li>New: Cleaned up UI (mostly combat profiles)</li>
+					<li>New: Added a save all routes button to the Routes tab</li>
+					<li>New: Numpad equals can now be used as a key binding (thanks j005u)</li>
+					<li>New: In follow/party mode, PG will now move toward a target by following (most of the time) if it's out of range</li>
+					<li>Bug Fix: Mob IDs can now be > 50000 for the alarm</li>
+					<li>Bug Fix: Clicking the config button to the right of the selected route on the Bot tab will now appropriately highlight the route in the Routes tab</li>
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.6.zip" length="4874314" type="application/zip" sparkle:version="640" sparkle:shortVersionString="1.5.1.6" sparkle:dsaSignature="MCwCFEgZTmUiaRnNDPPrEMztpJ/9xHgWAhQSZ7w7AZWD1LxcduoJd9xxK1twPg=="/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1.5 (Build 625) </title>
             <pubDate>Fri, 31 December 2010 09:07:00 -0400</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.5 (Build 625) Release Notes </span></p>
