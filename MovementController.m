@@ -612,8 +612,8 @@ typedef enum MovementState{
 		theRouteCollection =  botController.theRouteCollectionPvP;
 			else theRouteCollection =  botController.theRouteCollection;
 
-	// confused why we have this - are we trying to make up for people making stupid routes?
-	/*if ( distanceToWaypoint > 80.0f  && theRouteCollection.routes.count > 1) {
+	// not confused anymore, this is especially useful for SotA routes!
+	if ( distanceToWaypoint > 80.0f  && theRouteCollection.routes.count > 1) {
 		log(LOG_WAYPOINT, @"Looks like the next waypoint is very far, checking to see if we have a closer route.");
 
 		float closestDistance = 0.0f;
@@ -658,7 +658,7 @@ typedef enum MovementState{
 			[self performSelector: _cmd withObject: nil afterDelay:0.3f];
 			return;
 		}
-	}*/
+	}
 
 	float tooClose = ( [playerData speedMax] / 2.0f);
 	if ( tooClose < 4.0f ) tooClose = 4.0f;

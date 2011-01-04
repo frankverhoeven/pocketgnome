@@ -8542,8 +8542,6 @@ NSMutableDictionary *_diffDict = nil;
 	if ( result > 0x40 || result < 0x0 ){
 		PGLog(@"BaseField_Spell_Casting: 0x%X", (unsigned int)offset2);
 	}
-	
-	
 }
 
 // for j005u only!!!
