@@ -18,6 +18,7 @@
 					<li>New: Added a save all routes button to the Routes tab</li>
 					<li>New: Numpad equals can now be used as a key binding (thanks j005u)</li>
 					<li>New: In follow/party mode, PG will now move toward a target by following (most of the time) if it's out of range</li>
+					<li>Bug Fix: You no longer need to right click when using CTM (or even enable it)</li>
 					<li>Bug Fix: Mob IDs can now be > 50000 for the alarm</li>
 					<li>Bug Fix: Clicking the config button to the right of the selected route on the Bot tab will now appropriately highlight the route in the Routes tab</li>
 				</ul>

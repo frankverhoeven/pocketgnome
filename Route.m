@@ -145,6 +145,11 @@
 // returns a new route w/the shortest distance in b/t the two waypoints
 - (Route*)routeFromWP:(Waypoint*)fromWP toWP:(Waypoint*)toWP compare:(BOOL)compare{
 	
+	if ( !fromWP || !toWP ){
+		return nil;
+	}
+	
+	
 	NSLog(@"finding shortest route from %@ to %@", fromWP, toWP);
 	
 	// find our waypoints

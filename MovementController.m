@@ -99,6 +99,7 @@
 - (void)unStickify;
 
 - (Route*)getCorpseRoute;
+- (Route*)buildBestCorpseRoute:(RouteSet*)routeSet;
 
 @end
 
@@ -474,7 +475,7 @@ typedef enum MovementState{
 		self.currentRoute = [self getCorpseRoute];
 		self.currentRouteKey = CorpseRunRoute;
 		
-		if ( !self.currentRoute ){
+		if ( !self.currentRoute || [[self.currentRoute waypoints] count] == 0 ){
 			log(LOG_GHOST, @"Unable to resume, we're dead and there is no corpse route!");
 			return;
 		}
@@ -518,13 +519,6 @@ typedef enum MovementState{
 	NSLog(@"snagging new one...");
 	
 	newWP = [self.currentRoute waypointClosestToPosition:playerPosition];
-	
-
-
-	NSLog(@"current WP: %@   FIRST: %@", newWP, [[self.currentRoute waypoints] objectAtIndex:0]);
-	
-	NSLog(@" First: %0.2f", [playerPosition distanceToPosition:[[[self.currentRoute waypoints] objectAtIndex:0] position]]);
-	NSLog(@" Last: %0.2f", [playerPosition distanceToPosition:[[[self.currentRoute waypoints] objectAtIndex:[[self.currentRoute waypoints] count]-1] position]]);
 	
 /*
 	// Check to see if we're ion BG and this is the last waypoint
@@ -3184,6 +3178,10 @@ typedef enum MovementState{
 	//		More: Take multiple RouteSets into consideration...  Not difficult, just more work
 	
 	Route *corpseRoute = [routeSet routeForKey:CorpseRunRoute];										// our current corpse route
+	if ( !corpseRoute ){
+		return nil;
+	}
+	
 	Route *normalRoute = [routeSet routeForKey:PrimaryRoute];		// the normal route we want to be running!
 	
 	// lets search for where we will switch from the corpse route to the normal route

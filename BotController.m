@@ -8577,13 +8577,6 @@ NSMutableDictionary *_diffDict = nil;
 	NSLog(@"Herbalism %d/%d", [playerController getHerbalismLevel], [playerController getHerbalismMaxLevel]);
 	
 	return;
-
-	self.theRouteCollection = [[routePopup selectedItem] representedObject];
-	self.theRouteSet = [_theRouteCollection startingRoute];
-	
-	[movementController buildBestCorpseRoute:[_theRouteCollection startingRoute]];
-	
-	return;
 	
 	NSLog(@"Runes? %d %d %d", [playerController runesAvailable:0], [playerController runesAvailable:1], [playerController runesAvailable:2]);
 							   

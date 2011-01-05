@@ -96,9 +96,9 @@
 //#define ITEM_IN_LOOT_WINDOW	   ((IS_X86) ? 0x157e0e4 : 0x0 )	
 
 // {
-#define LOOT_QUANTITY			0x8
+#define LOOT_QUANTITY			0xC
 #define LOOT_INDEX				0x14
-#define LOOT_NEXT				0x20
+#define LOOT_NEXT				0x24
 // }
 
 // 3.2.0 valid

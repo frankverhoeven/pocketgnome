@@ -851,7 +851,7 @@ static PlayerDataController* sharedController = nil;
 }
 
 - (BOOL)isInCombat {
-    if( ([self stateFlags] & (1 << 19)) == (1 << 19))
+    if( ([self stateFlags] & (1 << UnitStatus_InCombat)) == (1 << UnitStatus_InCombat))
         return YES;
     return NO;
 }
