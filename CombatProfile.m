@@ -22,8 +22,8 @@
 {
     self = [super init];
     if (self != nil) {
-        self.entries = [NSArray array];
-		self.gatherList = nil;
+        self.entries = [NSMutableArray array];
+		self.gatherList = [NSMutableArray array];
         self.combatEnabled = YES;
         self.onlyRespond = NO;
         self.attackNeutralNPCs = YES;
