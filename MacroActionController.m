@@ -74,11 +74,13 @@
 	[instantButton setState:[instant boolValue]];
 	
 	[macroTextField setStringValue:macroText];
-	[typeMatrix selectCellWithTag:101+[isEntered boolValue]];
+	[typeMatrix selectCellWithTag:[isEntered boolValue]];
 	
 	[super setStateFromAction:action];
 }
 
+// Saved = 0
+// Custom = 1
 - (Action*)action {
     [self validateState: nil];
     
@@ -91,7 +93,7 @@
 		macroID = [NSNumber numberWithInt:0];
 	}
 	NSNumber *instant = [NSNumber numberWithBool:[instantButton state]];
-	NSNumber *isEntered = [NSNumber numberWithBool:[[typeMatrix selectedCell] tag]-101];
+	NSNumber *isEntered = [NSNumber numberWithBool:[[typeMatrix selectedCell] tag]];
 	NSString *macroText = [macroTextField stringValue];
 	
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:

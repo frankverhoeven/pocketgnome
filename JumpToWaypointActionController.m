@@ -41,7 +41,7 @@
 
 - (IBAction)validateState: (id)sender {
 	
-	if ( [waypointNumTextView intValue] > _maxWaypoints || [waypointNumTextView intValue] < 1 ){
+	if ( /*[waypointNumTextView intValue] > _maxWaypoints ||*/ [waypointNumTextView intValue] < 1 ){
 		[waypointNumTextView setStringValue:@"1"];
 	}
 }
