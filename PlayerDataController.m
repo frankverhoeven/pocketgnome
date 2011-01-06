@@ -803,10 +803,7 @@ static PlayerDataController* sharedController = nil;
 #pragma mark PLayer Status
 
 - (UInt32)stateFlags {
-    UInt32 value = 0;
-    [[controller wowMemoryAccess] loadDataForObject: self atAddress: [[self player] unitFieldAddress] + UNIT_FIELD_FLAGS Buffer: (Byte *)&value BufLength: sizeof(value)];
-    return value;
-    
+	return [[self player] stateFlags];
     // polymorph sets bits 22 and 29
     
     // bit 1  - not attackable
