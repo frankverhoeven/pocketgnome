@@ -605,7 +605,6 @@ enum NPCFlags
     return 0;
 }
 
-
 - (BOOL)isPVP {
     if( ([self stateFlags] & (1 << UnitStatus_PVP)) == (1 << UnitStatus_PVP))   // 0x1000
         return YES;

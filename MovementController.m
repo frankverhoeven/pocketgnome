@@ -2112,7 +2112,7 @@ typedef enum MovementState{
 	
 	// set our current route!
 	self.currentRoute = [self getCorpseRoute];
-
+	
 	if ( self.currentRoute && [[self.currentRoute waypoints] count] == 0  ){
 		log(LOG_MOVEMENT, @"No corpse route! Ending movement");
 	}

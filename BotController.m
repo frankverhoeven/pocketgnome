@@ -2964,11 +2964,11 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		return;
 	}
 	
-	// are we in party mode?
-	if ( self.theCombatProfile.partyEnabled ){
+	// are we in party mode? (we should check to see if we're even in a party)
+	/*if ( self.theCombatProfile.partyEnabled ){
 		log(LOG_GHOST, @"Ignoring release due to being in party mode");
 		return;
-	}
+	}*/
 
 	// We need to repop!
 	if ( ![playerController isGhost] && [playerController isDead] ) {
@@ -6327,7 +6327,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 	// If we're evaluating lets cycle again
 	if ( self.evaluationInProgress ) {
-		log(LOG_EVALUATE, @"Evaluation in progress so we're looping without movement.");
+		log(LOG_EVALUATE, @"Evaluation (%@) in progress so we're looping without movement.", self.evaluationInProgress);
 		if ( theCombatProfile.partyEmotes ) _partyEmoteIdleTimer =0;
 		[self performSelector: _cmd withObject: nil afterDelay: 0.25f];
 		_evaluationIsActive = NO;
