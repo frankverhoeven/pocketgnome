@@ -999,7 +999,7 @@ typedef enum MovementState{
 	if ( tooClose < 3.0f ) tooClose = 3.0f;
 
 	// no object, no actions, just trying to move to the next WP!
-	if ( _destinationWaypoint && !self.isFollowing && ( ![_destinationWaypoint actions] || [[_destinationWaypoint actions] count] == 0 ) && distance < tooClose  ) {
+	if ( !_moveToObject && _destinationWaypoint && !self.isFollowing && ( ![_destinationWaypoint actions] || [[_destinationWaypoint actions] count] == 0 ) && distance < tooClose  ) {
 		log(LOG_WAYPOINT, @"Waypoint is too close %0.2f < %0.2f. Moving to the next one.", distance, tooClose);
 		[self moveToNextWaypoint];
 		return;
@@ -1028,13 +1028,11 @@ typedef enum MovementState{
 	// Actually move!
 	if ( [self movementType] == MovementType_Keyboard && [[playerData player] isFlyingMounted] ) {
 		log(LOG_MOVEMENT, @"Forcing CTM since we're flying!");
-		// Force CTM for party follow.
 		[self setClickToMove:position andType:ctmWalkTo andGUID:0];
 	}
 
 	else if ( [self movementType] == MovementType_Keyboard && [[playerData player] isSwimming] ) {
 		log(LOG_MOVEMENT, @"Forcing CTM since we're swimming!");
-		// Force CTM for party follow.
 		[self setClickToMove:position andType:ctmWalkTo andGUID:0];
 	}
 
@@ -1100,6 +1098,9 @@ typedef enum MovementState{
 	 */
 
 	if ( _destinationWaypointUI ) {
+		
+		log(LOG_MOVEMENT, @"Moving to destination waypoint via UI click: %@", _destinationWaypoint );
+		
 		destPosition = [_destinationWaypoint position];
 		distanceToDestination = [playerPosition distanceToPosition: destPosition];
 
@@ -1146,6 +1147,8 @@ typedef enum MovementState{
 	 */
 
 	else if ( self.isFollowing ) {
+		
+		log(LOG_MOVEMENT, @"Moving since we're following!");
 
 		// Check to see if we're close to the follow unit enough to stop.
 		if ( botController.followUnit && [botController.followUnit isValid] ) {
@@ -1212,7 +1215,10 @@ typedef enum MovementState{
 	 * Moving to a Node
 	 */
 
-	else if (_moveToObject && [_moveToObject isKindOfClass: [Node class]] ) {
+	else if (_moveToObject && ( [_moveToObject isKindOfClass: [Node class]] || [_moveToObject isGasCloud] ) ) {
+		
+		log(LOG_MOVEMENT, @"Moving to an object: %@ at position %@", _moveToObject, [_moveToObject position]);
+			
 		destPosition = [_moveToObject position];
 		distanceToDestination = [playerPosition distanceToPosition: destPosition];
 
@@ -1263,6 +1269,8 @@ typedef enum MovementState{
 			[[NSNotificationCenter defaultCenter] postNotificationName: ReachedObjectNotification object: [[_moveToObject retain] autorelease]];
 			return;
 		}
+		
+		log(LOG_MOVEMENT, @"Not at stopping distance %0.2f < %0.2f && %0.2f < 1.3 && %0.2f < 4.0", distanceToDestination, stopingDistance, horizontalDistance, distanceToDestination);
 
 	}
 
@@ -1271,6 +1279,9 @@ typedef enum MovementState{
 	 */
 
 	else if ( _moveToObject && [_moveToObject isKindOfClass: [Mob class]] && botController.mobsToLoot && [botController.mobsToLoot containsObject: (Mob*)_moveToObject]  ) {
+		
+		log(LOG_MOVEMENT, @"Moving to a mob %@ at %@", _moveToObject, [_moveToObject position]);
+			
 		destPosition = [_moveToObject position];
 		distanceToDestination = [playerPosition distanceToPosition: destPosition];
 
@@ -1316,6 +1327,9 @@ typedef enum MovementState{
 	 */
 
 	else if ( _moveToObject ) {
+		
+		log(LOG_MOVEMENT, @"Weird just moving to an object? %@", _moveToObject);
+		
 		destPosition = [_moveToObject position];
 		distanceToDestination = [playerPosition distanceToPosition: destPosition];
 
@@ -1346,6 +1360,8 @@ typedef enum MovementState{
 	 */
 
 	else if ( self.destinationWaypoint ) {
+		
+		log(LOG_MOVEMENT, @"Moving to a waypoint! %@", self.destinationWaypoint);
 
 		destPosition = [_destinationWaypoint position];
 		distanceToDestination = [playerPosition distanceToPosition: destPosition];
@@ -1384,7 +1400,6 @@ typedef enum MovementState{
 			[self moveToNextWaypoint];
 			return;
 		}
-
 	}
 
 	/*
@@ -1392,6 +1407,8 @@ typedef enum MovementState{
 	 */
 
 	else if ( self.lastAttemptedPosition ) {
+		
+		log(LOG_MOVEMENT, @"Moving to the last attempted position of %@", self.lastAttemptedPosition);
 
 		destPosition = self.lastAttemptedPosition;
 		distanceToDestination = [playerPosition distanceToPosition: destPosition];
@@ -1418,7 +1435,7 @@ typedef enum MovementState{
 	}
 	else {
 
-		log(LOG_ERROR, @"Somehow we' cant tell what we're moving to!?");
+		log(LOG_ERROR, @"Somehow we can't tell what we're moving to!?");
 		[botController performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.25f];
 		[self resetMovementState];
 		return;
@@ -1432,8 +1449,10 @@ typedef enum MovementState{
 	if ( _positionCheck <= 1 ) {
 
 		// Check evaluation to see if we need to do anything
-		if ( !botController.evaluationIsActive && !botController.procedureInProgress ) 
+		if ( !botController.evaluationIsActive && !botController.procedureInProgress ) {
+			log(LOG_MOVEMENT, @"Evaluating 1!");
 			[botController performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.1f];
+		}
 
 		return;
 	}
@@ -1460,6 +1479,7 @@ typedef enum MovementState{
 		
 		// Check evaluation to see if we need to do anything
 		if ( !botController.evaluationIsActive && !botController.procedureInProgress ) {
+			log(LOG_MOVEMENT, @"Evaluating 2!");
 			[botController performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.1f];
 		}
 		
@@ -1561,8 +1581,10 @@ typedef enum MovementState{
 	}
 
 	// Check evaluation to see if we need to do anything
-	if ( !botController.evaluationIsActive && !botController.procedureInProgress ) 
+	if ( !botController.evaluationIsActive && !botController.procedureInProgress ) {
+		log(LOG_MOVEMENT, @"Evaluating 3!");
 		[botController performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.1f];
+	}
 
 	// TO DO: moving in the wrong direction check? (can sometimes happen when doing mouse movements based on the speed of the machine)
 }
