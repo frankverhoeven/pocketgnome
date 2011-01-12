@@ -51,6 +51,7 @@
 		_optionalBindings = [[NSArray arrayWithObjects:
 							  @"ACTIONBUTTON1",
 							  @"PETATTACK",
+							  BindingSitOrDown,
 							  nil] retain];
 		
 		// might move this to a plist eventually once I have all of them
@@ -114,6 +115,7 @@
 							[NSNumber numberWithInt:kVK_F18]				,@"f18",	
 							[NSNumber numberWithInt:kVK_F19]				,@"f19",
 							[NSNumber numberWithInt:kVK_ANSI_KeypadEquals] 	,@"numpadequals",	
+							[NSNumber numberWithInt:kVK_ANSI_Minus]			,@"-",	
 							nil] retain];
 						   
 		_bindings = [[NSMutableDictionary dictionary] retain];
@@ -282,12 +284,14 @@ typedef struct WoWBinding {
 		
 		// this will tell us where the "-" is in our string!
 		int i, splitIndex = -1;
-		for ( i = 0; i < [key length]; i++ ){
-			unichar code = [key characterAtIndex:i];
-			
-			if ( code == '-' ){
-				splitIndex = i;
-				break;
+		if ( [key length] > 1 ){
+			for ( i = 0; i < [key length]; i++ ){
+				unichar code = [key characterAtIndex:i];
+				
+				if ( code == '-' ){
+					splitIndex = i;
+					break;
+				}
 			}
 		}
 		
@@ -298,11 +302,6 @@ typedef struct WoWBinding {
 		// only one command!
 		if ( splitIndex == -1 ){
 			command1 = [key lowercaseString];
-
-			/*NSString *binding = [[_bindings objectForKey:key] lowercaseString];
-			if ( [binding isEqualToString:[[NSString stringWithFormat:@"MULTIACTIONBAR1BUTTON1"] lowercaseString]] ){
-				log(LOG_BINDINGS, @" %@", command1);
-			}*/
 		}
 		// 2 commands
 		else{
@@ -334,7 +333,8 @@ typedef struct WoWBinding {
 		
 		// command 1
 		if ( command1 && [command1 length] == 1 ){
-			[allCodes addObject:[NSNumber numberWithInt:[chatController keyCodeForCharacter:command1]]];
+			int character = [chatController keyCodeForCharacter:command1];
+			[allCodes addObject:[NSNumber numberWithInt:character]];
 		}
 		else if ( command1 && [command1 length] > 0 ){
 
@@ -384,7 +384,7 @@ typedef struct WoWBinding {
 	if ( [unknownCodes count] ){
 		for ( NSString *cmd in unknownCodes ){
 			if ( ![_commandToAscii objectForKey:cmd] ){
-				log(LOG_BINDINGS, @"[Bindings] Unable to find code for %@, report it to Tanaris4!", cmd);
+				log(LOG_BINDINGS, @"Unable to find code for %@, report it to Tanaris4!", cmd);
 			}
 			//log(LOG_BINDINGS, @" \@\"%@\",", cmd);
 		}
@@ -457,6 +457,18 @@ typedef struct WoWBinding {
 	}
 	
 	return NO;
+}
+
+- (int)codeForKey:(NSString*)key{
+	
+	NSDictionary *dict = [_bindingsToCodes objectForKey:key];
+	
+	if ( dict ){
+
+		return [[dict objectForKey:@"Code"] intValue];;
+	}
+	
+	return -1;
 }
 
 // this will do an "intelligent" scan to find our key bindings! Then store them for use! (reset when player is invalid)

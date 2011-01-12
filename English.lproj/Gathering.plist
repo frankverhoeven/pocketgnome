@@ -642,21 +642,21 @@
 			<key>Type</key>
 			<string>Mining</string>
 			<key>Skill</key>
-			<integer>475</integer>
+			<integer>500</integer>
 		</dict>
 		<key>Pyrite Deposit</key>
 		<dict>
 			<key>Type</key>
 			<string>Mining</string>
 			<key>Skill</key>
-			<integer>475</integer>
+			<integer>525</integer>
 		</dict>
 		<key>Rich Pyrite Deposit</key>
 		<dict>
 			<key>Type</key>
 			<string>Mining</string>
 			<key>Skill</key>
-			<integer>475</integer>
+			<integer>525</integer>
 		</dict>
 	</dict>
 </dict>

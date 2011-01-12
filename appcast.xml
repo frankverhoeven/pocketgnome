@@ -6,6 +6,25 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
+            <title>Pocket Gnome 1.5.1.7 (Build 648) </title>
+            <pubDate>Tue, 10 January 2011 15:13:00 -0500</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.7 (Build 648) Release Notes </span></p>
+                <ul>
+					<li>New: UI cleaned up some</li>
+					<li>New: You can now blacklist your current location (in case you can't find a phasing mob) via the blacklist table on the routes tab</li>
+					<li><b>Bug Fix: You will no longer move to a node, then back to the route, then to the node, etc...</b></li>
+					<li>Bug Fix: Custom macro shouldn't be deselected anymore</li>
+					<li>Bug Fix: Fixed issue where you couldn't add a custom gathering object if you created a brand new profile (thanks j005u)</li>
+					<li>Bug Fix: Res @ Spirit healer now works properly (opps)</li>
+					<li>Bug Fix: Corrected skill level for Khadgar herb</li>
+					<li>Bug Fix: Ghost route calculation failed if there was no ghost route</li>
+					<li>Bug Fix: Plaguebloom removed, Sorrowmoss added</li>
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.7.zip" length="4874488" type="application/zip" sparkle:version="648" sparkle:shortVersionString="1.5.1.7" sparkle:dsaSignature="MC0CFAtjcruu6GqhCXphDWHTNXIzIwsvAhUAn/zY83H6onbhCvW+6mqkGs3vVf4="/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1.6 (Build 640) </title>
             <pubDate>Tue, 4 January 2011 15:13:00 -0500</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.6 (Build 640) Release Notes </span></p>

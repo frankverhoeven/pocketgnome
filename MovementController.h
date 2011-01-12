@@ -101,6 +101,7 @@ typedef enum MovementType {
 	int _jumpCooldown;
 	int _jumpAttempt;
 	
+	BOOL _movingDown;
 	BOOL _movingUp;
 	BOOL _afkPressForward;
 	BOOL _lastCorrectionForward;
@@ -201,5 +202,7 @@ typedef enum MovementType {
 
 - (void)moveUpStart;
 - (void)moveUpStop;
+
+- (void)moveDownFor:(float)sec;
 
 @end

@@ -23,6 +23,7 @@
 #define BindingMoveForward				@"MOVEFORWARD"
 #define BindingStrafeRight				@"STRAFERIGHT"
 #define BindingStrafeLeft				@"STRAFELEFT"
+#define BindingSitOrDown				@"SITORSTAND"
 
 @interface BindingsController : NSObject {
 	
@@ -59,5 +60,8 @@
 	
 // validates that all required key bindings exist! returns an error message
 - (NSString*)keyBindingsValid;
+
+// shouldn't be used often
+- (int)codeForKey:(NSString*)key;
 
 @end

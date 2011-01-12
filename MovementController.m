@@ -79,6 +79,8 @@
 - (void)moveForwardStop;
 - (void)moveUpStop;
 - (void)moveUpStart;
+- (void)moveDownStop;
+- (void)moveDownStart;
 - (void)backEstablishPosition;
 - (void)establishPosition;
 
@@ -156,6 +158,7 @@ typedef enum MovementState{
 		self.lastDirectionCorrection = [NSDate distantPast];
 		
 		_movingUp = NO;
+		_movingDown = NO;
 		_afkPressForward = NO;
 		_lastCorrectionForward = NO;
 		_lastCorrectionLeft = NO;
@@ -1573,6 +1576,14 @@ typedef enum MovementState{
 		[self resumeMovement];
 		return;
 	}
+	
+	// are we stuck moving down?
+	if ( movementFlags & MovementFlag_FlyDown && !_movingDown ){
+		log(LOG_MOVEMENT, @"We're stuck moving down! Fixing!");
+		[self moveDownStop];
+		[self resumeMovement];
+		return;
+	}
 
 	if( [controller currentStatus] == @"Bot: Stuck, entering anti-stuck routine" ) {
 		if ( self.isFollowing ) [controller setCurrentStatus: @"Bot: Following"];
@@ -1803,6 +1814,14 @@ typedef enum MovementState{
 */
 	[self resumeMovement];
 	return;
+}
+
+- (void)moveDownFor:(float)sec{
+	
+	[self moveDownStop];
+	[self moveDownStart];
+
+	[self performSelector:@selector(moveDownStop) withObject:nil afterDelay:sec];
 }
 
 - (BOOL)checkUnitOutOfRange: (Unit*)target {
@@ -2307,6 +2326,51 @@ typedef enum MovementState{
     
     // then post key up, twice
     CGEventRef wKeyUp = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)kVK_Space, FALSE);
+    if(wKeyUp) {
+        CGEventPostToPSN(&wowPSN, wKeyUp);
+        CGEventPostToPSN(&wowPSN, wKeyUp);
+        CFRelease(wKeyUp);
+    }
+}
+
+- (void)moveDownStart {
+	_isMovingFromKeyboard = YES;
+	_movingDown = YES;
+	
+	int code = [bindingsController codeForKey:BindingSitOrDown];
+	
+	if ( code == -1 ){
+		return;
+	}
+
+    ProcessSerialNumber wowPSN = [controller getWoWProcessSerialNumber];
+    CGEventRef wKeyDown = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)code, TRUE);
+    if(wKeyDown) {
+        CGEventPostToPSN(&wowPSN, wKeyDown);
+        CFRelease(wKeyDown);
+    }
+}
+
+- (void)moveDownStop {
+	_isMovingFromKeyboard = NO;
+	_movingDown = NO;
+	
+	int code = [bindingsController codeForKey:BindingSitOrDown];
+	if ( code == -1 ){
+		return;
+	}
+	
+    ProcessSerialNumber wowPSN = [controller getWoWProcessSerialNumber];
+    
+    // post another key down
+    CGEventRef wKeyDown = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)code, TRUE);
+    if(wKeyDown) {
+        CGEventPostToPSN(&wowPSN, wKeyDown);
+        CFRelease(wKeyDown);
+    }
+    
+    // then post key up, twice
+    CGEventRef wKeyUp = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)code, FALSE);
     if(wKeyUp) {
         CGEventPostToPSN(&wowPSN, wKeyUp);
         CGEventPostToPSN(&wowPSN, wKeyUp);

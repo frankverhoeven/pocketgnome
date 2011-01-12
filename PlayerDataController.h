@@ -191,6 +191,8 @@ enum ePlayer_RuneTypes {
 - (IBAction)showCooldownWindow: (id)sender;
 - (IBAction)showCombatWindow: (id)sender;
 
+- (BOOL)inFlightForm;
+
 - (void)refreshPlayerData;
 
 - (int)battlegroundStatus;

@@ -138,6 +138,8 @@
     
 	BOOL _useRoute;
 	BOOL _useRoutePvP;
+	
+	int _lootFlightFormAttempt;
 
 	int _sleepTimer;
 	UInt32 _lastSpellCastGameTime;

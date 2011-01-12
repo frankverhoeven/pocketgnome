@@ -3399,11 +3399,45 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 }
 
 - (void)lootUnit: (WoWObject*) unit {
+	
+	log(LOG_LOOT, @"Attempting to loot %@", unit);
 
 	if ( [movementController isMoving] ) [movementController resetMovementState];
+	
+	//
+	// ** Checks for Flight Form
+	//
+	
+	BOOL dismount = YES;
+	
+	// we have a node and the player is in flight form!
+	if ( [unit isNode] && [playerController inFlightForm] && _lootFlightFormAttempt < 3 ){
+		
+		// verify we have a keybinding for moving down
+		if ( [bindingsController bindingForKeyExists:BindingSitOrDown] ){
+			
+			// check if it's an herbalism node!
+			NSArray *herbs = [nodeController allHerbalismNodes];
+			if ( [herbs containsObject:unit] ){
+				log(LOG_LOOT, @"Player is in flight form, and we have an herbalism node - not dismounting!");
+				dismount = NO;
+			}
+			
+			// lets try to move down if we need to
+			if ( !dismount && ![[playerController player] isOnGround] ){
+				log(LOG_LOOT, @"Moving down!");
+				
+				// we should calculate this
+				[movementController moveDownFor:0.25];
+				[self performSelector:@selector(lootUnit:) withObject:unit afterDelay:0.3];
+				_lootFlightFormAttempt++;
+				return;
+			}
+		}
+	}
 
-	// are we still in the air?  shit we can't loot yet!
-	if ( ![[playerController player] isOnGround] ) {
+	// should we dismount?
+	if ( dismount && ![[playerController player] isOnGround] ) {
 
 		float delay = 0.25f;
 		// once the macro failed, so dismount if we need to
@@ -3447,7 +3481,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		return;
 	}
 
-	if ( [[playerController player] isMounted] ) [movementController dismount];
+	if ( [[playerController player] isMounted] && dismount ) [movementController dismount];
 
 	self.lootStartTime = [NSDate date];
 	self.unitToLoot = unit;
@@ -3484,7 +3518,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	if (isNode) delayTime = 4.5f;
 	if (isGasCloud) delayTime = 5.0f;
 	
-	log(LOG_LOOT, @"Looting : %@m", unit);
+	log(LOG_LOOT, @"Looting : %@", unit);
 	
 	// In the off chance that no items are actually looted
 	[self performSelector: @selector(verifyLootSuccess) withObject: nil afterDelay: delayTime];
@@ -3583,10 +3617,10 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		[lootController acceptLoot];
 		[self performSelector: @selector(verifyLootSuccess) withObject: nil afterDelay: 1.0f];
 		return;
-	} else 
-		if ( _lootMacroAttempt >= 3 ) {
-			log(LOG_LOOT, @"Attempted to loot %d times, moving on...", _lootMacroAttempt);
-		}
+	}
+	else if ( _lootMacroAttempt >= 3 ) {
+		log(LOG_LOOT, @"Attempted to loot %d times, moving on...", _lootMacroAttempt);
+	}
 	
 	// fire off notification (sometimes needed if the mob only had $$, or the loot failed)
 	log(LOG_DEV, @"Firing off loot success");
@@ -3665,8 +3699,13 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	}
 	
 	float delay = 0.8f;
-	// Allow the lute to fade
+	// Allow the loot to fade
 	if ( wasNode || wasSkin ) delay = 1.2f;
+	
+	// if the loot window isn't open, why are we adding a delay here?
+	if ( ![lootController isLootWindowOpen] ){
+		delay = 0.1f;
+	}
 
 	self.wasLootWindowOpen = NO;
 
@@ -5513,13 +5552,11 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			[nodes addObjectsFromArray:objectsToAdd];
 		}
 	}
-	
-	if ( [nodes count] == 0 ){
-		return NO;
-	}
 
-	
-	[nodes sortUsingFunction: DistanceFromPositionCompare context: playerPosition];
+	// sort nodes?
+	if ( [nodes count] > 0 ) {
+		[nodes sortUsingFunction: DistanceFromPositionCompare context: playerPosition];
+	}
 	
 	// If we've no node then skip this
 	if ( ![nodes count] ) {
@@ -5668,6 +5705,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 		}
 
 		[controller setCurrentStatus: @"Bot: Working node"];
+		_lootFlightFormAttempt = 0;
 		[self lootUnit:nodeToLoot];
 		return YES;
 	}
@@ -8272,9 +8310,10 @@ NSMutableDictionary *_diffDict = nil;
 					[mobsToRemove addObject:mob];
 				}*/
 				// friendly
-				/*else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
+				else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
+					log(LOG_NODE, @"Mob is friendly, ignoring... %@", mob);
 					[mobsToRemove addObject:mob];
-				}*/
+				}
 			}
 			[mobs removeObjectsInArray:mobsToRemove];
 			
@@ -8310,10 +8349,10 @@ NSMutableDictionary *_diffDict = nil;
 					[mobsToRemove addObject:mob];
 				}*/
 				// friendly
-				/*else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
+				else if ( ![playerController isHostileWithFaction: [mob factionTemplate]] ){
 					log(LOG_NODE, @"Mob is friendly, ignoring... %@", mob);
 					[mobsToRemove addObject:mob];
-				}*/
+				}
 				// non elite
 				else if ( ![mob isElite] ){
 					log(LOG_NODE, @"Mob is not elite, ignoring... %@", mob);

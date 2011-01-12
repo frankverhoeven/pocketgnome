@@ -1491,4 +1491,13 @@ typedef struct PlayerSkillInfo
 	return nil;	
 }
 
+#pragma mark 
+
+- (BOOL)inFlightForm{
+	NSArray *auras = [[AuraController sharedController] aurasForUnit: [self player] idsOnly: YES];
+    // 33943 - flight form
+    // 40120 - swift flight form
+    return ([auras containsObject: [NSNumber numberWithUnsignedInt: 33943]] || [auras containsObject: [NSNumber numberWithUnsignedInt: 40120]]);
+}
+
 @end
