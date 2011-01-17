@@ -361,11 +361,40 @@ typedef enum {
 	return [[addedNodeNames retain] autorelease];
 }
 
+- (Node*)closestNodeWithType:(int)type{
+	
+	NSMutableArray *nodes = [NSMutableArray array];
+	
+	for ( Node *node in _objectList ){
+		if ( [node nodeType] == type ){
+			[nodes addObject:node];
+		}
+	}
+	
+	if ( [nodes count] == 1 ){
+		return [nodes objectAtIndex:0];
+	}
+	
+	Position *playerPosition = [playerData position];
+	Node *closestNode = nil;
+	float closestDistance = INFINITY;
+	for ( Node *node in nodes ){
+		
+		float distance = [playerPosition distanceToPosition:[node position]];
+		if ( distance < closestDistance ){
+			closestDistance = distance;
+			closestNode = node;
+		}
+	}
+	
+	return closestNode;	
+}
+
 - (Node*)closestNodeWithName:(NSString*)nodeName{
 	
 	NSMutableArray *nodesWithName = [NSMutableArray array];
 	
-	// find mobs with the name!
+	// find nodes with the name!
 	for ( Node *node in _objectList ){
 		if ( [nodeName isEqualToString:[node name]] ){
 			[nodesWithName addObject:node];

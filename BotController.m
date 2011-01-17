@@ -3715,7 +3715,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	[self resetLootScanIdleTimer];
 
 	// Retarget ourselves
-	if ( ![fishController isFishing] ){	// don't need to do this when fishing!
+	if ( ![fishController isFishing] && !wasNode ){	// don't need to do this when fishing or looting a node!
 		[playerController targetGuid:[[playerController player] cachedGUID]];
 	}
 
@@ -4495,7 +4495,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 
 		// Find the Spirit Healer
 		NSMutableArray *mobs = [NSMutableArray array];
-		[mobs addObjectsFromArray: [mobController mobsWithinDistance: 30.0f MobIDs:nil position:[[playerController player]position] aliveOnly:YES]];
+		[mobs addObjectsFromArray: [mobController mobsWithinDistance: 40.0f MobIDs:nil position:[[playerController player]position] aliveOnly:YES]];
 		
 		if ( ![mobs count]) {
 			log(LOG_GHOST, @"Cannot find the Spirit Healer, is it in range?");
@@ -5704,7 +5704,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 			}
 		}
 
-		[controller setCurrentStatus: @"Bot: Working node"];
+		[controller setCurrentStatus: [NSString stringWithFormat:@"Looting %@", [nodeToLoot name]]];
 		_lootFlightFormAttempt = 0;
 		[self lootUnit:nodeToLoot];
 		return YES;
@@ -5733,7 +5733,7 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	}
 
 	self.evaluationInProgress = @"MiningAndHerbalism";
-	[controller setCurrentStatus: @"Bot: Moving to node"];
+	[controller setCurrentStatus: [NSString stringWithFormat:@"Bot: Moving to %@", [nodeToLoot name]]];
 
 	// Set this so we can blacklist it if we die at the node
 	self.lastAttemptedUnitToLoot = nodeToLoot;
@@ -7688,6 +7688,8 @@ NSMutableDictionary *_diffDict = nil;
 	// sleep a bit before we update our status
 	usleep(500000);
 	[self updateStatus: [NSString stringWithFormat:@"Bot: %@", message]];
+	
+	NSRunAlertPanel(@"Logged out", message, @"Yay!", NULL, NULL);
 }
 
 - (BOOL)pvpIsBattlegroundEnding {
@@ -8021,13 +8023,13 @@ NSMutableDictionary *_diffDict = nil;
 	}
 	
 	// check honor
-	if ( theCombatProfile.pvpStopHonor ){
+	/*if ( theCombatProfile.pvpStopHonor ){
 		UInt32 currentHonor = [playerController honor];
 		if ( currentHonor && currentHonor >= theCombatProfile.pvpStopHonorTotal ){
 			logOutNow = YES;
 			logMessage = [NSString stringWithFormat:@"Honor has reached %u, logging out!", currentHonor];
 		}
-	}
+	}*/
 
 	// time to stop botting + log!
 	if ( logOutNow ){
@@ -8211,8 +8213,11 @@ NSMutableDictionary *_diffDict = nil;
 
 // This will set the GUID of the mouseover + trigger interact with mouseover!
 - (BOOL)interactWithMouseoverGUID: (UInt64) guid{
-	if ( [[controller wowMemoryAccess] saveDataForAddress: ([offsetController offset:@"TARGET_TABLE_STATIC"] + TARGET_MOUSEOVER) Buffer: (Byte *)&guid BufLength: sizeof(guid)] ){
-		
+	
+	UInt32 offset = [offsetController offset:@"TARGET_TABLE_STATIC"] + TARGET_MOUSEOVER;
+	
+	if ( [[controller wowMemoryAccess] saveDataForAddress:offset Buffer:(Byte *)&guid BufLength:sizeof(guid)] ){
+
 		// wow needs time to process the change
 		usleep([controller refreshDelay]);
 		
@@ -8610,6 +8615,19 @@ NSMutableDictionary *_diffDict = nil;
 }
 
 - (IBAction)test: (id)sender{
+	
+	NSArray *profiles = [profileController profilesOfClass:[MailActionProfile class]];
+	
+	if ( [profiles count] ){
+		
+		MailActionProfile *profile = [profiles objectAtIndex:0];
+		
+		[itemController mailItemsWithProfile:profile];
+	}
+	
+	return;
+
+	
 	
 	NSLog(@"Mining %d/%d", [playerController getMiningLevel], [playerController getMiningMaxLevel]);
 	NSLog(@"Skinning %d/%d", [playerController getSkinningLevel], [playerController getSkinningMaxLevel]);

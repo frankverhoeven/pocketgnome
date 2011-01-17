@@ -6,6 +6,17 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
+            <title>Pocket Gnome 1.5.1.8 (Build 648) </title>
+            <pubDate>Tue, 10 January 2011 15:13:00 -0500</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.7 (Build 648) Release Notes </span></p>
+                <ul>
+					<li>New: Shorter delay after looting (so you will move quicker)
+				</ul>
+				]]>
+            </description>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.7.zip" length="4874488" type="application/zip" sparkle:version="648" sparkle:shortVersionString="1.5.1.7" sparkle:dsaSignature="MC0CFAtjcruu6GqhCXphDWHTNXIzIwsvAhUAn/zY83H6onbhCvW+6mqkGs3vVf4="/>
+        </item>
+        <item>
             <title>Pocket Gnome 1.5.1.7 (Build 648) </title>
             <pubDate>Tue, 10 January 2011 15:13:00 -0500</pubDate>
             <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.7 (Build 648) Release Notes </span></p>

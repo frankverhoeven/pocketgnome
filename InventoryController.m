@@ -122,20 +122,16 @@ static InventoryController *sharedInventory = nil;
 	if ( guid == 0x0 ){
 		return nil;
 	}
-	
-	/*if ( GUID_LOW32(guid) != 0x4580000 ){
-	 NSLog(@"...0x%X", GUID_LOW32(guid));
-	 return nil;
-	 
-	 }*/
+
 	
 	NSArray *itemList = [[_objectList copy] autorelease];
 	
-    for(Item *item in itemList) {
-		//NSLog(@"%qd == %qd", [item GUID], guid);
+    for ( Item *item in itemList ) {
+		//NSLog(@" %qd == %qd", [item GUID], guid);
 		
-        if( [item GUID] == guid )
+        if ( [item GUID] == guid ){
             return [[item retain] autorelease];
+		}
     }
     return nil;
 }
@@ -496,6 +492,7 @@ static InventoryController *sharedInventory = nil;
 
 #define MAX_BAGS 4
 #define MAX_SLOTSIZE 40         // i think it's really 32, but just to be safe ;)
+#define MAX_ITEMS_CAN_MAIL	12
 
 - (int)mailItemsWithProfile:(MailActionProfile*)profile{
 	
@@ -512,8 +509,9 @@ static InventoryController *sharedInventory = nil;
 		Item *item = [self itemForGUID:[guid unsignedLongLongValue]];
 		
 		if ( item ){
-			allItems[0][currentSlot++] = [item retain];
+			allItems[0][currentSlot] = [item retain];
 		}
+		currentSlot++;
 	}
 	
 	// now for bags!
@@ -554,11 +552,13 @@ static InventoryController *sharedInventory = nil;
 	
 	// now remove items from the list we shouldn't mail!
 	int k = 0;
-	for ( ; k < MAX_BAGS; k++ ){
+	for ( ; k < MAX_BAGS+1; k++ ){
 		int j = 0;
 		for ( ; j < MAX_SLOTSIZE; j++ ){
 			if ( allItems[k][j] != nil ){
 				Item *item = allItems[k][j];
+				
+				//NSLog(@"(%d, %d) %@", k, j, item);
 				
 				// check for inclusions
 				if ( inclusions != nil ){
@@ -595,14 +595,15 @@ static InventoryController *sharedInventory = nil;
 	if ( itemsMailed > 0 ){
 		
 		// open up the mailbox
-		Node *mailbox = [nodeController closestNodeWithName:@"Mailbox"];
+		//Node *mailbox = [nodeController closestNodeWithName:@"Mailbox"];
+		Node *mailbox = [nodeController closestNodeWithType:GAMEOBJECT_TYPE_MAILBOX];
 		
 		if ( mailbox ){
 			[botController interactWithMouseoverGUID:[mailbox GUID]];
-			usleep(500000);
+			usleep([controller refreshDelay]*4);
 			
 			[macroController useMacroOrSendCmd:@"/click MailFrameTab2"];
-			usleep(100000);
+			usleep([controller refreshDelay]*2);
 		}
 		else{
 			log(LOG_ITEM, @"[Mail] No mailbox found, aborting");
@@ -622,17 +623,17 @@ static InventoryController *sharedInventory = nil;
 				itemsMailed -= totalAdded;
 				
 				// send the mail
-				NSString *macroCommand = [NSString stringWithFormat:@"/script SendMail( \"%@\", \"\", \"\");", profile.sendTo];
+				NSString *macroCommand = [NSString stringWithFormat:@"/script SendMail( \"%@\", \" \", \" \");", profile.sendTo];
 				[macroController useMacroOrSendCmd:macroCommand];
-				usleep(100000);
+				usleep([controller refreshDelay]);
 				totalAdded = 0;
 				continue;
 			}
 			
 			int k = 0;
-			for ( ; k < MAX_BAGS; k++ ){
+			for ( ; k < MAX_BAGS+1; k++ ){
 				// time to mail!
-				if ( totalAdded == 12 ){
+				if ( totalAdded == MAX_ITEMS_CAN_MAIL ){
 					break;
 				}
 				
@@ -640,7 +641,7 @@ static InventoryController *sharedInventory = nil;
 				for ( ; j < MAX_SLOTSIZE; j++ ){
 					
 					// time to mail!
-					if ( totalAdded == 12 ){
+					if ( totalAdded == MAX_ITEMS_CAN_MAIL ){
 						break;
 					}
 					
@@ -651,7 +652,7 @@ static InventoryController *sharedInventory = nil;
 						// move the item to the mail
 						NSString *macroCommand = [NSString stringWithFormat:@"/script UseContainerItem(%d, %d);", k, j];
 						[macroController useMacroOrSendCmd:macroCommand];
-						usleep(50000);
+						usleep([controller refreshDelay]);
 						
 						totalAdded++;
 						allItems[k][j] = nil;

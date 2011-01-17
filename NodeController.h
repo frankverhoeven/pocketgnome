@@ -57,6 +57,7 @@ typedef enum {
 
 - (NSArray*)uniqueNodesAlphabetized;
 - (Node*)closestNodeWithName:(NSString*)nodeName;
+- (Node*)closestNodeWithType:(int)type;
 /*
 - (IBAction)filterNodes: (id)sender;
 - (IBAction)resetList: (id)sender;
