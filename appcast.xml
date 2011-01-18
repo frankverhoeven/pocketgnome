@@ -6,15 +6,23 @@
         <description>Appcast for PocketGnome</description>
         <language>en</language>
         <item>
-            <title>Pocket Gnome 1.5.1.8 (Build 648) </title>
-            <pubDate>Tue, 10 January 2011 15:13:00 -0500</pubDate>
-            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.7 (Build 648) Release Notes </span></p>
+            <title>Pocket Gnome 1.5.1.8 (Build 650) </title>
+            <pubDate>Tue, 18 January 2011 15:34:00 -0500</pubDate>
+            <description><![CDATA[<p><span style="font-weight: bold">Pocket Gnome 1.5.1.8 (Build 650) Release Notes </span></p>
                 <ul>
-					<li>New: Shorter delay after looting (so you will move quicker)
+					<li>New: Shorter delay after looting (so you will move quicker)</li>
+					<li>New: If you're in swift flight form while herbing, you will no longer leave flight form (assuming you have a key bound to sit)</li>
+					<li>Bug Fix: Should now spirit res if the spirit res is > 30 yards away</li>
+					<li>Bug Fix: <b>Mail Action Profiles now work again!</b></li>
+					<li>Bug Fix: Mail Action Profiles should now work for people w/non-english clients</li>
+					<li>Bug Fix: Bot no longer targest the current player after looting a node</li>
+					<li>Bug Fix: You can now use the - binding</li>
+					<li>Bug Fix: Issue where you would randomly stop after looting a node</li>
+					<li>Bug Fix: Fixed skill levels on some new nodes for cata</li>
 				</ul>
 				]]>
             </description>
-            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.7.zip" length="4874488" type="application/zip" sparkle:version="648" sparkle:shortVersionString="1.5.1.7" sparkle:dsaSignature="MC0CFAtjcruu6GqhCXphDWHTNXIzIwsvAhUAn/zY83H6onbhCvW+6mqkGs3vVf4="/>
+            <enclosure url="http://pg.savorydeviate.com/download/pocket-gnome-1.5.1.8.zip" length="4877601" type="application/zip" sparkle:version="650" sparkle:shortVersionString="1.5.1.8" sparkle:dsaSignature="MC0CFD+ZW6aa8wpFp5q2FiAsCaQ8NXafAhUApb8oJj+VmItglD+MWS4XjhND+aY="/>
         </item>
         <item>
             <title>Pocket Gnome 1.5.1.7 (Build 648) </title>
