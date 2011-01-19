@@ -128,6 +128,7 @@
 		self.FishingOnlySchools = NO;
 		self.FishingRecast = NO;
 		self.FishingGatherDistance = 15.0;
+		self.waitForResToFade = NO;
 		
 		_observers = [[NSArray arrayWithObjects:
 					   @"combatEnabled",
@@ -219,6 +220,7 @@
 					   @"FishingOnlySchools",
 					   @"FishingRecast",
 					   @"FishingGatherDistance",
+					   @"waitForResToFade",
 					   
 					   nil] retain];
     }
@@ -350,6 +352,8 @@
 	copy.FishingRecast = self.FishingRecast;
 	copy.FishingGatherDistance = self.FishingGatherDistance;
 	
+	copy.waitForResToFade = self.waitForResToFade;
+	
 	copy.changed = YES;
 
     return copy;
@@ -480,6 +484,8 @@
 		self.FishingRecast = [[decoder decodeObjectForKey: @"FishingRecast"] boolValue];
 		self.FishingGatherDistance = [[decoder decodeObjectForKey: @"FishingGatherDistance"] floatValue];
 		
+		self.waitForResToFade = [[decoder decodeObjectForKey: @"waitForResToFade"] boolValue];
+		
 		[super initWithCoder:decoder];
 	}
 	return self;
@@ -591,6 +597,9 @@
 	[coder encodeObject: [NSNumber numberWithBool: self.FishingOnlySchools] forKey: @"FishingOnlySchools"];
 	[coder encodeObject: [NSNumber numberWithBool: self.FishingRecast] forKey: @"FishingRecast"];
 	[coder encodeObject: [NSNumber numberWithFloat: self.FishingGatherDistance] forKey: @"FishingGatherDistance"];
+	
+	[coder encodeObject: [NSNumber numberWithBool: self.waitForResToFade] forKey: @"waitForResToFade"];
+	
 	
     [coder encodeObject: self.entries forKey: @"IgnoreList"];
 	[coder encodeObject: self.gatherList forKey: @"GatherList"];
@@ -708,6 +717,7 @@
 @synthesize FishingOnlySchools;
 @synthesize FishingRecast;
 @synthesize FishingGatherDistance;
+@synthesize waitForResToFade;
 
 #pragma mark Gather List
 

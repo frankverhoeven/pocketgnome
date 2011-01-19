@@ -107,6 +107,7 @@
 	BOOL FishingRecast;
 	float FishingGatherDistance;
 	
+	BOOL waitForResToFade;	
 }
 
 + (id)combatProfile;
@@ -231,5 +232,7 @@
 @property (readwrite, assign) BOOL FishingOnlySchools;
 @property (readwrite, assign) BOOL FishingRecast;
 @property (readwrite, assign) float FishingGatherDistance;
+
+@property (readwrite, assign) BOOL waitForResToFade;
 
 @end

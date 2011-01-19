@@ -1399,6 +1399,13 @@ typedef enum MovementState{
 
 		// We've reached our position!
 		if ( distanceToDestination <= stopingDistance ) {
+			
+			// Check evaluation to see if we need to do anything
+			if ( !botController.evaluationIsActive && !botController.procedureInProgress ) {
+				log(LOG_MOVEMENT, @"Evaluating 72!");
+				[botController performSelector: @selector(evaluateSituation) withObject: nil afterDelay: 0.1f];
+			}
+			
 			log(LOG_MOVEMENT, @"Reached our destination! %0.2f < %0.2f", distanceToDestination, stopingDistance);
 			[self moveToNextWaypoint];
 			return;
@@ -3157,6 +3164,8 @@ typedef enum MovementState{
 					
 					// now send the repair macro
 					[macroController useMacro:@"RepairAll"];	
+					
+					usleep(500000);
 					
 					log(LOG_WAYPOINT, @"All items repaired");
 				}

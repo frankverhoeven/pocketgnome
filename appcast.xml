@@ -12,6 +12,8 @@
                 <ul>
 					<li>New: Shorter delay after looting (so you will move quicker)</li>
 					<li>New: If you're in swift flight form while herbing, you will no longer leave flight form (assuming you have a key bound to sit)</li>
+					<li>New: Pop up appears if PG closes wow explaining why it did</li>
+					<li>New: Removed "log out when honor reaches <x>" is it wasn't working</li>
 					<li>Bug Fix: Should now spirit res if the spirit res is > 30 yards away</li>
 					<li>Bug Fix: <b>Mail Action Profiles now work again!</b></li>
 					<li>Bug Fix: Mail Action Profiles should now work for people w/non-english clients</li>

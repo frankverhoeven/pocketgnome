@@ -6208,6 +6208,16 @@ int DistanceFromPositionCompare(id <UnitPosition> unit1, id <UnitPosition> unit2
 	}
 
 	// Order of operations is established here
+	
+	// check for resurrection sickness
+	
+	// do nothing if we're in PvP!
+	if ( self.theCombatProfile.waitForResToFade && [auraController unit: [playerController player] hasAuraNamed: @"Resurrection Sickness"] ) {
+		log(LOG_EVALUATE, @"Player has resurrection sickness, waiting for it to pass");
+		[controller setCurrentStatus:@"Waiting for resurrection sickness to fade..."] ;
+		[self performSelector: _cmd withObject: nil afterDelay: 0.25f];
+		return YES;
+	}
 
 	if ( [playerController isDead] || [playerController isGhost] ) return [self evaluateForGhost];
 
