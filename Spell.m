@@ -354,7 +354,7 @@
     
     [_connection cancel];
     [_connection release];
-    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"http://wowhead.com/?spell=%@", [self ID]]]] delegate: self];
+    _connection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL: [NSURL URLWithString: [NSString stringWithFormat: @"https://wowgaming.altervista.org/aowow/?spell=%@", [self ID]]]] delegate: self];
 	if(_connection) {
         [_downloadData release];
         _downloadData = [[NSMutableData data] retain];
