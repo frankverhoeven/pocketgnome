@@ -348,14 +348,14 @@
 
 #define NAME_SEPARATOR      @"<title>"
 #define RANK_SEPARATOR      @"<b class=\"q0\">Rank "
-#define SCHOOL_SEPARATOR    @"School</th><td>"
-#define MECHANIC_SEPARATOR	@"Mechanic</th><td>"
-#define DISPEL_SEPARATOR    @"Dispel type</th><td style=\"border-bottom: 0\">"
-#define COST_SEPARATOR      @"Cost</th><td style=\"border-top: 0\">"
-#define RANGE_SEPARATOR     @"<th>Range</th><td>"
-#define CASTTIME_SEPARATOR  @"<th>Cast time</th><td>"
-#define COOLDOWN_SEPARATOR  @"<th>Cooldown</th><td>"
-#define GLOBAL_COOLDOWN_SEPARATOR   @"<div style=\"width: 65%; float: right\">Global cooldown: "
+#define SCHOOL_SEPARATOR    @"School</th>\n                    <td>"
+#define MECHANIC_SEPARATOR	@"Mechanic</th>\n                    <td>"
+#define DISPEL_SEPARATOR    @"Dispel type</th>\n                    <td>"
+#define COST_SEPARATOR      @"Cost</th>\n            <td style=\"border-top: 0\">"
+#define RANGE_SEPARATOR     @"<th>Range</th>\n            <td>"
+#define CASTTIME_SEPARATOR  @"<th>Cast time</th>\n            <td>"
+#define COOLDOWN_SEPARATOR  @"Cooldown</th>\n            <td>"
+#define GLOBAL_COOLDOWN_SEPARATOR   @"Global Cooldown</th>\n                    <td>"
 #define MOUNT				@"Apply Aura: Mounted"
 #define MOUNT_FAST			@"Apply Aura: Mod Speed Mounted"
 #define MOUNT_AIR			@"Apply Aura: Mod Speed Mounted Flight"
@@ -574,47 +574,43 @@
         
         // get cooldown
         scanSave = [scanner scanLocation];
-        if([scanner scanUpToString: COOLDOWN_SEPARATOR intoString: nil] && [scanner scanString: COOLDOWN_SEPARATOR intoString: NULL]) {
-        
-            if([scanner scanUpToString: GLOBAL_COOLDOWN_SEPARATOR intoString: nil] && [scanner scanString: GLOBAL_COOLDOWN_SEPARATOR intoString: NULL]) {
-                
-                float cooldown = 0;
-                if([scanner scanFloat: &cooldown]) {
-                    if([scanner scanString: @"minute" intoString: nil]) {
-                        cooldown = cooldown*60;
-                    } else if([scanner scanString: @"hour" intoString: nil]) {
-                        cooldown = cooldown*60*60;
-                    }
-                } else {
-                    BOOL foundCooldown = NO;
-                    // looks like wowhead keeps changing it's cooldown format
-                    // <th>Cooldown</th><td><!--<div style="width: 65%; float: right">Global cooldown: <span class="q0">n/a</span></div>-->25 seconds</td>
-                    if([scanner scanUpToString: @"</div>-->" intoString: nil] && [scanner scanString: @"</div>-->" intoString: NULL]) {
-                        foundCooldown = YES;
-                    } else {
-                        // <th>Cooldown</th><td><div style="width: 65%; float: right">Global cooldown: <span class="q0">n/a</span></div>8 seconds</td>
-                        if([scanner scanUpToString: @"</div>" intoString: nil] && [scanner scanString: @"</div>" intoString: NULL]) {
-                            foundCooldown = YES;
-                        }
-                    }
-                    
-                    if(foundCooldown && [scanner scanFloat: &cooldown]) {
-                        if([scanner scanString: @"minute" intoString: nil]) {
-                            cooldown = cooldown*60;
-                        } else if([scanner scanString: @"hour" intoString: nil]) {
-                            cooldown = cooldown*60*60;
-                        }
-                    }
-                }
-                
-                self.cooldown = [NSNumber numberWithFloat: cooldown];
-            }
-        } else {
-            [scanner setScanLocation: scanSave]; // some spells dont have cooldowns
+        if([scanner scanUpToString: COOLDOWN_SEPARATOR intoString: nil] && [scanner scanString: COOLDOWN_SEPARATOR intoString: nil]) {
+			float cooldown = 0;
 			
-			// log(LOG_GENERAL, @"Loaded: %@; Rank %@; %@ yards; %@ seconds; school: %@; dispel: %@", self.name, self.rank, self.range, self.cooldown, self.school, self.dispelType);
+			if([scanner scanFloat: &cooldown]) {
+				if([scanner scanString: @"second" intoString: nil]) {
+					cooldown = cooldown;
+				} else if([scanner scanString: @"minute" intoString: nil]) {
+					cooldown = cooldown*60;
+				} else if([scanner scanString: @"hour" intoString: nil]) {
+					cooldown = cooldown*60*60;
+				}
+				
+				self.cooldown = [NSNumber numberWithFloat: cooldown];
+			}
+        } else {
+            [scanner setScanLocation: scanSave]; // some spells dont have ranks
         }
-		
+        
+        // get cooldown
+        scanSave = [scanner scanLocation];
+        if([scanner scanUpToString: GLOBAL_COOLDOWN_SEPARATOR intoString: nil] && [scanner scanString: GLOBAL_COOLDOWN_SEPARATOR intoString: nil]) {
+			float cooldown = 0;
+			
+			if([scanner scanFloat: &cooldown]) {
+				if([scanner scanString: @"second" intoString: nil]) {
+					cooldown = cooldown;
+				} else if([scanner scanString: @"minute" intoString: nil]) {
+					cooldown = cooldown*60;
+				} else if([scanner scanString: @"hour" intoString: nil]) {
+					cooldown = cooldown*60*60;
+				}
+				
+				self.cooldown = [NSNumber numberWithFloat: cooldown];
+			}
+        } else {
+            [scanner setScanLocation: scanSave]; // some spells dont have ranks
+        }
 		
 		// get if this is a mount spell
         scanSave = [scanner scanLocation];
